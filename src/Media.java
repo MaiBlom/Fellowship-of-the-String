@@ -3,9 +3,9 @@ package src;
 public abstract class Media {
     protected String title;
     protected int release;
-    protected int rating; 
+    protected double rating; 
 
-    public Media(String title, int release, int rating) {
+    public Media(String title, int release, double rating) {
         this.title = title;
         this.release = release;
         this.rating = rating;
@@ -17,5 +17,9 @@ public abstract class Media {
 
     public int getRelease(){
         return release; //smile
+    }
+
+    public double getRating() {
+        return rating;
     }
 }
