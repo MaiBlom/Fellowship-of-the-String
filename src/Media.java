@@ -1,8 +1,15 @@
 package src;
 
 public abstract class Media {
-    private int release;
-    private String title;
+    protected String title;
+    protected int release;
+    protected int rating; 
+
+    public Media(String title, int release, int rating) {
+        this.title = title;
+        this.release = release;
+        this.rating = rating;
+    }
 
     public String getTitle(){
         return title;
