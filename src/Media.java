@@ -1,3 +1,5 @@
+package src;
+
 public abstract class Media {
     private int release;
     private String title;
