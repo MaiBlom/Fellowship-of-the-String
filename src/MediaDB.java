@@ -1,5 +1,7 @@
 package src;
 
+import src.Media.*;
+
 import java.util.Hashtable;
 
 public class MediaDB {

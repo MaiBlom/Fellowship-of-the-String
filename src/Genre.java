@@ -1,5 +1,8 @@
 package src;
 import java.util.Set;
+
+import src.Media.*;
+
 import java.util.HashSet;
 
 public class Genre {

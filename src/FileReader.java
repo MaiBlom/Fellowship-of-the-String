@@ -1,8 +1,11 @@
 package src;
+
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Locale;
 import java.util.Scanner;
+
+import src.Media.*;
 
 public class FileReader {
     public FileReader(String path){
