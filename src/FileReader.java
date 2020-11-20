@@ -1,6 +1,4 @@
 package src;
-import java.util.Arrays;
-import java.util.HashSet;
 import java.util.Locale;
 import java.util.Scanner;
 import javax.imageio.ImageIO;
@@ -8,7 +6,6 @@ import java.io.File;
 import java.io.IOException;
 import java.awt.image.*;
 import src.Media.*;
-import java.util.Set;
 
 public class FileReader {
     protected Scanner scMovie;
