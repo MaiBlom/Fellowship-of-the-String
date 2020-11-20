@@ -6,9 +6,11 @@ import src.Media.*;
 import java.util.HashSet;
 
 public class Genre {
+    protected String name;
     protected Set<Media> media;
 
-    public Genre() {
+    public Genre(String name) {
+        this.name = name;
         media = new HashSet<>();
     }
 

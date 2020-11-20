@@ -5,12 +5,14 @@ import java.awt.Image;
 public abstract class Media {
     protected String title;
     protected int release;
+    protected String[] genres;
     protected double rating; 
     protected Image poster;
 
-    public Media(String title, int release, double rating, Image poster) {
+    public Media(String title, int release, String[] genres, double rating, Image poster) {
         this.title = title;
         this.release = release;
+        this.genres = genres;
         this.rating = rating;
         this.poster = poster;
     }

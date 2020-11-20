@@ -2,13 +2,13 @@ package src;
 
 import src.Media.*;
 
-import java.util.Hashtable;
+import java.util.HashMap;
 
 public class MediaDB {
-    Hashtable<String, Media> allMedia;
+    HashMap<String, Media> allMedia;
 
     public MediaDB() {
-        allMedia = new Hashtable<>();
+        allMedia = new HashMap<>();
     }
 
     public void add(Media m) {
@@ -17,5 +17,9 @@ public class MediaDB {
 
     public Media get(String title) {
         return allMedia.get(title);
+    }
+
+    public HashMap<String, Media> getHM() {
+        return allMedia;
     }
 }
