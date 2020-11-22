@@ -20,15 +20,15 @@ public abstract class Media {
     public String getTitle() {
         return title;
     }
-
     public int getRelease() {
         return release; //smile
     }
-
+    public String[] getGenres() {
+        return genres;
+    }
     public double getRating() {
         return rating;
     }
-
     public Image getPoster() {
         return poster;
     }
