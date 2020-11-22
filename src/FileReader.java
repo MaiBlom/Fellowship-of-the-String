@@ -1,95 +1,121 @@
 package src;
+
+import src.Media.*;
+
 import java.util.Locale;
 import java.util.Scanner;
+import java.util.HashMap;
 import javax.imageio.ImageIO;
 import java.io.File;
 import java.io.IOException;
 import java.awt.image.*;
-import src.Media.*;
 
 public class FileReader {
-    protected Scanner scMovie;
-    protected Scanner scSeries;
-    protected MediaDB db;
+    private MediaDB db;
+    private static FileReader instance;
 
-    public FileReader(MediaDB db){
-        scMovie = new Scanner(getClass().getClassLoader().getResourceAsStream("res/movies.txt"));
-        scSeries = new Scanner(getClass().getClassLoader().getResourceAsStream("res/series.txt"));
+    // This class is a singleton, because we will never need more than a single FileReader.
+    private FileReader(MediaDB db){
         this.db = db;
-
-        scMovie.useDelimiter("\\s*;\\s*");
-        scMovie.useLocale(Locale.FRANCE);
-        scSeries.useDelimiter("\\s*;\\s*");
-        scSeries.useLocale(Locale.FRANCE);
+    }
+    public static FileReader getInstance(MediaDB db) {
+        instance = new FileReader(db);
+        return instance;
     }
 
-    public void read() {
-        while(scMovie.hasNext()){
-            String title = scMovie.next();
-            int release = scMovie.nextInt();
+    // readAll() will call read(isSeries = false) (all movies) and then read(isSeries = true) (all series).
+    // We only have a single read() 
+    public void readAll() {
+        instance.read(false);
+        instance.read(true);
+    }
 
-            // Reads everything until next semi-colon as a single string.
-            // Split the string at every comma to get multiple strings with 
-            // the different genres.
-            String[] genres = scMovie.next().split(", ");
-
-            double rating = scMovie.nextDouble();
-
-            // Finds the .jpg file with the title of the movie and create
-            // buffered image with that file.
-            File file = new File("res/filmplakater/"+title+".jpg");
-            BufferedImage image;
-            try{
-                image = ImageIO.read(file);
-            }catch(IOException e){
-                image = null;
-            }
-
-            Movie movie = new Movie(title, release, genres, rating, image);
-            db.add(movie);
+    // The read() method takes a single boolean parameter to know whether it's reading series or movies.
+    // Throughout the method, it will check different things depending on whether it's reading series
+    // or movies (e.g. it won't read episodes, if it's currently reading movies). 
+    private void read(boolean isSeries) {
+        // Initialise the scanner with the correct file depending on whether 
+        // we're reading movies or series.
+        Scanner sc;
+        if (isSeries) {
+            sc = new Scanner(getClass().getClassLoader().getResourceAsStream("res/series.txt"));
+        } else {
+            sc = new Scanner(getClass().getClassLoader().getResourceAsStream("res/movies.txt"));
         }
+        sc.useDelimiter("\\s*;\\s*");
+        sc.useLocale(Locale.FRANCE);
 
-        while(scSeries.hasNext()){
-            String title = scSeries.next();
+        // Get genres to add media to them.
+        HashMap<String, Genre> allGenres = db.getAllGenres();
 
-            // Read everything until next semi-colon as a single string.
-            // Split the string at the dash in the middle, and parse the
-            // first string as an integer for the release year.
-            String runtime = scSeries.next();
-            String[] releaseAndEnd = runtime.split("-");
-            int release = Integer.parseInt(releaseAndEnd[0]);
+        while(sc.hasNext()){
+            String title = sc.next();
+            String runtime;
+            int release;
+
+            if (isSeries) {
+                // Read everything until next semi-colon as a single string.
+                // Split the string at the dash in the middle, and parse the
+                // first string as an integer for the release year.
+                runtime = sc.next();
+                String[] releaseAndEnd = runtime.split("-");
+                release = Integer.parseInt(releaseAndEnd[0]);
+            } else {
+                runtime = null;
+                release = sc.nextInt();
+            }
 
             // Reads everything until next semi-colon as a single string.
             // Split the string at every comma to get multiple strings with 
             // the different genres.
-            String[] genres = scSeries.next().split(", ");
+            String[] genres = sc.next().split(", ");
 
-            double rating = scSeries.nextDouble();
+            double rating = sc.nextDouble();
 
-            // Finds the .jpg file with the title of the movie and create
+            // Finds the .jpg file with the title of the movie or series and create
             // buffered image with that file.
-            File file = new File("res/serieforsider/"+title+".jpg");
+            File file;
+            if (isSeries) {
+                file = new File("res/serieforsider/"+title+".jpg");
+            } else {
+                file = new File("res/filmplakater/"+title+".jpg");
+            }
+
             BufferedImage image;
-            try{
+            try {
                 image = ImageIO.read(file);
-            }catch(IOException e){
+            } catch (IOException e) {
                 image = null;
             }
 
-            // Reads everything until next semi-colon as a single string.
-            // Split the string at every comma to get multiple strings with 
-            // the different seasons and episodes. 
-            String[] seasons = scSeries.next().split(", ");
-            int[] episodes = new int[seasons.length];
-            // Read through the string with format <season number>-<number of episodes>.
-            // Split the string at the dash, and save the number of episodes in the int[]
-            for(int i = 0; i<episodes.length; i++){
-                String s = seasons[i].split("-")[1];
-                episodes[i] = Integer.parseInt(s);
+            int[] episodes;
+            if (isSeries) {
+                // Reads everything until next semi-colon as a single string.
+                // Split the string at every comma to get multiple strings with 
+                // the different seasons and episodes. 
+                String[] seasons = sc.next().split(", ");
+                episodes = new int[seasons.length];
+                // Read through the string with format <season number>-<number of episodes>.
+                // Split the string at the dash, and save the number of episodes in the int[]
+                for(int i = 0; i<episodes.length; i++){
+                    String s = seasons[i].split("-")[1];
+                    episodes[i] = Integer.parseInt(s);
+                }
+            } else {
+                episodes = null;
             }
-
-            Series series = new Series(title, release, runtime, genres, rating, image, episodes);
-            db.add(series);
+            
+            Media media;
+            if (isSeries) {
+                media = new Series(title, release, runtime, genres, rating, image, episodes);
+            } else {
+                media = new Movie(title, release, genres, rating, image);
+            }
+            
+            db.add(media);
+            for (int i = 0; i<genres.length; i++) {
+                allGenres.get(genres[i]).add(media);
+            }
         }
     }
 }
