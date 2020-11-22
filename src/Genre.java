@@ -1,5 +1,4 @@
 package src;
-import java.util.Set;
 
 import src.Media.*;
 
@@ -7,7 +6,7 @@ import java.util.HashSet;
 
 public class Genre {
     protected String name;
-    protected Set<Media> media;
+    protected HashSet<Media> media;
 
     public Genre(String name) {
         this.name = name;
@@ -15,18 +14,21 @@ public class Genre {
     }
 
     // getters
-    public Set<Media> getMedia() {
+    public String getName() {
+        return name;
+    }
+    public HashSet<Media> getMedia() {
         return media;
     }
-    public Set<Media> getMovies() {
-        Set<Media> movies = new HashSet<>();
+    public HashSet<Media> getMovies() {
+        HashSet<Media> movies = new HashSet<>();
         for (Media m : media) {
             if (m instanceof Movie) movies.add(m);
         }
         return movies;
     }
-    public Set<Media> getSeries() {
-        Set<Media> series = new HashSet<>();
+    public HashSet<Media> getSeries() {
+        HashSet<Media> series = new HashSet<>();
         for (Media m : media) {
             if (m instanceof Series) series.add(m);
         }

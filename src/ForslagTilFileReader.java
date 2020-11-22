@@ -4,6 +4,7 @@ import src.Media.*;
 
 import java.util.Locale;
 import java.util.Scanner;
+import java.util.HashMap;
 import javax.imageio.ImageIO;
 import java.io.File;
 import java.io.IOException;
@@ -31,7 +32,7 @@ public class ForslagTilFileReader {
 
     // The read() method takes a single boolean parameter to know whether it's reading series or movies.
     // Throughout the method, it will check different things depending on whether it's reading series
-    // or movies (e.g. it won't read episodes, if it's currentæy reading movies). 
+    // or movies (e.g. it won't read episodes, if it's currently reading movies). 
     private void read(boolean isSeries) {
         // Initialise the scanner with the correct file depending on whether 
         // we're reading movies or series.
@@ -43,6 +44,9 @@ public class ForslagTilFileReader {
         }
         sc.useDelimiter("\\s*;\\s*");
         sc.useLocale(Locale.FRANCE);
+
+        // Get genres to add media to them.
+        HashMap<String, Genre> allGenres = db.getAllGenres();
 
         while(sc.hasNext()){
             String title = sc.next();
@@ -109,6 +113,9 @@ public class ForslagTilFileReader {
             }
             
             db.add(media);
+            for (int i = 0; i<genres.length; i++) {
+                allGenres.get(genres[i]).add(media);
+            }
         }
     }
 }
