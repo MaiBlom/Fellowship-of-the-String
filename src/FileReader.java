@@ -8,8 +8,10 @@ import java.util.HashMap;
 import javax.imageio.ImageIO;
 import java.io.File;
 import java.io.IOException;
+import java.io.InputStream;
 import java.awt.image.*;
-
+//Ændre navn
+//
 public class FileReader {
     private MediaDB db;
     private static FileReader instance;
@@ -18,8 +20,9 @@ public class FileReader {
     private FileReader(MediaDB db){
         this.db = db;
     }
+    //Ændret til ikke bare at overskrive instance. (Singleton)
     public static FileReader getInstance(MediaDB db) {
-        instance = new FileReader(db);
+        if(instance != null) instance = new FileReader(db);
         return instance;
     }
 
@@ -70,13 +73,18 @@ public class FileReader {
             double rating = sc.nextDouble();
 
             // Finds the .jpg file with the title of the movie or series and create BufferedImage with that file.
-            File file;
+            //File file;
+            //Er det bedre ikke at læse dem ind her, men at have billederne med i projektet, også bare referere til dem i GUI i stedet?
+            //Sammensætningen af medie objekt og billedet skal ske i controlleren
+            //BufferedInputStream er en mulighed??
+            InputStream file;
             if (isSeries) {
-                file = new File("res/serieforsider/"+title+".jpg");
+                file = getClass().getClassLoader().getResourceAsStream("res/serieforsider/"+title+".jpg");
             } else {
-                file = new File("res/filmplakater/"+title+".jpg");
+                file = getClass().getClassLoader().getResourceAsStream("res/filmplakater/"+title+".jpg");
             }
 
+            //Prøv at lave en GUI testklasse for at se om det virker.
             BufferedImage image;
             try {
                 image = ImageIO.read(file);
