@@ -22,7 +22,7 @@ public class FileReader {
     }
     //Ændret til ikke bare at overskrive instance. (Singleton)
     public static FileReader getInstance(MediaDB db) {
-        if(instance != null) instance = new FileReader(db);
+        if (instance == null) instance = new FileReader(db);
         return instance;
     }
 
