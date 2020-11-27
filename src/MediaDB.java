@@ -16,7 +16,7 @@ public class MediaDB {
         createGenreHashMap();
     }
     public static MediaDB getInstance() {
-        instance = new MediaDB();
+        if(instance != null) instance = new MediaDB();
         return instance;
     }
 
