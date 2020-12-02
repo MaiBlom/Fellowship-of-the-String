@@ -29,8 +29,8 @@ public class GUI {
         contentPane.setLayout(new GridLayout(5,5));
         setup();
 
-        HashMap<String, Media> allMedia = db.getAllMedia();
-        Media godfather = allMedia.get("The Godfather");
+        ArrayList<Media> allMedia = db.getAllMedia();
+        Media godfather = allMedia.get(0);
         
         ImageIcon image = new ImageIcon();
         image.setImage(godfather.getPoster());

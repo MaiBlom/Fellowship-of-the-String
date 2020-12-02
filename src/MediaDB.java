@@ -1,17 +1,25 @@
 package src;
 
 import src.Media.*;
+import src.Comparators.*;
 
 import java.util.HashMap;
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
 
 public class MediaDB {
-    private HashMap<String, Media> allMedia;
+    private ArrayList<Media> allMedia;
+    private ArrayList<Movie> movies;
+    private ArrayList<Series> series;
     private HashMap<String, Genre> genres;
     private static MediaDB instance = new MediaDB();
 
     // This class is a singleton, because we will never need more than a single MediaDB.
     private MediaDB() {
-        allMedia = new HashMap<>();
+        allMedia = new ArrayList<>();
+        movies = new ArrayList<>();
+        series = new ArrayList<>();
         genres = new HashMap<>();
         createGenreHashMap();
     }
@@ -21,19 +29,35 @@ public class MediaDB {
     }
 
     // getters
-    public Media get(String title) {
-        return allMedia.get(title);
-    }
-    public HashMap<String, Media> getAllMedia() {
+    public ArrayList<Media> getAllMedia() {
         return allMedia;
+    }
+    public ArrayList<Media> getMovies() {
+        ArrayList<Media> movies = new ArrayList<>();
+        for (Media m : allMedia) {
+            if (m instanceof Movie) movies.add(m);
+        }
+        return movies;
+    }
+    public ArrayList<Media> getSeries() {
+        ArrayList<Media> series = new ArrayList<>();
+        for (Media m : allMedia) {
+            if (m instanceof Series) series.add(m);
+        }
+        return series;
     }
     public HashMap<String, Genre> getAllGenres() {
         return genres;
     }
 
 
-    public void add(Media m) {
-        allMedia.put(m.getTitle(), m);
+    public void addMovie(Movie m) {
+        allMedia.add(m);
+        movies.add(m);
+    }
+    public void addSeries(Series m) {
+        allMedia.add(m);
+        series.add(m);
     }
 
     private void createGenreHashMap() {
