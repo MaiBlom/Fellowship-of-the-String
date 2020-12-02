@@ -1,15 +1,16 @@
 package src.Media;
 
-import java.awt.Image;
+import java.awt.image.*;
+
 
 public abstract class Media {
     protected String title;
     protected int release;
     protected String[] genres;
     protected double rating; 
-    protected Image poster;
+    protected BufferedImage poster;
 
-    public Media(String title, int release, String[] genres, double rating, Image poster) {
+    public Media(String title, int release, String[] genres, double rating, BufferedImage poster) {
         this.title = title;
         this.release = release;
         this.genres = genres;
@@ -29,7 +30,7 @@ public abstract class Media {
     public double getRating() {
         return rating;
     }
-    public Image getPoster() {
+    public BufferedImage getPoster() {
         return poster;
     }
 }
