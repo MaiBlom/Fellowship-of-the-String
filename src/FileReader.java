@@ -1,6 +1,7 @@
 package src;
 
 import src.Media.*;
+import src.Exceptions.*;
 
 import java.util.Locale;
 import java.util.Scanner;
@@ -16,7 +17,7 @@ public class FileReader {
     private static FileReader instance;
 
     // This class is a singleton, because we will never need more than a single FileReader.
-    private FileReader(MediaDB db){
+    private FileReader(MediaDB db) {
         this.db = db;
     }
     //Ændret til ikke bare at overskrive instance. (Singleton)
