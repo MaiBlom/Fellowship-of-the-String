@@ -22,7 +22,7 @@ public class MediaInfoWindow extends JInternalFrame {
     private Container episodesContainer;
 
     public MediaInfoWindow(Media media) {
-        // super(media.getTitle(), false, true);
+        super(media.getTitle(), false, true);
         this.media = media;
         setup();
         pack();
@@ -148,9 +148,10 @@ public class MediaInfoWindow extends JInternalFrame {
         // The ActionListener needs the seasonEpisodes array to create buttons.
         Series s = (Series) media;
         int[] seasonEpisodes = s.getSeason();
-        String[] comboboxLabels = new String[seasonEpisodes.length];
+        String[] comboboxLabels = new String[seasonEpisodes.length+1];
         for (int i = 0; i<comboboxLabels.length; i++) {
-            comboboxLabels[i] = "Season " + (i+1);
+            if (i == 0) comboboxLabels[i] =  "";
+            else comboboxLabels[i] = "Season " + (i);
         }
         JComboBox<String> seasonList = new JComboBox<>(comboboxLabels);
         seasonList.addActionListener(e -> showSeasonX((String) seasonList.getSelectedItem(), seasonEpisodes));
@@ -169,13 +170,15 @@ public class MediaInfoWindow extends JInternalFrame {
     // We get the seasons-number and the number of episodes in each season. 
     private void showSeasonX(String s, int[] seasonEpisodes) {
         episodesContainer.removeAll();
-        int seasonNumber = Character.getNumericValue(s.charAt(s.length()-1));
-        int numberOfEpisodes = seasonEpisodes[seasonNumber-1];
+        if (!s.equals("")) { 
+            int seasonNumber = Character.getNumericValue(s.charAt(s.length()-1));
+            int numberOfEpisodes = seasonEpisodes[seasonNumber-1];
 
-        for (int i = 0; i<numberOfEpisodes; i++) {
-            JButton button = new JButton("Episode " + (i+1));
-            button.addActionListener(e -> clickOnEpisode());
-            episodesContainer.add(button);
+            for (int i = 0; i<numberOfEpisodes; i++) {
+                JButton button = new JButton("Episode " + (i+1));
+                button.addActionListener(e -> clickOnEpisode());
+                episodesContainer.add(button);
+            }
         }
         pack();
     }
