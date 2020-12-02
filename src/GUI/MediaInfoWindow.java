@@ -11,7 +11,7 @@ import java.util.*;
 public class MediaInfoWindow extends JInternalFrame {
     Media media;
     Container contentPane;
-    Container leftContainer;
+    Container eastContainer;
     Container centerContainer;
     Container mediaInfo;
     Container seriesSeasons;
@@ -31,7 +31,7 @@ public class MediaInfoWindow extends JInternalFrame {
     }
 
     private void setupEastContainer() {
-        Container eastContainer = new Container();
+        eastContainer = new Container();
         eastContainer.setLayout(new FlowLayout());
 
         ImageIcon image = new ImageIcon();
@@ -45,8 +45,17 @@ public class MediaInfoWindow extends JInternalFrame {
     }
 
     private void setupCenterContainer() {
-        Container centerContainer = new Container();
+        centerContainer = new Container();
         centerContainer.setLayout(new BorderLayout());
         contentPane.add(centerContainer, BorderLayout.CENTER);
+
+        setupMediaInfo();
+    }
+
+    private void setupMediaInfo() {
+        mediaInfo = new Container();
+        mediaInfo.setLayout(new GridLayout(1,4));
+        JLabel title = new JLabel(media.getTitle());
+        Container rating = new Container();
     }
 }

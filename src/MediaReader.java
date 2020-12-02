@@ -1,7 +1,6 @@
 package src;
 
 import src.Media.*;
-import src.Exceptions.*;
 
 import java.util.Locale;
 import java.util.Scanner;
@@ -12,17 +11,17 @@ import java.io.InputStream;
 import java.awt.image.*;
 //Ændre navn
 //
-public class FileReader {
+public class MediaReader {
     private MediaDB db;
-    private static FileReader instance;
+    private static MediaReader instance;
 
-    // This class is a singleton, because we will never need more than a single FileReader.
-    private FileReader(MediaDB db) {
+    // This class is a singleton, because we will never need more than a single MediaReader.
+    private MediaReader(MediaDB db) {
         this.db = db;
     }
     //Ændret til ikke bare at overskrive instance. (Singleton)
-    public static FileReader getInstance(MediaDB db) {
-        if (instance == null) instance = new FileReader(db);
+    public static MediaReader getInstance(MediaDB db) {
+        if (instance == null) instance = new MediaReader(db);
         return instance;
     }
 

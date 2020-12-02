@@ -2,6 +2,7 @@ package src.GUI;
 
 import src.MediaDB;
 import src.Media.*;
+import src.*;
 
 import javax.swing.*;
 import java.awt.*;
@@ -39,7 +40,7 @@ public class GUI {
 
     private void setup() {
         db = MediaDB.getInstance();
-        FileReader fr = FileReader.getInstance(db);
+        MediaReader fr = MediaReader.getInstance(db);
         fr.readAll();
     }
 }
