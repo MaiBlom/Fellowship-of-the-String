@@ -51,15 +51,10 @@ public class MediaDB {
     }
 
 
-    public void addMovie(Movie m) {
+    public void add(Media m) {
         allMedia.add(m);
-        movies.add(m);
     }
-    public void addSeries(Series m) {
-        allMedia.add(m);
-        series.add(m);
-    }
-
+    
     private void createGenreHashMap() {
         genres.put("Crime", new Genre("Crime"));
         genres.put("Drama", new Genre("Drama"));
