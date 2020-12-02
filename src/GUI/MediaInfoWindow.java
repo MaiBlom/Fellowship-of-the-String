@@ -10,7 +10,6 @@ import java.awt.image.*;
 import java.util.*;
 import javax.imageio.ImageIO;
 import java.io.IOException;
-import java.io.InputStream;
 
 public class MediaInfoWindow extends JInternalFrame {
     private Media media;
@@ -80,24 +79,30 @@ public class MediaInfoWindow extends JInternalFrame {
         JLabel title = new JLabel(media.getTitle());
         mediaInfo.add(title);
 
-        // Second row in the grid is the rating. The rating is found as a double and
-        // used to crop the star-image at an appropriate length.
+        // Second row in the grid is the rating. The rating is found as a double and used
+        // to crop the star-image at an appropriate length with the getSubimage() method.
+        Container ratingContainerOuter = new Container();
+        ratingContainerOuter.setLayout(new BorderLayout());
         Container ratingContainer = new Container();
-        double ratingVal = media.getRating();
-        JLabel rating = new JLabel(Double.toString(ratingVal));
         ratingContainer.setLayout(new FlowLayout());
-        // BufferedImage starImage;
-        // try {
-        //     // SKIFT TIL RIGTIGT BILLEDE, LIGE NU ER DET THE GODFATHER LMAO
-        //     starImage = ImageIO.read(getClass().getClassLoader().getResourceAsStream("res/serieforsider/The Godfather.jpg"));
-        // } catch (IOException e) {
-        //     starImage = null;
-        // }
-        // JLabel stars = new JLabel();
-        // stars.setIcon(new ImageIcon(starImage.getSubimage(0, 0, (int) (starImage.getWidth()*(ratingVal/10)), starImage.getHeight())));
+
+        double ratingVal = media.getRating();
+        JLabel rating = new JLabel(" " + Double.toString(ratingVal));
+        
+        BufferedImage starImage;
+        try {
+            starImage = ImageIO.read(getClass().getClassLoader().getResourceAsStream("./res/starRating.png"));
+        } catch (IOException e) {
+            starImage = null;
+        }
+        JLabel stars = new JLabel();
+        stars.setIcon(new ImageIcon(starImage.getSubimage(0, 0, (int) (starImage.getWidth()*(ratingVal/10)), starImage.getHeight())));
+
+        ratingContainer.add(stars);
         ratingContainer.add(rating);
-        // ratingContainer.add(stars);
-        mediaInfo.add(ratingContainer);
+
+        ratingContainerOuter.add(ratingContainer,BorderLayout.WEST);
+        mediaInfo.add(ratingContainerOuter);
 
         // Third row is the release date / run time. The string is found differently depending
         // on the media type.
