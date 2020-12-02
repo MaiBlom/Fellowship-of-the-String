@@ -6,7 +6,6 @@ import java.util.Locale;
 import java.util.Scanner;
 import java.util.HashMap;
 import javax.imageio.ImageIO;
-import java.io.File;
 import java.io.IOException;
 import java.io.InputStream;
 import java.awt.image.*;
