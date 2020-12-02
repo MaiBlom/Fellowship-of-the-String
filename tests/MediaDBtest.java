@@ -9,8 +9,8 @@ public class MediaDBtest {
     @Before
     public void setUp() {
         this.db = MediaDB.getInstance();
-        MediaReader fr = MediaReader.getInstance(db);
-        fr.readAll();
+        MediaReader mr = MediaReader.getInstance(db);
+        mr.readAll();
     }
     
     @Test
