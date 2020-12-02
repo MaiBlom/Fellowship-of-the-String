@@ -9,7 +9,7 @@ public class MediaDBtest {
     @Before
     public void setUp() {
         this.db = MediaDB.getInstance();
-        FileReader fr = FileReader.getInstance(db);
+        MediaReader fr = MediaReader.getInstance(db);
         fr.readAll();
     }
     
