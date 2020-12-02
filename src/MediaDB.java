@@ -1,25 +1,18 @@
 package src;
 
 import src.Media.*;
-import src.Comparators.*;
 
 import java.util.HashMap;
 import java.util.ArrayList;
-import java.util.Collections;
-import java.util.Comparator;
 
 public class MediaDB {
     private ArrayList<Media> allMedia;
-    private ArrayList<Movie> movies;
-    private ArrayList<Series> series;
     private HashMap<String, Genre> genres;
     private static MediaDB instance = new MediaDB();
 
     // This class is a singleton, because we will never need more than a single MediaDB.
     private MediaDB() {
         allMedia = new ArrayList<>();
-        movies = new ArrayList<>();
-        series = new ArrayList<>();
         genres = new HashMap<>();
         createGenreHashMap();
     }
@@ -54,7 +47,7 @@ public class MediaDB {
     public void add(Media m) {
         allMedia.add(m);
     }
-    
+
     private void createGenreHashMap() {
         genres.put("Crime", new Genre("Crime"));
         genres.put("Drama", new Genre("Drama"));
