@@ -11,7 +11,7 @@ import java.util.*;
 import javax.imageio.ImageIO;
 import java.io.IOException;
 
-public class MediaInfoWindow extends JInternalFrame {
+public class MediaInfoWindow extends JFrame {
     private Media media;
     private Container contentPane;
     private Container westContainer;
@@ -21,7 +21,8 @@ public class MediaInfoWindow extends JInternalFrame {
     private Container episodesContainer;
 
     public MediaInfoWindow(Media media) {
-        super(media.getTitle(), false, true);
+        // super(media.getTitle(), false, true);
+        setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
         this.media = media;
         setup();
         pack();
@@ -88,17 +89,40 @@ public class MediaInfoWindow extends JInternalFrame {
 
         double ratingVal = media.getRating();
         JLabel rating = new JLabel(" " + Double.toString(ratingVal));
+        JLayeredPane bothStarImages = new JLayeredPane();
         
-        BufferedImage starImage;
         try {
-            starImage = ImageIO.read(getClass().getClassLoader().getResourceAsStream("./res/starRating.png"));
-        } catch (IOException e) {
-            starImage = null;
-        }
-        JLabel stars = new JLabel();
-        stars.setIcon(new ImageIcon(starImage.getSubimage(0, 0, (int) (starImage.getWidth()*(ratingVal/10)), starImage.getHeight())));
 
-        ratingContainer.add(stars);
+            BufferedImage emptyStarImage = ImageIO.read(getClass().getClassLoader().getResourceAsStream("./res/emptyStarRating.png"));
+            BufferedImage starImage = ImageIO.read(getClass().getClassLoader().getResourceAsStream("./res/starRating.png"));
+
+            JLabel emptyStars = new JLabel();
+            emptyStars.setIcon(new ImageIcon(emptyStarImage));
+            
+            JLabel filledStars = new JLabel();
+            filledStars.setIcon(new ImageIcon(starImage.getSubimage(0, 0, (int) (starImage.getWidth()*(ratingVal/10)), starImage.getHeight())));
+
+            bothStarImages.setPreferredSize(new Dimension(emptyStarImage.getWidth(), emptyStarImage.getHeight()));
+
+            bothStarImages.add(emptyStars, new Integer(0));
+            bothStarImages.add(filledStars, new Integer(1));
+
+            emptyStars.setBounds(0,0,emptyStarImage.getWidth(), emptyStarImage.getHeight()); 
+            filledStars.setBounds(0,0,emptyStarImage.getWidth(), emptyStarImage.getHeight());
+
+        } catch (IllegalArgumentException e) {
+
+            System.out.println(e.getMessage());
+            bothStarImages.setLayer(new JLabel("<Noget gik galt med indlæsningen af stjerner.>  "), 0);
+
+        } catch (IOException e) {
+
+            System.out.println(e.getMessage());
+            bothStarImages.setLayer(new JLabel("<Noget gik galt med indlæsningen af stjerner.>  "), 0);
+
+        }
+
+        ratingContainer.add(bothStarImages);
         ratingContainer.add(rating);
 
         ratingContainerOuter.add(ratingContainer,BorderLayout.WEST);
