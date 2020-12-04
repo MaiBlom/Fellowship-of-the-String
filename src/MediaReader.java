@@ -9,8 +9,7 @@ import javax.imageio.ImageIO;
 import java.io.IOException;
 import java.io.InputStream;
 import java.awt.image.*;
-//Ændre navn
-//
+
 public class MediaReader {
     private MediaDB db;
     private static MediaReader instance;
@@ -83,7 +82,6 @@ public class MediaReader {
                 file = getClass().getClassLoader().getResourceAsStream("res/filmplakater/"+title+".jpg");
             }
 
-            //Prøv at lave en GUI testklasse for at se om det virker.
             BufferedImage image;
             try {
                 image = ImageIO.read(file);
