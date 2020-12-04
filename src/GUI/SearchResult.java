@@ -114,7 +114,7 @@ public class SearchResult extends JLayeredPane {
     // which each call the showMediaInfo() method.
     private void showResults() {
         JPanel allResults = new JPanel();
-        allResults.setLayout(new WrapLayout(FlowLayout.LEFT));
+        allResults.setLayout(new FlowLayout(FlowLayout.LEFT));
         JScrollPane allResultsScroll = new JScrollPane(allResults,ScrollPaneConstants.VERTICAL_SCROLLBAR_ALWAYS,ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER);
         contentPane.add(allResultsScroll);
 
