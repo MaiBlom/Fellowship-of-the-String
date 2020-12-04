@@ -29,6 +29,7 @@ public class SearchResult extends JLayeredPane {
     private int WIDTH = 1000;
     private int HEIGHT = 700;
     
+    // The search results obejct will be called from the SearchPopUp class with the given parameters.
     public SearchResult(String ts, boolean sm, boolean ss, boolean[] sg) {
         textSearch = ts;
         searchMovies = sm;
@@ -39,6 +40,8 @@ public class SearchResult extends JLayeredPane {
         setup();
     }
 
+    // Setup of the main page, which contains of a small description of what the search criteria are
+    // and the results.
     private void setup() {
         contentPane = new Container();
         contentPane.setLayout(new BorderLayout());
@@ -51,6 +54,7 @@ public class SearchResult extends JLayeredPane {
         showResults();
     }
 
+    // The search criteria are shown at the top of the window with this JLabel
     private void makeSearchLabel() {
         StringBuilder sb = new StringBuilder("<html>You have searched for " + 
         (((searchMovies && searchSeries) || (!searchMovies && !searchSeries))? "movies and series." : "") + 
@@ -75,6 +79,11 @@ public class SearchResult extends JLayeredPane {
         contentPane.add(yourSearch, BorderLayout.NORTH);
     }
 
+    // The results for the search are found by checking if there has been searched for movies or series specifically.
+    // If both movies and series are selected, or if none is selected, both types are shown in the search.
+    // The media is taken from the media database and stored in a temporary arraylist. This arraylist is then iterated
+    // over and all media that fit the search criteria is put into the results-arraylist.
+    // The results will only include media that fit all search criteria.
     private void findResults() {
         results = new ArrayList<>();
         ArrayList<Media> temp = new ArrayList<>();
@@ -84,14 +93,14 @@ public class SearchResult extends JLayeredPane {
 
         Iterator<Media> it = temp.iterator();
         while (it.hasNext()) {
-            Media m = it.next();
-            boolean include = true;
-            if (m.getTitle().contains(textSearch)) {
-                String genres = Arrays.toString(m.getGenres());
-                for (int i = 0; i<selectableGenres.length; i++) {
-                    if (searchGenres[i]) {
-                        if (!genres.contains(selectableGenres[i])) include = false;
-                    }
+            Media m = it.next();                                                    // Next media-object in the iterator is initialized.
+            boolean include = true;                                                 // We're using the intersection-method of the search. To switch to the union-method, negate the boolean statements. 
+            if (m.getTitle().toLowerCase().contains(textSearch.toLowerCase())) {    // Start out by checking if the title of the media contains the search string (casing doesn't matter).
+                String genres = Arrays.toString(m.getGenres());                     // Convert the genre-array of the media to a string so that we can call contains() on it.
+                for (int i = 0; i<searchGenres.length; i++) {                       // Go throgh all values in the searchGenres array to find which genres we're searching for
+                    if (searchGenres[i]) {                                          // If the value is true, check whether or not the genre-string contains the corresponding genre-title.
+                        if (!genres.contains(selectableGenres[i])) include = false; // If it doesn't, then don't include it. To switch to the union-method, change it to:x
+                    }                                                               // if (genres.contains(selectableGenres[i])) include = true
                 }
             } else include = false;
             
@@ -100,9 +109,12 @@ public class SearchResult extends JLayeredPane {
         yourSearch.setText(yourSearch.getText()+results.size());
     }
 
+    // The results-container has a FlowLayout to add all media in the results-arraylist. A JScrollPane makes sure that we're able
+    // to scroll through the results if there are more than what is shown on screen. The images of the media are put on buttons
+    // which each call the showMediaInfo() method.
     private void showResults() {
-        Container allResults = new Container();
-        allResults.setLayout(new FlowLayout(FlowLayout.LEFT));
+        JPanel allResults = new JPanel();
+        allResults.setLayout(new WrapLayout(FlowLayout.LEFT));
         JScrollPane allResultsScroll = new JScrollPane(allResults,ScrollPaneConstants.VERTICAL_SCROLLBAR_ALWAYS,ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER);
         contentPane.add(allResultsScroll);
 
@@ -111,9 +123,9 @@ public class SearchResult extends JLayeredPane {
             mediaPoster.addActionListener(l -> showMediaInfo(m));
             allResults.add(mediaPoster);
         }
-        allResults.setPreferredSize(new Dimension(this.getWidth(), 10000));
     }
 
+    // Make a MediaInfoWindow popup with the given media.
     private void showMediaInfo(Media m) {
         MediaInfoWindow info = new MediaInfoWindow(m);
         add(info, new Integer(1));

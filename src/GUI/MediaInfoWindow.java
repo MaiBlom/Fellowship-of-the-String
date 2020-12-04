@@ -45,7 +45,7 @@ public class MediaInfoWindow extends JInternalFrame {
     // (and soon also a "play" button).
     private void setupWestContainer() {
         westContainer = new Container();
-        westContainer.setLayout(new FlowLayout());
+        westContainer.setLayout(new BoxLayout(westContainer, BoxLayout.Y_AXIS));
 
         // Is there a better way of inserting images?
         ImageIcon image = new ImageIcon();
@@ -54,6 +54,12 @@ public class MediaInfoWindow extends JInternalFrame {
         mediaPosterLabel.setIcon(image);
         contentPane.add(mediaPosterLabel);
         westContainer.add(mediaPosterLabel);
+
+        JButton playButton;
+        if (media instanceof Movie) playButton = new JButton("Play");
+        else playButton = new JButton("Play from beginning");
+        playButton.addActionListener(l -> clickPlay());
+        westContainer.add(playButton);
 
         contentPane.add(westContainer, BorderLayout.WEST);
     }
@@ -216,6 +222,10 @@ public class MediaInfoWindow extends JInternalFrame {
     }
 
     private void clickOnEpisode() {
+        // vinduet skal lukkes, main frame skal opdatere til video
+    }
+
+    private void clickPlay() {
         // vinduet skal lukkes, main frame skal opdatere til video
     }
 }

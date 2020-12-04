@@ -65,7 +65,7 @@ public class GUI extends JFrame {
             public void componentShown(ComponentEvent e) {
             }
             @Override
-            public void componentHidden(ComponentEvent e) 
+            public void componentHidden(ComponentEvent e) {
             }
         });
     }
