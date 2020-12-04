@@ -200,7 +200,7 @@ public class MediaInfoWindow extends JFrame {
     private void showSeasonX(String s, int[] seasonEpisodes) {
         episodesContainer.removeAll();
         if (!s.equals("")) { 
-            int seasonNumber = Character.getNumericValue(s.charAt(s.length()-1));
+            int seasonNumber = Integer.parseInt(s.split(" ")[1]);
             int numberOfEpisodes = seasonEpisodes[seasonNumber-1];
 
             for (int i = 0; i<numberOfEpisodes; i++) {

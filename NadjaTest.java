@@ -21,6 +21,6 @@ public class NadjaTest {
 
         ArrayList<Media> liste = db.getSeries();
         
-        new MediaInfoWindow(liste.get(9));
+        new MediaInfoWindow(liste.get(16));
     }
 }
