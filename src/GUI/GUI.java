@@ -5,6 +5,7 @@ import src.*;
 
 import javax.swing.*;
 import java.awt.*;
+import java.util.ArrayList;
 
 // This GUI is WIP, we use it for testing for now.
 
@@ -17,6 +18,8 @@ public class GUI extends JFrame {
     private Container redakAnbContainer;
     private Container movieContainer;
     private Container seriesContainer;
+    private Container eMenuContainer;
+    private int movieIndex,seriesIndex;
 
     private final int WIDTH = 600, HEIGHT = 600;
     
@@ -25,7 +28,16 @@ public class GUI extends JFrame {
     }
 
     public GUI() {
+        movieIndex = 0;
+        seriesIndex = 0;
         makeFrame();
+        makeTopMenu();
+        makeMediaVisualiser();
+
+        //frame.setSize(new Dimension(WIDTH, HEIGHT));
+        frame.pack();
+        frame.setLocationRelativeTo(null);
+        frame.setVisible(true);
     }
 
     private void makeFrame() {
@@ -33,23 +45,35 @@ public class GUI extends JFrame {
         frame.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
         setup();
         contentPane = frame.getContentPane();
-        contentPane.setLayout(new GridLayout(2, 1));
-
-        // Objects for top menu
-        JButton favoritesbButton = new JButton("Favorites");
-        JButton searchButton = new JButton("Search");
-        JButton userButton = new JButton("User");
-
-        nContainer = new Container();
-        nContainer.setLayout(new GridLayout(1, 3));
-
-        // Add objects for top menu
-        nContainer.add(favoritesbButton, BorderLayout.EAST);
-        nContainer.add(searchButton, BorderLayout.WEST);
-        nContainer.add(userButton, BorderLayout.WEST);
-
-        contentPane.add(nContainer, BorderLayout.NORTH);
-
+        contentPane.setLayout(new BorderLayout());
+    }
+    
+    private void makeTopMenu() {
+               // Objects for top menu
+               JButton favoritesButton = new JButton("Favorites");
+               favoritesButton.setPreferredSize(new Dimension(100, 50));
+               JButton searchButton = new JButton("Search");
+               JButton userButton = new JButton("User");
+       
+               nContainer = new Container();
+               nContainer.setLayout(new BorderLayout());
+       
+       
+               // Add objects for top menu
+               eMenuContainer = new Container();
+               eMenuContainer.setLayout(new GridLayout(1,2));
+       
+               nContainer.add(favoritesButton, BorderLayout.WEST);
+               eMenuContainer.add(searchButton);
+               eMenuContainer.add(userButton);
+               
+               nContainer.add(eMenuContainer, BorderLayout.EAST);
+               
+       
+               contentPane.add(nContainer, BorderLayout.NORTH);
+    }
+ 
+    private void makeMediaVisualiser() {
         // Middle container
         cContainer = new Container();
         cContainer.setLayout(new GridLayout(3, 1));
@@ -69,10 +93,26 @@ public class GUI extends JFrame {
         movieContainer.setLayout(new GridLayout(2,1));
 
         JLabel movieLabel = new JLabel("Movies:");
-        JLabel movieTestLabel = new JLabel("Movies here");
-        
         movieContainer.add(movieLabel);
-        movieContainer.add(movieTestLabel);
+        Container iconContainer = new Container();
+        iconContainer.setLayout(new BorderLayout());
+
+        //Adds buttons lmao
+        JButton leftButton = new JButton("Left");
+        JButton rightButton = new JButton("Right");
+        iconContainer.add(leftButton, BorderLayout.WEST);
+        iconContainer.add(rightButton, BorderLayout.EAST);
+
+        Container movieIcons = new Container();
+        movieIcons.setLayout(new FlowLayout());
+        iconContainer.add(movieIcons, BorderLayout.CENTER);
+
+        ArrayList<JLabel> icons = loadMovies();
+        for(int i = 0; i < 10; i++) {
+            movieIcons.add(icons.get(i));
+        }
+        
+        movieContainer.add(iconContainer);
 
         // Middle container series list
         seriesContainer = new Container();
@@ -91,11 +131,18 @@ public class GUI extends JFrame {
 
         // Add the center container to the contentPane
         contentPane.add(cContainer);
+    }
 
-        //frame.setSize(new Dimension(WIDTH, HEIGHT));
-        frame.pack();
-        frame.setLocationRelativeTo(null);
-        frame.setVisible(true);
+    private ArrayList<JLabel> loadMovies() {
+        ArrayList<JLabel> movies = new ArrayList<JLabel>(10);
+        for(int i = movieIndex; i < movieIndex+10; i++){
+            ImageIcon image = new ImageIcon();
+            image.setImage(db.getMovies().get(i).getPoster());
+            JLabel icon = new JLabel();
+            icon.setIcon(image);
+            movies.add(icon);
+        }
+        return movies;
     }
 
 
