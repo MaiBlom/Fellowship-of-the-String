@@ -11,7 +11,7 @@ import java.util.*;
 import javax.imageio.ImageIO;
 import java.io.IOException;
 
-public class MediaInfoWindow extends JFrame {
+public class MediaInfoWindow extends JInternalFrame {
     private Media media;
     private Container contentPane;
     private Container westContainer;
@@ -21,10 +21,11 @@ public class MediaInfoWindow extends JFrame {
     private Container episodesContainer;
 
     public MediaInfoWindow(Media media) {
-        // super(media.getTitle(), false, true);
-        setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
+        super(media.getTitle(), false, true);
+        //setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
         this.media = media;
         setup();
+        setPreferredSize(new Dimension(600,400));
         pack();
         setVisible(true);
     }
@@ -139,12 +140,13 @@ public class MediaInfoWindow extends JFrame {
         mediaInfo.add(release);
 
         // Fourth row contains the genres. 
-        StringBuilder genreBuilder = new StringBuilder("Genres: ");
+        StringBuilder genreBuilder = new StringBuilder("<html>Genres: ");
         String[] mediaGenres = media.getGenres();
         for (int i = 0; i<mediaGenres.length; i++) {
             genreBuilder.append(mediaGenres[i]);
             if (i != mediaGenres.length-1) genreBuilder.append(", ");
         }
+        genreBuilder.append("</html>");
         JLabel genres = new JLabel(genreBuilder.toString());
         mediaInfo.add(genres);
 
@@ -209,6 +211,7 @@ public class MediaInfoWindow extends JFrame {
                 episodesContainer.add(button);
             }
         }
+        setPreferredSize(new Dimension(600,400));
         pack();
     }
 

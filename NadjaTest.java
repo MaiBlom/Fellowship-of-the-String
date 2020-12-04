@@ -12,6 +12,10 @@ import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.InputStream;
 import java.awt.image.*;
+import java.awt.*;
+import java.awt.event.*;
+import java.awt.image.*;
+import javax.swing.*;
 
 public class NadjaTest {
     public static void main(String[] args) throws FileNotFoundException {
@@ -21,6 +25,11 @@ public class NadjaTest {
 
         ArrayList<Media> liste = db.getSeries();
         
-        new MediaInfoWindow(liste.get(16));
+        JFrame gui = new JFrame();
+        Container c = gui.getContentPane();
+        c.add(new SearchResult("", false, true, new boolean[] {false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, true, false, false, false, false, false, false}));
+        gui.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
+        gui.pack();
+        gui.setVisible(true);
     }
 }
