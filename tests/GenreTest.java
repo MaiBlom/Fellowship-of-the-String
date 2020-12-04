@@ -21,40 +21,29 @@ public class GenreTest {
 
     @Test
     public void gName_IsHewwo(){
-        //Arrange
         String expected = "hewwo";
-
-        //Act
         String actual = g.getName();
-
-        //Assert
         assertEquals(expected,actual);
     }
     
     @Test
     public void gGetMediaSize(){
         int expected = 2;
-
         int actual = g.getMedia().size();
-
         assertEquals(expected,actual);
     }
 
     @Test
     public void gGetMovieSize(){
         int expected = 1;
-
         int actual = g.getMovies().size();
-
         assertEquals(expected, actual);
     }
 
     @Test
     public void getSeriesSize(){
         int expected = 1;
-
         int actual = g.getSeries().size();
-
         assertEquals(expected,actual);
     }
 

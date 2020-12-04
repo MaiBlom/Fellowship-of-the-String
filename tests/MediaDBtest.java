@@ -15,13 +15,8 @@ public class MediaDBtest {
     
     @Test
     public void dbSize_equals200() {
-        //Arrange
         int expected = 200;
-        
-        //Act
         int actual = db.getAllMedia().size();
-        
-        //Assert
         assertEquals(expected, actual);
     }
     

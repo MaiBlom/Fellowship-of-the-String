@@ -13,36 +13,28 @@ public class MovieTest {
     @Test
     public void movieGetTitle_isHehehe(){
         String expected = "hehehe";
-
         String actual = m.getTitle();
-
         assertEquals(expected,actual);
     }
 
     @Test
     public void movieGetRelease_is42069(){
         int expected = 42069;
-
         int actual = m.getRelease();
-
         assertEquals(expected,actual);
     }
 
     @Test
     public void movieGetGenres_isComedyHorror(){
         String[] expected = new String[] {"comedy","horror"};
-
         String[] actual = m.getGenres();
-
         assertArrayEquals(expected,actual);
     }
 
     @Test
     public void movieGetRating_is420(){
         double expected = 4.20;
-
         double actual = m.getRating();
-
         assertEquals(expected,actual,0);
     }
 
