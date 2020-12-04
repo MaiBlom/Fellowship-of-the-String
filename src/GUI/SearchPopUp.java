@@ -20,12 +20,12 @@ public class SearchPopUp extends JFrame {
     private Container bottomBar;
     private Container allGenres;
 
-    //searchcriteria
+    // search criteria fields
     private JTextField searchBar;
     private boolean searchMovies;
     private boolean searchSeries;
     private boolean[] searchGenres;
-    private String[] selectableGenres;;
+    private String[] selectableGenres;
         // Crime, Drama, Biography, Sport, History, Romance, War, Mystery, Adventure
         // Family, Fantasy, Thriller, Horror, Film-Noir, Action, Sci-fi, Comedy
         // Musical, Western, Music, Talk-show, Documentary, Animation
@@ -38,6 +38,8 @@ public class SearchPopUp extends JFrame {
         setVisible(true);
     }
 
+    // Setup of the contentpane that consists of three elements, the top bar with a search bar, 
+    // the middle with check boxes, and the bottom with a cancel and a search button.
     private void setup() {
         contentPane = super.getContentPane();
         contentPane.setLayout(new BorderLayout());
@@ -47,6 +49,7 @@ public class SearchPopUp extends JFrame {
         setupBottomBar();
     }
 
+    // Setup of the topbar with a free-text searchbar. 
     private void setupSearchBar() {
         searchBarContainer = new Container();
         searchBarContainer.setLayout(new GridLayout(2,1));
@@ -59,6 +62,8 @@ public class SearchPopUp extends JFrame {
         searchBarContainer.add(searchBar);
     }
 
+    // Setup of the center container with a BorderLayout. This container contains checkboxes for media 
+    // type at the top and checkboxes for genres in the center.
     private void setupCenterContainer() {
         centerContainer = new Container();
         centerContainer.setLayout(new BorderLayout());
@@ -68,25 +73,25 @@ public class SearchPopUp extends JFrame {
         setupGenreContainer();
     }
 
+    // Setup of the media type checkboxes. Toggling the checkboxes will change the value of the two booleans
+    // searchMovies and searchSeries which are used as search criteria.
     private void setupMediatypeContainer() {
         mediatypeContainer = new Container();
-        mediatypeContainer.setLayout(new GridLayout());
+        mediatypeContainer.setLayout(new FlowLayout(FlowLayout.LEFT));
         centerContainer.add(mediatypeContainer, BorderLayout.NORTH);
         
-        JCheckBox movieSearch = new JCheckBox("Movies");
-        movieSearch.addItemListener(l -> {
-            searchMovies = l.getStateChange()==1 ? true : false;
-        });
+        JCheckBox movieSearch = new JCheckBox("Movies  ");
+        movieSearch.addItemListener(l -> searchMovies = l.getStateChange()==1 ? true : false);
 
-        JCheckBox seriesSearch = new JCheckBox("Series");
-        seriesSearch.addItemListener(l -> {
-            searchSeries = l.getStateChange()==1 ? true : false;
-        });
+        JCheckBox seriesSearch = new JCheckBox("Series  ");
+        seriesSearch.addItemListener(l -> searchSeries = l.getStateChange()==1 ? true : false);
 
         mediatypeContainer.add(movieSearch);
         mediatypeContainer.add(seriesSearch);
     }
 
+    // The following two methods are the setup of the genre checkboxes. Toggling the checkboxes 
+    // will change the value of the booleans in the array searchGenres which are used as search criteria.
     private void setupGenreContainer() {
         genresContainer = new Container();
         genresContainer.setLayout(new BorderLayout());
@@ -119,15 +124,16 @@ public class SearchPopUp extends JFrame {
                                          "Musical", "Western", "Music", "Talk-show", "Documentary", "Animation"};
         for (int i = 0; i<23; i++) {
             JCheckBox genreBox = new JCheckBox(selectableGenres[i]);
-            genreBox.addItemListener(l -> {
-                updateGenreSearchCriteria(genreBox.getText(), (l.getStateChange()==1 ? true : false));
-            });
+            genreBox.addItemListener(l -> updateGenreSearchCriteria(genreBox.getText(), (l.getStateChange()==1 ? true : false)));
             if (i<8) leftGenres.add(genreBox);
             else if (i<16) centerGenres.add(genreBox);
             else rightGenres.add(genreBox);
         }
     }
 
+    // When a genre checkbox is toggled, this method is called. We'll loop through the selectableGenres array
+    // and find the index of the genre that is toggled and then change the value in the searchGenres array on
+    // the same index.
     private void updateGenreSearchCriteria(String genre, boolean state) {
         int index = 0;
         for (int i = 0; i<23; i++) {
@@ -139,22 +145,20 @@ public class SearchPopUp extends JFrame {
         searchGenres[index] = state;
     }
 
+    // Setup of the bottom bar. The container has two buttons: One to cancel the search and one to search
+    // with the given criteria. 
     private void setupBottomBar() {
         bottomBar = new Container();
-        bottomBar.setLayout(new BorderLayout());
+        bottomBar.setLayout(new FlowLayout(FlowLayout.RIGHT));
         contentPane.add(bottomBar, BorderLayout.SOUTH);
-
-        Container buttonContainer = new Container();
-        buttonContainer.setLayout(new GridLayout(1,2));
-        bottomBar.add(buttonContainer, BorderLayout.EAST);
         
         JButton cancel = new JButton("Cancel");
         cancel.addActionListener(e -> clickCancel());
-        buttonContainer.add(cancel);
+        bottomBar.add(cancel);
 
         JButton search = new JButton("Search");
         search.addActionListener(e -> clickSearch());
-        buttonContainer.add(search);
+        bottomBar.add(search);
     }
 
     private void clickCancel() {
@@ -162,7 +166,10 @@ public class SearchPopUp extends JFrame {
     }
     private void clickSearch() {
         String searchCriteria = searchBar.getText();
-        
-        // should refresh the page with and show all media that fits the given parameters.
+
+        // should refresh the page with and show all media that fits the given parameters. Parameters are stored in:
+        // text search: searchCriteria
+        // type search: searchMovies & searchSeries
+        // genre search: searchGenres[]
     }
 }
