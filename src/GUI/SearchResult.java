@@ -115,14 +115,17 @@ public class SearchResult extends JLayeredPane {
     private void showResults() {
         JPanel allResults = new JPanel();
         allResults.setLayout(new FlowLayout(FlowLayout.LEFT));
-        JScrollPane allResultsScroll = new JScrollPane(allResults,ScrollPaneConstants.VERTICAL_SCROLLBAR_ALWAYS,ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER);
-        contentPane.add(allResultsScroll);
 
         for (Media m : results) {
             JButton mediaPoster = new JButton(new ImageIcon(m.getPoster()));
             mediaPoster.addActionListener(l -> showMediaInfo(m));
             allResults.add(mediaPoster);
         }
+
+        
+        //JScrollPane allResultsScroll = new JScrollPane(allResults,ScrollPaneConstants.VERTICAL_SCROLLBAR_ALWAYS,ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER);
+        //contentPane.add(allResultsScroll);
+        contentPane.add(allResults);
     }
 
     // Make a MediaInfoWindow popup with the given media.

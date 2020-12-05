@@ -201,12 +201,16 @@ public class MediaInfoWindow extends JInternalFrame {
         episodesContainer = new Container();
         episodesContainer.setLayout(new FlowLayout());
 
-        seasonsContainer.add(episodesContainer, BorderLayout.CENTER);
+        episodesContainer.setPreferredSize(new Dimension(400,230));
+        JScrollPane episodesScroll = new JScrollPane(episodesContainer, JScrollPane.VERTICAL_SCROLLBAR_AS_NEEDED, JScrollPane.HORIZONTAL_SCROLLBAR_NEVER);
+        episodesScroll.setHorizontalScrollBar(null);
+        seasonsContainer.add(episodesScroll, BorderLayout.CENTER);
     }
 
     // We get the seasons-number and the number of episodes in each season. 
     private void showSeasonX(String s, int[] seasonEpisodes) {
         episodesContainer.removeAll();
+
         if (!s.equals("")) { 
             int seasonNumber = Integer.parseInt(s.split(" ")[1]);
             int numberOfEpisodes = seasonEpisodes[seasonNumber-1];
@@ -215,8 +219,17 @@ public class MediaInfoWindow extends JInternalFrame {
                 JButton button = new JButton("Episode " + (i+1));
                 button.addActionListener(e -> clickOnEpisode());
                 episodesContainer.add(button);
-            }
+            } 
+
+            if (numberOfEpisodes > 36) episodesContainer.setPreferredSize(new Dimension(400,330));
+            else if (numberOfEpisodes > 32) episodesContainer.setPreferredSize(new Dimension(400,300));
+            else if (numberOfEpisodes > 28) episodesContainer.setPreferredSize(new Dimension(400,270));
+            else episodesContainer.setPreferredSize(new Dimension(400,230));
+            
+        } else {
+            episodesContainer.setPreferredSize(new Dimension(400,230));
         }
+
         setPreferredSize(new Dimension(600,400));
         pack();
     }
