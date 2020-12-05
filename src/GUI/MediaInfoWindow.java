@@ -45,21 +45,26 @@ public class MediaInfoWindow extends JInternalFrame {
     // (and soon also a "play" button).
     private void setupWestContainer() {
         westContainer = new Container();
-        westContainer.setLayout(new BoxLayout(westContainer, BoxLayout.Y_AXIS));
+        westContainer.setLayout(new BorderLayout(2,2));
 
         // Is there a better way of inserting images?
         ImageIcon image = new ImageIcon();
         image.setImage(media.getPoster());
         JLabel mediaPosterLabel = new JLabel();
         mediaPosterLabel.setIcon(image);
-        contentPane.add(mediaPosterLabel);
-        westContainer.add(mediaPosterLabel);
+        Container mediaPosterContainer = new Container();
+        mediaPosterContainer.setLayout(new FlowLayout());
+        mediaPosterContainer.add(mediaPosterLabel);
+        westContainer.add(mediaPosterContainer, BorderLayout.NORTH);
 
         JButton playButton;
         if (media instanceof Movie) playButton = new JButton("Play");
         else playButton = new JButton("Play from beginning");
         playButton.addActionListener(l -> clickPlay());
-        westContainer.add(playButton);
+        Container playButtonContainer = new Container();
+        playButtonContainer.setLayout(new FlowLayout());
+        playButtonContainer.add(playButton);
+        westContainer.add(playButtonContainer, BorderLayout.CENTER);
 
         contentPane.add(westContainer, BorderLayout.WEST);
     }
@@ -198,37 +203,34 @@ public class MediaInfoWindow extends JInternalFrame {
 
         // The episodes container is initialised empty, but buttons will be added to it in
         // the showSeasonX method.
-        episodesContainer = new Container();
-        episodesContainer.setLayout(new FlowLayout());
+        Container episodesFlowContainer = new Container();
+        episodesFlowContainer.setLayout(new FlowLayout(FlowLayout.LEFT));
 
-        episodesContainer.setPreferredSize(new Dimension(400,230));
-        JScrollPane episodesScroll = new JScrollPane(episodesContainer, JScrollPane.VERTICAL_SCROLLBAR_AS_NEEDED, JScrollPane.HORIZONTAL_SCROLLBAR_NEVER);
-        episodesScroll.setHorizontalScrollBar(null);
+        episodesContainer = new Container();
+        episodesFlowContainer.add(episodesContainer);
+
+        JScrollPane episodesScroll = new JScrollPane(episodesFlowContainer, JScrollPane.VERTICAL_SCROLLBAR_AS_NEEDED, JScrollPane.HORIZONTAL_SCROLLBAR_NEVER);
         seasonsContainer.add(episodesScroll, BorderLayout.CENTER);
     }
 
     // We get the seasons-number and the number of episodes in each season. 
     private void showSeasonX(String s, int[] seasonEpisodes) {
         episodesContainer.removeAll();
+        int numberOfEpisodes = 0;
 
         if (!s.equals("")) { 
             int seasonNumber = Integer.parseInt(s.split(" ")[1]);
-            int numberOfEpisodes = seasonEpisodes[seasonNumber-1];
-
+            numberOfEpisodes = seasonEpisodes[seasonNumber-1];
             for (int i = 0; i<numberOfEpisodes; i++) {
                 JButton button = new JButton("Episode " + (i+1));
                 button.addActionListener(e -> clickOnEpisode());
                 episodesContainer.add(button);
             } 
+        } 
 
-            if (numberOfEpisodes > 36) episodesContainer.setPreferredSize(new Dimension(400,330));
-            else if (numberOfEpisodes > 32) episodesContainer.setPreferredSize(new Dimension(400,300));
-            else if (numberOfEpisodes > 28) episodesContainer.setPreferredSize(new Dimension(400,270));
-            else episodesContainer.setPreferredSize(new Dimension(400,230));
-            
-        } else {
-            episodesContainer.setPreferredSize(new Dimension(400,230));
-        }
+        // The episodes container's GridLayout is setup with 4 columns and as many rows as it need to show
+        // all the episodes. There is a vertical and horisontal gap between the buttons with size 2.
+        episodesContainer.setLayout(new GridLayout(numberOfEpisodes/4 + (numberOfEpisodes % 4 == 0? 0:1), 4, 2, 2));
 
         setPreferredSize(new Dimension(600,400));
         pack();
