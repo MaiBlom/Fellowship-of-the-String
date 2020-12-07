@@ -63,18 +63,19 @@ public class LoginPopUp extends JInternalFrame {
         contentPane = this.getContentPane();
 
         loginContainerPanel = new JPanel();
+        loginContainerPanel.setBounds(0,0,600,400);
         loginContainerPanel.setBorder(BorderFactory.createEmptyBorder(5, 5, 5, 5));
         loginContainerPanel.setLayout(new BorderLayout());
         contentPane.add(loginContainerPanel);
 
-        setupLoginInfoMessage();
-        setupLoginFields();
-        setupLoginButton();
-
         createUserContainerPanel = new JPanel();
+        createUserContainerPanel.setBounds(0,0,600,400);
         createUserContainerPanel.setBorder(BorderFactory.createEmptyBorder(5, 5, 5, 5));
         createUserContainerPanel.setLayout(new BorderLayout());
 
+        setupLoginInfoMessage();
+        setupLoginFields();
+        setupLoginButton();
         setupCreateInfoMessage();
         setupCreateFields();
         setupCreateButton();
@@ -120,6 +121,7 @@ public class LoginPopUp extends JInternalFrame {
         createUser.addActionListener(l -> {
             contentPane.removeAll();
             contentPane.add(createUserContainerPanel);
+            pack();
         });
         buttons.add(createUser);
         
@@ -178,6 +180,7 @@ public class LoginPopUp extends JInternalFrame {
         cancel.addActionListener(l -> {
             contentPane.removeAll();
             contentPane.add(loginContainerPanel);
+            pack();
         });
         buttons.add(cancel);
         

@@ -1,10 +1,9 @@
 package src.Exceptions;
 
 public class InvalidUsernameException extends RuntimeException {
-    private String username;
+    private static final long serialVersionUID = 1L;
 
     public InvalidUsernameException(String username) {
         super("Invalid username: " + username);
-        this.username = username;
     }
 }
