@@ -16,10 +16,13 @@ import src.Media.Movie;
 public class MainMenu extends JLayeredPane {
     private static final long serialVersionUID = -5793860781733191506L;
 
+    // The media database
     private MediaDB db;
 
+    // Int's to keep track of what movies to be displaying in the media lists.
     private int movieIndex, seriesIndex;
 
+    // The constructor setting both index's to 0, and initializing the database.
     public MainMenu() {
         movieIndex = 0;
         seriesIndex = 0;
@@ -46,30 +49,37 @@ public class MainMenu extends JLayeredPane {
 
     // Creates and returns the container containing the recommended media by 'redaktionen'
     private Container makeRecommendedContainer() {
+        // Main container for the recommended section.
         Container recommendedContainer = new Container();
         recommendedContainer.setLayout(new BorderLayout());
 
+        // Sets the top text of the recommended media section,
+        // and adds it to the main container.
         JLabel recommendedLabel = new JLabel("Recommended:");
         recommendedContainer.add(recommendedLabel,BorderLayout.NORTH);
+
+        // Container for the displayed media, putting it to the left
         Container iconContainer = new Container();
-        iconContainer.setLayout(new BorderLayout());
+        iconContainer.setLayout(new FlowLayout(FlowLayout.LEFT));
 
-        Container recommendedIcons = new Container();
-        recommendedIcons.setLayout(new FlowLayout(FlowLayout.LEFT));
-        iconContainer.add(recommendedIcons, BorderLayout.CENTER);
-
-        ArrayList<JLabel> icons = loadRecommended();
+        // Initializes the recommended media,
+        // and loops through the objects to add them to the container.
+        ArrayList<JButton> icons = loadRecommended();
         for(int i = 0; i < 3; i++) {
-            recommendedIcons.add(icons.get(i));
+            //iconContainer.add(icons.get(i));
         }
         
-        recommendedContainer.add(iconContainer,BorderLayout.CENTER);
+        // Adds the icon container to the main recommeded container.
+        recommendedContainer.add(iconContainer, BorderLayout.CENTER);
 
+        // Returns the recommended container.
         return recommendedContainer;
     }
 
-    private ArrayList<JLabel> loadRecommended() {
-        ArrayList<JLabel> recommended = new ArrayList<JLabel>(3);
+    // This method loads the 3 recommended movies chosen by 'redaktionen',
+    // and returns them as a JButton ArrayList.
+    private ArrayList<JButton> loadRecommended() {
+        ArrayList<JButton> recommended = new ArrayList<JButton>(3);
         try {
             Movie movie1 = new Movie("The Lord of the Rings: The Fellowship of the Ring", 2001, new String[] {"Action", "Adventure", "Drama"},
             8.8, ImageIO.read(getClass().getClassLoader().getResourceAsStream("./res/redaktionfilm/fellowship of the ring.jpg")));
@@ -80,19 +90,19 @@ public class MainMenu extends JLayeredPane {
 
             ImageIcon image1 = new ImageIcon();
             image1.setImage(movie1.getPoster());
-            JLabel icon1 = new JLabel();
+            JButton icon1 = new JButton();
             icon1.setIcon(image1);
             recommended.add(icon1);
 
             ImageIcon image2 = new ImageIcon();
             image2.setImage(movie2.getPoster());
-            JLabel icon2 = new JLabel();
+            JButton icon2 = new JButton();
             icon2.setIcon(image2);
             recommended.add(icon2);
 
             ImageIcon image3 = new ImageIcon();
             image3.setImage(movie3.getPoster());
-            JLabel icon3 = new JLabel();
+            JButton icon3 = new JButton();
             icon3.setIcon(image3);
             recommended.add(icon3);
         } catch (IllegalArgumentException e) {
@@ -103,95 +113,125 @@ public class MainMenu extends JLayeredPane {
         return recommended;
     }
 
+    // Creates and returns the movie section container.
     private Container makeMovieContainer() {
-        // Middle container movie list
+        // Main container for the movie section.
         Container movieContainer = new Container();
         movieContainer.setLayout(new BorderLayout());
 
+        // Sets the top text of the movie section,
+        // and adds it to the main container.
         JLabel movieLabel = new JLabel("Movies:");
         movieContainer.add(movieLabel,BorderLayout.NORTH);
-        Container iconContainer = new Container();
-        iconContainer.setLayout(new BorderLayout());
 
-        //Adds buttons
+        // Container for the movie selector.
+        Container movieSelectionContainer = new Container();
+        movieSelectionContainer.setLayout(new BorderLayout());
+
+        // Adds buttons to the movie selector.
         JButton leftButton = new JButton("Left");
+        leftButton.setPreferredSize(new Dimension(50, 50));
         JButton rightButton = new JButton("Right");
-        iconContainer.add(leftButton, BorderLayout.WEST);
-        iconContainer.add(rightButton, BorderLayout.EAST);
+        rightButton.setPreferredSize(new Dimension(50, 50));
+        movieSelectionContainer.add(leftButton, BorderLayout.WEST);
+        movieSelectionContainer.add(rightButton, BorderLayout.EAST);
 
+        // Adds the movie icons container to the movie selector container.
         Container movieIcons = new Container();
         movieIcons.setLayout(new FlowLayout());
-        iconContainer.add(movieIcons, BorderLayout.CENTER);
+        movieSelectionContainer.add(movieIcons, BorderLayout.CENTER);
 
-        ArrayList<JLabel> movieDisplayIcons = loadMovies();
+        // Initializes and loads movies from movieIndex to movieIndex+6.
+        // (Loads 6 movies)
+        ArrayList<JButton> movieDisplayIcons = loadMovies();
         for(int i = 0; i < 6; i++) {
             movieIcons.add(movieDisplayIcons.get(i));
         }
         
-        movieContainer.add(iconContainer,BorderLayout.CENTER);
+        // Adds the movie selector container to the movie section container.
+        movieContainer.add(movieSelectionContainer,BorderLayout.CENTER);
 
+        // Returns the movie section container.
         return movieContainer;
     }
 
-    //This methods attempts to add the amount of movies correspondent to the size of the frame.
-    private ArrayList<JLabel> loadMovies() {
-        ArrayList<JLabel> movies = new ArrayList<JLabel>();
+    // This method loads the 6 currently viewing movies based on movieIndex,
+    // and returns them as a JButton ArrayList.
+    private ArrayList<JButton> loadMovies() {
+        ArrayList<JButton> movies = new ArrayList<JButton>();
 
-        for(int i = movieIndex; i < 6; i++){
+        // Loops through the movie database and loads 6 of them as JButton.
+        for(int i = movieIndex; i < movieIndex + 6; i++){
             ImageIcon image = new ImageIcon();
             image.setImage(db.getMovies().get(i).getPoster());
-            JLabel icon = new JLabel();
+            JButton icon = new JButton();
             icon.setIcon(image);
             movies.add(icon);
         }
 
+        // Returns the JButton array.
         return movies;
     }
 
+    // Creates and returns the series section container.
     private Container makeSeriesContainer() {
-        // Middle container movie list
+        // Main container for the series section.
         Container seriesContainer = new Container();
         seriesContainer.setLayout(new BorderLayout());
 
+        // Sets the top label for the series section,
+        // and adds it to the container.
         JLabel seriesLabel = new JLabel("Series:");
         seriesContainer.add(seriesLabel,BorderLayout.NORTH);
-        Container iconContainer = new Container();
-        iconContainer.setLayout(new BorderLayout());
 
-        //Adds buttons lmao
+        // Container for the series selector
+        Container seriesSelectorContainer = new Container();
+        seriesSelectorContainer.setLayout(new BorderLayout());
+
+        // Adds buttons to the series selector.
         JButton leftButton = new JButton("Left");
         JButton rightButton = new JButton("Right");
-        iconContainer.add(leftButton, BorderLayout.WEST);
-        iconContainer.add(rightButton, BorderLayout.EAST);
+        seriesSelectorContainer.add(leftButton, BorderLayout.WEST);
+        seriesSelectorContainer.add(rightButton, BorderLayout.EAST);
 
+        // Adds the series icon container to the series selector container.
         Container seriesIcons = new Container();
         seriesIcons.setLayout(new FlowLayout());
-        iconContainer.add(seriesIcons, BorderLayout.CENTER);
+        seriesSelectorContainer.add(seriesIcons, BorderLayout.CENTER);
 
-        ArrayList<JLabel> icons = loadSeries();
-        for(int i = 0; i < 10; i++) {
+        // Initializes and loads the series from seriesIndex to seriesIndex+6.
+        // (Loads 6 series)
+        ArrayList<JButton> icons = loadSeries();
+        for(int i = 0; i < 6; i++) {
             seriesIcons.add(icons.get(i));
         }
         
-        seriesContainer.add(iconContainer,BorderLayout.CENTER);
+        // Adds the series selector container to the series section container.
+        seriesContainer.add(seriesSelectorContainer,BorderLayout.CENTER);
 
+        // Returns the series section container
         return seriesContainer;
     }
 
-    //This method attempts to add the amount of series correspondent to the size of the window
-    //Requires a rework similar to the one done in loadMovies
-    private ArrayList<JLabel> loadSeries() {
-        ArrayList<JLabel> series = new ArrayList<JLabel>(10);
-        for(int i = seriesIndex; i < seriesIndex+10; i++){
+    // This method loads the 6 currently viewing series based on seriesIndex,
+    // and returns them as a JButton ArrayList.
+    private ArrayList<JButton> loadSeries() {
+        ArrayList<JButton> series = new ArrayList<JButton>(6);
+
+        // Loops through the series database and loads 6 of them as JButtons.
+        for(int i = seriesIndex; i < seriesIndex + 6; i++){
             ImageIcon image = new ImageIcon();
             image.setImage(db.getSeries().get(i).getPoster());
-            JLabel icon = new JLabel();
+            JButton icon = new JButton();
             icon.setIcon(image);
             series.add(icon);
         }
+
+        // Returns the JButton Array
         return series;
     }
 
+    // Initializes the database.
     private void setup() {
         db = MediaDB.getInstance();
         MediaReader fr = MediaReader.getInstance(db);
