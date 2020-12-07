@@ -19,13 +19,18 @@ public class LoginPopUp extends JInternalFrame {
     
     private Container contentPane;
     private JPanel loginContainerPanel;
-    private JLabel welcome;
-    private JLabel info;
+    private JLabel loginWelcome;
+    private JLabel loginInfo;
     private Container loginFields;
     private JTextField usernameField;
     private JTextField passwordField;
-    
+
     private JPanel createUserContainerPanel;
+    private JLabel createWelcome;
+    private JLabel createInfo;
+    private Container userFields;
+    private JTextField newUsernameField;
+    private JTextField newPasswordField;
 
     private final boolean EDITABLE = false;
 
@@ -62,18 +67,26 @@ public class LoginPopUp extends JInternalFrame {
         loginContainerPanel.setLayout(new BorderLayout());
         contentPane.add(loginContainerPanel);
 
-        setupInfoMessage();
+        setupLoginInfoMessage();
         setupLoginFields();
-        setupButton();
+        setupLoginButton();
+
+        createUserContainerPanel = new JPanel();
+        createUserContainerPanel.setBorder(BorderFactory.createEmptyBorder(5, 5, 5, 5));
+        createUserContainerPanel.setLayout(new BorderLayout());
+
+        setupCreateInfoMessage();
+        setupCreateFields();
+        setupCreateButton();
     }
 
-    private void setupInfoMessage() {
+    private void setupLoginInfoMessage() {
         Container infoContainer = new Container();
         infoContainer.setLayout(new GridLayout(2,1));
-        welcome = new JLabel("Welcome to the streaming service.");
-        info = new JLabel(" ");
-        infoContainer.add(welcome);
-        infoContainer.add(info);
+        loginWelcome = new JLabel("Welcome to the streaming service.");
+        loginInfo = new JLabel(" ");
+        infoContainer.add(loginWelcome);
+        infoContainer.add(loginInfo);
         loginContainerPanel.add(infoContainer, BorderLayout.NORTH);
     }
 
@@ -99,11 +112,15 @@ public class LoginPopUp extends JInternalFrame {
         loginContainerPanel.add(loginFieldsOuter, BorderLayout.CENTER);
     }
 
-    private void setupButton() {
+    private void setupLoginButton() {
         Container buttons = new Container();
         buttons.setLayout(new GridLayout(1,2,2,2));
 
         JButton createUser = new JButton("Create new User");
+        createUser.addActionListener(l -> {
+            contentPane.removeAll();
+            contentPane.add(createUserContainerPanel);
+        });
         buttons.add(createUser);
         
         JButton login = new JButton("Login");
@@ -113,11 +130,70 @@ public class LoginPopUp extends JInternalFrame {
             try {
                 if (db.login(username, password)) dispose();
             } catch (Exception e) {
-                info.setText(e.getMessage());
+                loginInfo.setText(e.getMessage());
             }
         });
         buttons.add(login);
 
         loginContainerPanel.add(buttons, BorderLayout.SOUTH);
+    }
+
+    private void setupCreateInfoMessage() {
+        Container infoContainer = new Container();
+        infoContainer.setLayout(new GridLayout(2,1));
+        createWelcome = new JLabel("Create a new user.");
+        createInfo = new JLabel(" ");
+        infoContainer.add(createWelcome);
+        infoContainer.add(createInfo);
+        createUserContainerPanel.add(infoContainer, BorderLayout.NORTH);
+    }
+
+    private void setupCreateFields() {
+        Container userFieldsOuter = new Container();
+        userFieldsOuter.setLayout(new FlowLayout());
+
+        userFields = new Container();
+        userFields.setLayout(new GridLayout(2,2));
+        userFields.setPreferredSize(new Dimension(500,100));
+        userFieldsOuter.add(userFields);
+
+        JLabel usernameLabel = new JLabel("Username: ");
+        newUsernameField = new JTextField();
+        JLabel passwordLabel = new JLabel("Password: ");
+        newPasswordField = new JTextField();
+
+        userFields.add(usernameLabel);
+        userFields.add(newUsernameField);
+        userFields.add(passwordLabel);
+        userFields.add(newPasswordField);
+
+        createUserContainerPanel.add(userFieldsOuter, BorderLayout.CENTER);
+    }
+
+    private void setupCreateButton() {
+        Container buttons = new Container();
+        buttons.setLayout(new GridLayout(1,2,2,2));
+
+        JButton cancel = new JButton("Return");
+        cancel.addActionListener(l -> {
+            contentPane.removeAll();
+            contentPane.add(loginContainerPanel);
+        });
+        buttons.add(cancel);
+        
+        JButton create = new JButton("Create user");
+        create.addActionListener(l -> {
+            String username = newUsernameField.getText();
+            String password = newPasswordField.getText();
+            try {
+                db.createUser(username, password);
+                createInfo.setText("User created. Return to the login-screen to login.");
+            } catch (Exception e) {
+                createInfo.setText(e.getMessage());
+            }
+        });
+        buttons.add(create);
+
+        createUserContainerPanel.add(buttons, BorderLayout.SOUTH);
     }
 }
