@@ -11,6 +11,7 @@ public class GUI extends JFrame {
 
     private JFrame frame;
     private Container contentPane;
+    private Container centerContainer;
     private MainMenu mainMenu;
 
     private final int WIDTH = 1920, HEIGHT = 1080;
@@ -24,7 +25,8 @@ public class GUI extends JFrame {
         makeTopMenu();
         
         mainMenu = new MainMenu(frame);
-        mainMenu.makeMediaVisualiser(contentPane);
+        mainMenu.makeMediaVisualiser(centerContainer);
+        contentPane.add(centerContainer);
 
         frame.pack();
         frame.setLocationRelativeTo(null);
@@ -84,5 +86,10 @@ public class GUI extends JFrame {
 
         // The north menu container added to the content pane in the northern spot.
         contentPane.add(nContainer, BorderLayout.NORTH);
+    }
+
+    public void changeScenario(Container container) {
+        centerContainer = container;
+        frame.pack();
     }
 }
