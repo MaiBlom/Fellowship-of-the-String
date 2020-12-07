@@ -6,16 +6,17 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ComponentEvent;
 import java.awt.event.ComponentListener;
+import java.util.ArrayList;
 
-public class GUI extends JFrame {
+public class GUI extends JFrame implements Clickable {
     private static final long serialVersionUID = 1L;
     private User currentUser;
 
-    private JFrame frame;
-    private JLayeredPane layeredPane;
     private Container contentPane;
     private Container centerContainer;
     private MainMenu mainMenu;
+
+    private ArrayList<JButton> allButtons;
 
     private final int WIDTH = 1920, HEIGHT = 1080;
 
@@ -26,29 +27,22 @@ public class GUI extends JFrame {
     public GUI() {
         makeFrame();
         makeTopMenu();
-        
-        mainMenu = new MainMenu(frame);
-        mainMenu.makeMediaVisualiser(centerContainer);
-        contentPane.add(centerContainer);
+        makeCenterContainer();
 
-        frame.pack();
-        frame.setLocationRelativeTo(null);
-        frame.setVisible(true);
+        pack();
+        setLocationRelativeTo(null);
+        setVisible(true);
     }
 
     // Initializes the JFrame, and get's the content pane and sets it.
     // Adds a ComponentListener
     private void makeFrame() {
-        frame = new JFrame();
-        frame.setSize(new Dimension(WIDTH, HEIGHT));
-        frame.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
+        setSize(new Dimension(WIDTH, HEIGHT));
+        setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
 
-        Container contentPaneOuter = frame.getContentPane();
-        layeredPane = new JLayeredPane();
-        contentPane = new Container();
-        contentPane.setLayout(new BorderLayout());
-        layeredPane.add(contentPane, -1);
-        contentPaneOuter.add(layeredPane);
+        contentPane = getContentPane();
+
+
         /* frame.addComponentListener(new ComponentListener() {
             public void componentResized(ComponentEvent e){
                 Component c = (Component)e.getSource();
@@ -78,11 +72,16 @@ public class GUI extends JFrame {
         // Buttons used for the top menu
         JButton favoritesButton = new JButton("Favorites");
         favoritesButton.setPreferredSize(new Dimension(100, 50));
+        allButtons.add(favoritesButton);
+
         JButton searchButton = new JButton("Search");
         searchButton.addActionListener(l -> {
             new SearchPopUp(this, currentUser);
         });
+        allButtons.add(searchButton);
+
         JButton userButton = new JButton("User");
+        allButtons.add(userButton);
 
         // Favorites button added to the west of the main top menu container 'nContainer' in the western spot.
         nContainer.add(favoritesButton, BorderLayout.WEST);
@@ -98,8 +97,26 @@ public class GUI extends JFrame {
         contentPane.add(nContainer, BorderLayout.NORTH);
     }
 
+    private void makeCenterContainer() {
+        mainMenu = new MainMenu(this);
+        centerContainer = mainMenu;
+        centerContainer.setLayout(new BorderLayout());
+        mainMenu.makeMediaVisualiser(centerContainer);
+        contentPane.add(centerContainer);
+    }
+
     public void changeScenario(Container container) {
         centerContainer = container;
-        frame.pack();
+        pack();
+    }
+
+    public void buttonsSetEnabled(boolean b){
+        for (JButton x : allButtons) {
+            x.setEnabled(b);
+        }
+        if (centerContainer instanceof Clickable) {
+            Clickable clickable = (Clickable) centerContainer;
+            clickable.buttonsSetEnabled(b);
+        }
     }
 }

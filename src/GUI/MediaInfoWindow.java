@@ -54,8 +54,8 @@ public class MediaInfoWindow extends JInternalFrame {
         this.addInternalFrameListener(new InternalFrameListener() {
             public void internalFrameClosed(InternalFrameEvent e) {
                 if (origin instanceof Clickable) {
-                    Clickable sr = (Clickable) origin;
-                    sr.buttonsSetEnabled(true);
+                    Clickable clickable = (Clickable) origin;
+                    clickable.buttonsSetEnabled(true);
                 }
             }
             public void internalFrameOpened(InternalFrameEvent e) {
