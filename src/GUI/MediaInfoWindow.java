@@ -13,7 +13,7 @@ import java.io.IOException;
 public class MediaInfoWindow extends JInternalFrame {
     private static final long serialVersionUID = 1L;
     private Media media;
-    private Container origin;
+    private GUI origin;
     private User currentUser;
 
     private Container contentPane;
@@ -23,7 +23,7 @@ public class MediaInfoWindow extends JInternalFrame {
     private Container seasonsContainer;
     private Container episodesContainer;
 
-    public MediaInfoWindow(Media media, Container origin, User currentUser) {
+    public MediaInfoWindow(Media media, GUI origin, User currentUser) {
         super(media.getTitle(), false, true);
         //setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
         this.media = media;
@@ -280,7 +280,7 @@ public class MediaInfoWindow extends JInternalFrame {
             numberOfEpisodes = seasonEpisodes[seasonNumber-1];
             for (int i = 0; i<numberOfEpisodes; i++) {
                 JButton button = new JButton("Episode " + (i+1));
-                button.addActionListener(e -> clickOnEpisode());
+                button.addActionListener(e -> clickPlay());
                 episodesContainer.add(button);
             } 
         } 
@@ -293,11 +293,9 @@ public class MediaInfoWindow extends JInternalFrame {
         pack();
     }
 
-    private void clickOnEpisode() {
-        // vinduet skal lukkes, main frame skal opdatere til video
-    }
-
     private void clickPlay() {
+        origin.changeScenario(new PlayMediaPage(media, origin));
+        dispose();
         // vinduet skal lukkes, main frame skal opdatere til video
     }
 }

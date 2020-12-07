@@ -7,10 +7,12 @@ import java.awt.*;
 
 public class PlayMediaPage extends JLayeredPane {
     private static final long serialVersionUID = 1L;
+    private GUI origin;
     private Media media;
 
-    public PlayMediaPage(Media media) {
+    public PlayMediaPage(Media media, GUI origin) {
         this.media = media;
+        this.origin = origin;
         this.setLayout(new FlowLayout());
         setup();
     }

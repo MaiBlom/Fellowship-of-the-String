@@ -11,7 +11,7 @@ import java.util.*;
 public class SearchResult extends JLayeredPane implements Clickable {
     private static final long serialVersionUID = 1L;
     private MediaDB db;
-    private JFrame origin;
+    private GUI origin;
 
     private Container contentPane;
     private Container topbar;
@@ -34,7 +34,7 @@ public class SearchResult extends JLayeredPane implements Clickable {
     private int HEIGHT = 700;
     
     // The search results obejct will be called from the SearchPopUp class with the given parameters.
-    public SearchResult(String ts, boolean sm, boolean ss, boolean[] sg, User currentUser, JFrame origin) {
+    public SearchResult(String ts, boolean sm, boolean ss, boolean[] sg, User currentUser, GUI origin) {
         textSearch = ts;
         searchMovies = sm;
         searchSeries = ss;
@@ -178,7 +178,7 @@ public class SearchResult extends JLayeredPane implements Clickable {
 
     // Make a MediaInfoWindow popup with the given media.
     private void showMediaInfo(Media m) {
-        MediaInfoWindow info = new MediaInfoWindow(m, this, currentUser);
+        MediaInfoWindow info = new MediaInfoWindow(m, origin, currentUser);
         add(info, 1);
         info.setLocation(WIDTH/2-info.getWidth()/2, HEIGHT/2-info.getWidth()/2);
         info.setVisible(true);
