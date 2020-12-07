@@ -251,7 +251,6 @@ public class MainMenu extends JLayeredPane {
                     loadSeries();
                     frame.pack();
                 }
-                System.out.println(seriesIndex);
             }
             
         });
@@ -270,7 +269,6 @@ public class MainMenu extends JLayeredPane {
                     loadSeries();
                     frame.pack();
                 }
-                System.out.println(seriesIndex);
             }
             
         });
