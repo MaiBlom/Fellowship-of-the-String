@@ -42,6 +42,10 @@ public class User {
         return favoriteSeries.contains(m);
     }
 
+    public double getRating(Media m) {
+        return ratings.get(m);
+    }
+
     //Setters
     public void favorite(Media m) {
         if (m instanceof Movie && !favoriteMovies.contains(m)) favoriteMovies.add(m);
@@ -55,9 +59,5 @@ public class User {
 
     public void rate(Media m, double rating) {
         ratings.put(m, rating);
-    }
-
-    public double getRating(Media m) {
-        return ratings.get(m);
     }
 }
