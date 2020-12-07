@@ -14,8 +14,8 @@ public class GUI extends JFrame implements Clickable {
     private MediaDB db;
 
     private Container contentPane;
+    private Container nContainer;
     private JLayeredPane centerContainer;
-    private MainMenu mainMenu;
 
     private ArrayList<JButton> allButtons;
 
@@ -69,7 +69,7 @@ public class GUI extends JFrame implements Clickable {
     // Makes the top menu that is located in the northern part of the content pane's BorderLayout
     private void makeTopMenu() {
         // Containers used for the top menu.
-        Container nContainer = new Container();
+        nContainer = new Container();
         nContainer.setLayout(new BorderLayout());
         Container eMenuContainer = new Container();
         eMenuContainer.setLayout(new GridLayout(1,2));
@@ -107,15 +107,14 @@ public class GUI extends JFrame implements Clickable {
     }
 
     private void makeCenterContainer() {
-        mainMenu = new MainMenu(this);
-        centerContainer = mainMenu;
-        centerContainer.setLayout(new BorderLayout());
-        mainMenu.makeMediaVisualiser(centerContainer);
-        contentPane.add(centerContainer);
+        centerContainer = new MainMenu(this);
+        contentPane.add(centerContainer,BorderLayout.CENTER);
     }
 
     public void changeScenario(JLayeredPane container) {
-        centerContainer = new JLayeredPane();
+        contentPane.removeAll();
+        contentPane.add(nContainer, BorderLayout.NORTH);
+        contentPane.add(container, BorderLayout.CENTER);
         centerContainer = container;
         pack();
     }

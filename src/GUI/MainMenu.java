@@ -42,11 +42,18 @@ public class MainMenu extends JLayeredPane {
         setup();
     }
 
+    // Initializes the database.
+    private void setup() {
+        db = MediaDB.getInstance();
+        this.setPreferredSize(new Dimension(1000,700-50));
+        makeMediaVisualiser();
+    }
+
     // This method creates the containers for showing our ArrayList of JLabels that
     // hold the movie / series posters as their ImageIcons
     // This is also part of the content pane container, but in the CENTER of the
     // BorderLayout
-    public void makeMediaVisualiser(Container contentPane) {
+    public void makeMediaVisualiser() {
         // Middle container
         Container cContainer = new Container();
         cContainer.setLayout(new GridLayout(3, 1));
@@ -56,9 +63,10 @@ public class MainMenu extends JLayeredPane {
         cContainer.add(makeRecommendedContainer());
         cContainer.add(makeMovieContainer());
         cContainer.add(makeSeriesContainer());
+        cContainer.setBounds(0,0,1000,700-50);
 
-        // Add the center container to the contentPane
-        contentPane.add(cContainer, BorderLayout.CENTER);
+        // Add the center container to the JLayeredPane
+        this.add(cContainer, 0);
     }
 
     // Creates and returns the container containing the recommended media by
@@ -304,10 +312,5 @@ public class MainMenu extends JLayeredPane {
         for(int i = 0; i < mediaToShow; i++) {
             seriesIcons.add(seriesDisplayIcons.get(i));
         }
-    }
-
-    // Initializes the database.
-    private void setup() {
-        db = MediaDB.getInstance();
     }
 }
