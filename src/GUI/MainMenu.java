@@ -159,7 +159,6 @@ public class MainMenu extends JLayeredPane {
                     loadMovies();
                     frame.pack();
                 }
-                System.out.println(movieIndex);
             }
             
         });
@@ -178,7 +177,6 @@ public class MainMenu extends JLayeredPane {
                     loadMovies();
                     frame.pack();
                 }
-                System.out.println(movieIndex);
             }
             
         });
