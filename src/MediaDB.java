@@ -15,6 +15,9 @@ public class MediaDB {
         allMedia = new ArrayList<>();
         genres = new HashMap<>();
         createGenreHashMap();
+
+        MediaReader fr = MediaReader.getInstance(this);
+        fr.readAll();
     }
     public static MediaDB getInstance() {
         if(instance == null) instance = new MediaDB();

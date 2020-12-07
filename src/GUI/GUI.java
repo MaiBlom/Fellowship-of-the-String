@@ -11,6 +11,7 @@ import java.util.ArrayList;
 public class GUI extends JFrame implements Clickable {
     private static final long serialVersionUID = 1L;
     private User currentUser;
+    private MediaDB db;
 
     private Container contentPane;
     private JLayeredPane centerContainer;
@@ -26,7 +27,8 @@ public class GUI extends JFrame implements Clickable {
 
     public GUI() {
         allButtons = new ArrayList<>();
-        currentUser = new User("Frodo"); // for test purposes
+        currentUser = new User("Frodo"); // for testpurposes
+        db = MediaDB.getInstance();
 
         makeFrame();
         makeTopMenu();
@@ -75,7 +77,7 @@ public class GUI extends JFrame implements Clickable {
         // Buttons used for the top menu
         JButton favoritesButton = new JButton("Favorites");
         favoritesButton.setPreferredSize(new Dimension(100, 50));
-        favoritesButton.addActionListener(l -> changeScenario(new Favorites(currentUser, this)));
+        favoritesButton.addActionListener(e -> changeScenario(new Favorites(currentUser, this)));
         allButtons.add(favoritesButton);
 
         JButton searchButton = new JButton("Search");
@@ -113,6 +115,7 @@ public class GUI extends JFrame implements Clickable {
     }
 
     public void changeScenario(JLayeredPane container) {
+        centerContainer = new JLayeredPane();
         centerContainer = container;
         pack();
     }

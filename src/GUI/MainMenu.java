@@ -309,7 +309,5 @@ public class MainMenu extends JLayeredPane {
     // Initializes the database.
     private void setup() {
         db = MediaDB.getInstance();
-        MediaReader fr = MediaReader.getInstance(db);
-        fr.readAll();
     }
 }
