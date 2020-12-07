@@ -6,7 +6,7 @@ import javax.swing.*;
 import java.awt.*;
 import java.util.ArrayList;
 
-public class Favorites extends JFrame {
+public class Favorites extends JLayeredPane implements HasMedia{
     private Container contentPane;
     private Container favoritesContainer;
     private Container mediaContainer;
@@ -16,23 +16,27 @@ public class Favorites extends JFrame {
     private JLabel resultsLabel;
     private User currentUser;
 
-public static void main(String[] args) {
-    new Favorites(new User("Frodo"));
-}
+    private int WIDTH = 1000;
+    private int HEIGHT = 700;
+
+
     public Favorites(User currentUser) {
         this.currentUser = currentUser;
-        setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
         setup();
-        pack();
-        setVisible(true);
+
     }
 
     public void setup() {
         contentPane = new Container();
         contentPane.setLayout(new BorderLayout());
+        this.add(contentPane, new Integer(-1));
+        setPreferredSize(new Dimension(WIDTH,HEIGHT));
+        contentPane.setBounds(0,0,WIDTH,HEIGHT);
 
         makeLabelContainer();
         makeMediaContainer();
+        makeFavoriteMoviesContainer();
+        makeFavoriteSeriesContainer();
     }
 
     public void makeLabelContainer() {
@@ -70,7 +74,7 @@ public static void main(String[] args) {
         for (Media m : movies) {
             //if (m instanceof Movie){  Doesn't need the if statement because the list is already getFavoriteMovies
                 JButton mediaPoster = new JButton(new ImageIcon(m.getPoster()));
-                //mediaPoster.addActionListener(l -> showMediaInfo(m));   Temporarily commented until I can get showMediaInfo working
+                mediaPoster.addActionListener(l -> showMediaInfo(m));   
                 favoriteMoviesPanel.add(mediaPoster);
            // }
         }
@@ -92,22 +96,21 @@ public static void main(String[] args) {
         ArrayList<Media> series = currentUser.getFavoriteSeries();
 
         for (Media m : series) {
-            //if (m instanceof Series){  Doesn't need the if statement because the list is already getFavoriteSeries
+
                 JButton mediaPoster = new JButton(new ImageIcon(m.getPoster()));
-                //mediaPoster.addActionListener(l -> showMediaInfo(m));   Temporarily commented until I can get showMediaInfo working
+                mediaPoster.addActionListener(l -> showMediaInfo(m));   
                 favoriteSeriesPanel.add(mediaPoster);
-           // }
-        }
+            }
 
         favoriteSeriesContainer.add(favoriteSeriesPanel,BorderLayout.CENTER);
         mediaContainer.add(favoriteSeriesContainer);
     }
-     //Temporarily snatched from SearchResult.java
-        // private void showMediaInfo(Media m) {
-        //     MediaInfoWindow info = new MediaInfoWindow(m);
-        //     add(info, new Integer(1));
-        //     info.setLocation(WIDTH/2-info.getWidth()/2, HEIGHT/2-info.getWidth()/2);
-        //     info.setVisible(true);
-        //     info.show();
-        // }
+
+        private void showMediaInfo(Media m) {
+            MediaInfoWindow info = new MediaInfoWindow(m,this,currentUser);
+            add(info, new Integer(1));
+            info.setLocation(WIDTH/2-info.getWidth()/2, HEIGHT/2-info.getWidth()/2);
+            info.setVisible(true);
+            info.show();
+        }
 }
