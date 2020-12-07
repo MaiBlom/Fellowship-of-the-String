@@ -31,6 +31,8 @@ public class GUI extends JFrame {
         frame.setVisible(true);
     }
 
+    // Initializes the JFrame, and get's the content pane and sets it.
+    // Adds a ComponentListener
     private void makeFrame() {
         frame = new JFrame();
         frame.setSize(new Dimension(WIDTH, HEIGHT));
