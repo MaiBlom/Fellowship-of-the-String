@@ -16,6 +16,7 @@ public class Favorites extends JLayeredPane implements HasMedia{
     private JLabel resultsLabel;
     private User currentUser;
     private ArrayList<JButton> allResultButtons;
+    private int numberOfResults;
 
     private int WIDTH = 1000;
     private int HEIGHT = 700;
@@ -35,6 +36,7 @@ public class Favorites extends JLayeredPane implements HasMedia{
         setPreferredSize(new Dimension(WIDTH,HEIGHT));
         contentPane.setBounds(0,0,WIDTH,HEIGHT);
 
+        countResults();
         makeLabelContainer();
         makeMediaContainer();
         makeFavoriteMoviesContainer();
@@ -45,13 +47,17 @@ public class Favorites extends JLayeredPane implements HasMedia{
         favoritesContainer = new Container();
         favoritesContainer.setLayout(new GridLayout(1,2));
 
-        favoritesLabel = new JLabel("My Favorites: ");
-        resultsLabel = new JLabel("Total Results: ");
+        favoritesLabel = new JLabel("Favorites");
+        resultsLabel = new JLabel("Total Results: " + numberOfResults);
 
         favoritesContainer.add(favoritesLabel);
         favoritesContainer.add(resultsLabel);
 
         contentPane.add(favoritesContainer,BorderLayout.NORTH);
+    }
+
+    public void countResults() {
+        numberOfResults = currentUser.getFavoriteMovies().size()+currentUser.getFavoriteSeries().size();
     }
 
     public void makeMediaContainer() {
