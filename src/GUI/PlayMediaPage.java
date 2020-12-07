@@ -5,7 +5,7 @@ import src.Media.*;
 import javax.swing.*;
 import java.awt.*;
 
-public class PlayMediaPage extends Container {
+public class PlayMediaPage extends JLayeredPane {
     private static final long serialVersionUID = 1L;
     private Media media;
 

@@ -4,6 +4,7 @@ import src.*;
 import src.Media.*;
 
 import javax.swing.*;
+import javax.swing.event.*;
 import java.awt.*;
 import java.awt.event.*;
 import java.awt.image.*;
@@ -49,9 +50,35 @@ public class SearchPopUp extends JInternalFrame {
         contentPane = super.getContentPane();
         contentPane.setLayout(new BorderLayout());
 
+        setupWindowListener();
         setupSearchBar();
         setupCenterContainer();
         setupBottomBar();
+    }
+
+    // This looks like shit, but it makes sure, that buttons are disabled when
+    // the window is opened, and enabled when the window is closed.
+    private void setupWindowListener() {
+        this.addInternalFrameListener(new InternalFrameListener() {
+            public void internalFrameClosed(InternalFrameEvent e) {
+                if (origin instanceof Clickable) {
+                    Clickable clickable = (Clickable) origin;
+                    clickable.buttonsSetEnabled(true);
+                }
+            }
+            public void internalFrameOpened(InternalFrameEvent e) {
+                if (origin instanceof Clickable) {
+                    Clickable sr = (Clickable) origin;
+                    sr.buttonsSetEnabled(false);
+                }
+            }    
+            public void internalFrameClosing(InternalFrameEvent e) {}
+            public void internalFrameIconified(InternalFrameEvent e) {}
+            public void internalFrameDeiconified(InternalFrameEvent e) {}
+            public void internalFrameActivated(InternalFrameEvent e) {}
+            public void internalFrameDeactivated(InternalFrameEvent e) {}
+    
+        });
     }
 
     // Setup of the topbar with a free-text searchbar. 
@@ -167,7 +194,7 @@ public class SearchPopUp extends JInternalFrame {
     }
 
     private void clickSearch() {
-        origin.changeScenario(new SearchResult(searchBar.getText(), searchMovies, searchSeries, searchGenres, currentUser));
+        origin.changeScenario(new SearchResult(searchBar.getText(), searchMovies, searchSeries, searchGenres, currentUser, origin));
         dispose();
 
         // should refresh the page with and show all media that fits the given parameters. Parameters are stored in:

@@ -1,6 +1,7 @@
 package src.GUI;
 
 import src.*;
+import src.Comparators.*;
 import src.Media.*;
 
 import javax.swing.*;
@@ -10,10 +11,13 @@ import java.util.*;
 public class SearchResult extends JLayeredPane implements Clickable {
     private static final long serialVersionUID = 1L;
     private MediaDB db;
+    private JFrame origin;
+
     private Container contentPane;
+    private Container topbar;
     private JLabel yourSearch;
     private JPanel allResultsPanel;
-    private ArrayList<JButton> allResultButtons;
+    private ArrayList<JButton> allButtons;
     private User currentUser;
     // search criteria
     private String textSearch;
@@ -30,15 +34,16 @@ public class SearchResult extends JLayeredPane implements Clickable {
     private int HEIGHT = 700;
     
     // The search results obejct will be called from the SearchPopUp class with the given parameters.
-    public SearchResult(String ts, boolean sm, boolean ss, boolean[] sg, User currentUser) {
+    public SearchResult(String ts, boolean sm, boolean ss, boolean[] sg, User currentUser, JFrame origin) {
         textSearch = ts;
         searchMovies = sm;
         searchSeries = ss;
         searchGenres = sg;
         selectableGenres = new String[] {"Crime", "Drama", "Biography", "Sport", "History", "Romance", "War", "Mystery", "Adventure", "Family", "Fantasy", "Thriller", "Horror", "Film-Noir", "Action", "Sci-fi", "Comedy", "Musical", "Western", "Music", "Talk-show", "Documentary", "Animation"};
         db = MediaDB.getInstance();
-        allResultButtons = new ArrayList<>();
+        allButtons = new ArrayList<>();
         this.currentUser = currentUser;
+        this.origin = origin;
         setup();
     }
 
@@ -51,9 +56,18 @@ public class SearchResult extends JLayeredPane implements Clickable {
         this.add(new JLabel("hej"), 0);
         setPreferredSize(new Dimension(WIDTH,HEIGHT));
         contentPane.setBounds(0,0,WIDTH,HEIGHT);
-        makeSearchLabel();
+        makeTopbar();
         findResults();
         showResults();
+    }
+
+    private void makeTopbar() {
+        topbar = new Container();
+        topbar.setLayout(new GridLayout());
+        contentPane.add(topbar, BorderLayout.NORTH);
+
+        makeSearchLabel();
+        makeSorting();
     }
 
     // The search criteria are shown at the top of the window with this JLabel
@@ -78,7 +92,35 @@ public class SearchResult extends JLayeredPane implements Clickable {
 
         sb.append("<br>Results: ");
         yourSearch = new JLabel(sb.toString());
-        contentPane.add(yourSearch, BorderLayout.NORTH);
+        topbar.add(yourSearch);
+    }
+
+    private void makeSorting() {
+        Container sortingContainer = new Container();
+        sortingContainer.setLayout(new FlowLayout(FlowLayout.RIGHT));
+
+        String[] sortingOptions = {"Sort by...", "Title", "Release", "Rating"};
+        JComboBox<String> sortby = new JComboBox<>(sortingOptions);
+        sortby.addActionListener(e -> sort((String) sortby.getSelectedItem()));
+        sortingContainer.add(sortby);
+
+        topbar.add(sortingContainer);
+    }
+
+    private void sort(String s) {
+        if (s.equals("Title")) {
+            Collections.sort(results, new TitleComp());
+        } else if (s.equals("Release")) {
+            Collections.sort(results, new ReleaseComp());
+        } else if (s.equals("Rating")) {
+            Collections.sort(results, new RatingComp());
+        }
+        allResultsPanel.removeAll();
+        allButtons.clear();
+        createButtons();
+        setPreferredSize(new Dimension(WIDTH,HEIGHT));
+        contentPane.setBounds(0,0,WIDTH,HEIGHT);
+        origin.pack();
     }
 
     // The results for the search are found by checking if there has been searched for movies or series specifically.
@@ -118,17 +160,20 @@ public class SearchResult extends JLayeredPane implements Clickable {
         allResultsPanel = new JPanel();
         allResultsPanel.setLayout(new FlowLayout(FlowLayout.LEFT));
 
-        for (Media m : results) {
-            JButton mediaPoster = new JButton(new ImageIcon(m.getPoster()));
-            allResultButtons.add(mediaPoster);
-            mediaPoster.addActionListener(l -> showMediaInfo(m));
-            allResultsPanel.add(mediaPoster);
-        }
+        createButtons();
 
-        
         //JScrollPane allResultsPanelScroll = new JScrollPane(allResultsPanel,ScrollPaneConstants.VERTICAL_SCROLLBAR_ALWAYS,ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER);
         //contentPane.add(allResultsPanelScroll);
         contentPane.add(allResultsPanel);
+    }
+
+    private void createButtons() {
+        for (Media m : results) {
+            JButton mediaPoster = new JButton(new ImageIcon(m.getPoster()));
+            allButtons.add(mediaPoster);
+            mediaPoster.addActionListener(l -> showMediaInfo(m));
+            allResultsPanel.add(mediaPoster);
+        }
     }
 
     // Make a MediaInfoWindow popup with the given media.
@@ -141,7 +186,7 @@ public class SearchResult extends JLayeredPane implements Clickable {
     }
 
     public void buttonsSetEnabled(boolean b) {
-        for (JButton x : allResultButtons) {
+        for (JButton x : allButtons) {
             x.setEnabled(b);
         }
     }

@@ -13,7 +13,7 @@ public class GUI extends JFrame implements Clickable {
     private User currentUser;
 
     private Container contentPane;
-    private Container centerContainer;
+    private JLayeredPane centerContainer;
     private MainMenu mainMenu;
 
     private ArrayList<JButton> allButtons;
@@ -78,7 +78,10 @@ public class GUI extends JFrame implements Clickable {
 
         JButton searchButton = new JButton("Search");
         searchButton.addActionListener(l -> {
-            new SearchPopUp(this, currentUser);
+            SearchPopUp popup = new SearchPopUp(this, currentUser);
+            centerContainer.add(popup, 1);
+            popup.setVisible(true);
+            popup.show();
         });
         allButtons.add(searchButton);
 
@@ -107,7 +110,7 @@ public class GUI extends JFrame implements Clickable {
         contentPane.add(centerContainer);
     }
 
-    public void changeScenario(Container container) {
+    public void changeScenario(JLayeredPane container) {
         centerContainer = container;
         pack();
     }
