@@ -8,7 +8,7 @@ import java.awt.*;
 
 public class LoginPopUp extends JInternalFrame {
     private static final long serialVersionUID = 1L;
-    private Container origin;
+    private JFrame origin;
     private UserDB db;
     
     private Container contentPane;
@@ -28,7 +28,8 @@ public class LoginPopUp extends JInternalFrame {
 
     private final boolean EDITABLE = false;
 
-    public LoginPopUp(Container origin) {
+    // Create a login popUp with the main JFrame as the origin.
+    public LoginPopUp(JFrame origin) {
         this.origin = origin;
         this.db = UserDB.getInstance();
         this.setClosable(EDITABLE);
@@ -40,6 +41,8 @@ public class LoginPopUp extends JInternalFrame {
         setVisible(true);
     }
 
+    // Setup of the contentPane. There are two states of the window. Either it is in login-mode, 
+    // or else it's in create user-mode. 
     private void setup() {
         contentPane = this.getContentPane();
 
@@ -80,6 +83,7 @@ public class LoginPopUp extends JInternalFrame {
         });
     }
 
+    // Setup of the login info message. It tells you if there are eny errors in the input you give.
     private void setupLoginInfoMessage() {
         Container infoContainer = new Container();
         infoContainer.setLayout(new GridLayout(2,1));
@@ -90,6 +94,7 @@ public class LoginPopUp extends JInternalFrame {
         loginContainerPanel.add(infoContainer, BorderLayout.NORTH);
     }
 
+    // Setup of the login fields, which are in the center of the window.
     private void setupLoginFields() {
         Container loginFieldsOuter = new Container();
         loginFieldsOuter.setLayout(new FlowLayout());
@@ -112,11 +117,14 @@ public class LoginPopUp extends JInternalFrame {
         loginContainerPanel.add(loginFieldsOuter, BorderLayout.CENTER);
     }
 
+    // Setup of the login-buttons. The createUser button takes you to the create-user-mode. The Login button
+    // checks whether or not your login credentials are valid and let's you into the streaming service if
+    // they are.
     private void setupLoginButton() {
         Container buttons = new Container();
         buttons.setLayout(new GridLayout(1,2,2,2));
 
-        JButton createUser = new JButton("Create new User");
+        JButton createUser = new JButton("Create new user");
         createUser.addActionListener(l -> {
             contentPane.removeAll();
             contentPane.add(createUserContainerPanel);
@@ -129,7 +137,9 @@ public class LoginPopUp extends JInternalFrame {
             String username = usernameField.getText();
             String password = passwordField.getText();
             try {
-                if (db.login(username, password)) dispose();
+                if (db.login(username, password)) {
+                    dispose();
+                }
             } catch (Exception e) {
                 loginInfo.setText(e.getMessage());
             }
@@ -139,6 +149,7 @@ public class LoginPopUp extends JInternalFrame {
         loginContainerPanel.add(buttons, BorderLayout.SOUTH);
     }
 
+    // Setup of the create user info message. It tells you if there are eny errors in the input you give.
     private void setupCreateInfoMessage() {
         Container infoContainer = new Container();
         infoContainer.setLayout(new GridLayout(2,1));
@@ -149,6 +160,7 @@ public class LoginPopUp extends JInternalFrame {
         createUserContainerPanel.add(infoContainer, BorderLayout.NORTH);
     }
 
+    // Setup of the login fields, which are in the center of the window.
     private void setupCreateFields() {
         Container userFieldsOuter = new Container();
         userFieldsOuter.setLayout(new FlowLayout());
@@ -171,6 +183,8 @@ public class LoginPopUp extends JInternalFrame {
         createUserContainerPanel.add(userFieldsOuter, BorderLayout.CENTER);
     }
 
+    // Setup of the create-buttons. The createUser button creates the user if the given username isn't already
+    // taken. The cancel button takes you back to the login-screen.
     private void setupCreateButton() {
         Container buttons = new Container();
         buttons.setLayout(new GridLayout(1,2,2,2));
