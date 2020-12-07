@@ -25,6 +25,8 @@ public class GUI extends JFrame implements Clickable {
     }
 
     public GUI() {
+        allButtons = new ArrayList<>();
+
         makeFrame();
         makeTopMenu();
         makeCenterContainer();
