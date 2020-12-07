@@ -7,7 +7,7 @@ public class UserDB {
     private HashMap<String, String> users;
     private static UserDB instance = new UserDB();
 
-    // This class is a singleton, because we will never need more than a single MediaDB.
+    // This class is a singleton, because we will never need more than a single UserDB.
     private UserDB() {
         users = new HashMap<>();
         createUser("admin", "admin");
