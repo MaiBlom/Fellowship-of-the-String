@@ -5,15 +5,13 @@ import src.Media.*;
 
 import javax.swing.*;
 import javax.swing.event.*;
-
 import java.awt.*;
-import java.awt.event.*;
 import java.awt.image.*;
-import java.util.*;
 import javax.imageio.ImageIO;
 import java.io.IOException;
 
 public class MediaInfoWindow extends JInternalFrame {
+    private static final long serialVersionUID = 1L;
     private Media media;
     private Container origin;
     private User currentUser;
@@ -31,29 +29,6 @@ public class MediaInfoWindow extends JInternalFrame {
         this.media = media;
         this.origin = origin;
         this.currentUser = currentUser;
-
-        // This looks like shit, but it makes sure, that buttons are disabled when
-        // the window is opened, and enabled when the window is closed.
-        this.addInternalFrameListener(new InternalFrameListener() {
-            public void internalFrameClosed(InternalFrameEvent e) {
-                if (origin instanceof HasMedia) {
-                    HasMedia sr = (HasMedia) origin;
-                    sr.buttonsSetEnabled(true);
-                }
-            }
-            public void internalFrameOpened(InternalFrameEvent e) {
-                if (origin instanceof HasMedia) {
-                    HasMedia sr = (HasMedia) origin;
-                    sr.buttonsSetEnabled(false);
-                }
-            }    
-            public void internalFrameClosing(InternalFrameEvent e) {}
-            public void internalFrameIconified(InternalFrameEvent e) {}
-            public void internalFrameDeiconified(InternalFrameEvent e) {}
-            public void internalFrameActivated(InternalFrameEvent e) {}
-            public void internalFrameDeactivated(InternalFrameEvent e) {}
-    
-        });
         
         setup();
         setPreferredSize(new Dimension(600,400));
@@ -68,8 +43,34 @@ public class MediaInfoWindow extends JInternalFrame {
         contentPane = super.getContentPane();
         contentPane.setLayout(new BorderLayout());
 
+        setupWindowListener();
         setupWestContainer();
         setupCenterContainer();
+    }
+
+    // This looks like shit, but it makes sure, that buttons are disabled when
+    // the window is opened, and enabled when the window is closed.
+    private void setupWindowListener() {
+        this.addInternalFrameListener(new InternalFrameListener() {
+            public void internalFrameClosed(InternalFrameEvent e) {
+                if (origin instanceof Clickable) {
+                    Clickable sr = (Clickable) origin;
+                    sr.buttonsSetEnabled(true);
+                }
+            }
+            public void internalFrameOpened(InternalFrameEvent e) {
+                if (origin instanceof Clickable) {
+                    Clickable sr = (Clickable) origin;
+                    sr.buttonsSetEnabled(false);
+                }
+            }    
+            public void internalFrameClosing(InternalFrameEvent e) {}
+            public void internalFrameIconified(InternalFrameEvent e) {}
+            public void internalFrameDeiconified(InternalFrameEvent e) {}
+            public void internalFrameActivated(InternalFrameEvent e) {}
+            public void internalFrameDeactivated(InternalFrameEvent e) {}
+    
+        });
     }
 
     // Setup of the westContainer which holds the image of the media 
@@ -172,8 +173,8 @@ public class MediaInfoWindow extends JInternalFrame {
 
             bothStarImages.setPreferredSize(new Dimension(emptyStarImage.getWidth(), emptyStarImage.getHeight()));
 
-            bothStarImages.add(emptyStars, new Integer(0));
-            bothStarImages.add(filledStars, new Integer(1));
+            bothStarImages.add(emptyStars, 0);
+            bothStarImages.add(filledStars, 1);
 
             emptyStars.setBounds(0,0,emptyStarImage.getWidth(), emptyStarImage.getHeight()); 
             filledStars.setBounds(0,0,emptyStarImage.getWidth(), emptyStarImage.getHeight());

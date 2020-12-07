@@ -6,7 +6,7 @@ import javax.swing.*;
 import java.awt.*;
 import java.util.ArrayList;
 
-public class Favorites extends JLayeredPane implements HasMedia{
+public class Favorites extends JLayeredPane implements Clickable {
     private Container contentPane;
     private Container favoritesContainer;
     private Container mediaContainer;

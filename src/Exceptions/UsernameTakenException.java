@@ -1,10 +1,9 @@
 package src.Exceptions;
 
 public class UsernameTakenException extends RuntimeException {
-    private String username;
+    private static final long serialVersionUID = 1L;
 
     public UsernameTakenException(String username) {
         super("The username \"" + username + "\" is not available.");
-        this.username = username;
     }
 }

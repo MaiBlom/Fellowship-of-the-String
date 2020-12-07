@@ -1,16 +1,20 @@
 package src.GUI;
 
-import javax.swing.*;
+import src.*;
 
+import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ComponentEvent;
 import java.awt.event.ComponentListener;
 
 public class GUI extends JFrame {
     private static final long serialVersionUID = 1L;
+    private User currentUser;
 
     private JFrame frame;
+    private JLayeredPane layeredPane;
     private Container contentPane;
+    private Container centerContainer;
     private MainMenu mainMenu;
 
     private final int WIDTH = 1920, HEIGHT = 1080;
@@ -23,21 +27,28 @@ public class GUI extends JFrame {
         makeFrame();
         makeTopMenu();
         
-        mainMenu = new MainMenu();
-        mainMenu.makeMediaVisualiser(contentPane);
+        mainMenu = new MainMenu(frame);
+        mainMenu.makeMediaVisualiser(centerContainer);
+        contentPane.add(centerContainer);
 
         frame.pack();
         frame.setLocationRelativeTo(null);
         frame.setVisible(true);
     }
 
+    // Initializes the JFrame, and get's the content pane and sets it.
+    // Adds a ComponentListener
     private void makeFrame() {
         frame = new JFrame();
         frame.setSize(new Dimension(WIDTH, HEIGHT));
         frame.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
 
-        contentPane = frame.getContentPane();
+        Container contentPaneOuter = frame.getContentPane();
+        layeredPane = new JLayeredPane();
+        contentPane = new Container();
         contentPane.setLayout(new BorderLayout());
+        layeredPane.add(contentPane, -1);
+        contentPaneOuter.add(layeredPane);
         /* frame.addComponentListener(new ComponentListener() {
             public void componentResized(ComponentEvent e){
                 Component c = (Component)e.getSource();
@@ -68,6 +79,9 @@ public class GUI extends JFrame {
         JButton favoritesButton = new JButton("Favorites");
         favoritesButton.setPreferredSize(new Dimension(100, 50));
         JButton searchButton = new JButton("Search");
+        searchButton.addActionListener(l -> {
+            new SearchPopUp(this, currentUser);
+        });
         JButton userButton = new JButton("User");
 
         // Favorites button added to the west of the main top menu container 'nContainer' in the western spot.
@@ -82,5 +96,10 @@ public class GUI extends JFrame {
 
         // The north menu container added to the content pane in the northern spot.
         contentPane.add(nContainer, BorderLayout.NORTH);
+    }
+
+    public void changeScenario(Container container) {
+        centerContainer = container;
+        frame.pack();
     }
 }
