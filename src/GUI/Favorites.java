@@ -15,6 +15,7 @@ public class Favorites extends JLayeredPane implements HasMedia{
     private JLabel favoritesLabel;
     private JLabel resultsLabel;
     private User currentUser;
+    private ArrayList<JButton> allResultButtons;
 
     private int WIDTH = 1000;
     private int HEIGHT = 700;
@@ -22,6 +23,7 @@ public class Favorites extends JLayeredPane implements HasMedia{
 
     public Favorites(User currentUser) {
         this.currentUser = currentUser;
+        allResultButtons = new ArrayList<>();
         setup();
 
     }
@@ -72,12 +74,11 @@ public class Favorites extends JLayeredPane implements HasMedia{
         ArrayList<Media> movies = currentUser.getFavoriteMovies();
 
         for (Media m : movies) {
-            //if (m instanceof Movie){  Doesn't need the if statement because the list is already getFavoriteMovies
-                JButton mediaPoster = new JButton(new ImageIcon(m.getPoster()));
-                mediaPoster.addActionListener(l -> showMediaInfo(m));   
-                favoriteMoviesPanel.add(mediaPoster);
-           // }
-        }
+            JButton mediaPoster = new JButton(new ImageIcon(m.getPoster()));
+            allResultButtons.add(mediaPoster);
+            mediaPoster.addActionListener(l -> showMediaInfo(m));   
+            favoriteMoviesPanel.add(mediaPoster);
+            }
         favoriteMovieContainer.add(favoriteMoviesPanel,BorderLayout.CENTER);
         mediaContainer.add(favoriteMovieContainer);
 
@@ -96,21 +97,26 @@ public class Favorites extends JLayeredPane implements HasMedia{
         ArrayList<Media> series = currentUser.getFavoriteSeries();
 
         for (Media m : series) {
-
-                JButton mediaPoster = new JButton(new ImageIcon(m.getPoster()));
-                mediaPoster.addActionListener(l -> showMediaInfo(m));   
-                favoriteSeriesPanel.add(mediaPoster);
-            }
-
+            JButton mediaPoster = new JButton(new ImageIcon(m.getPoster()));
+            allResultButtons.add(mediaPoster);
+            mediaPoster.addActionListener(l -> showMediaInfo(m));   
+            favoriteSeriesPanel.add(mediaPoster);
+        }
         favoriteSeriesContainer.add(favoriteSeriesPanel,BorderLayout.CENTER);
         mediaContainer.add(favoriteSeriesContainer);
     }
 
-        private void showMediaInfo(Media m) {
-            MediaInfoWindow info = new MediaInfoWindow(m,this,currentUser);
-            add(info, new Integer(1));
-            info.setLocation(WIDTH/2-info.getWidth()/2, HEIGHT/2-info.getWidth()/2);
-            info.setVisible(true);
-            info.show();
+    private void showMediaInfo(Media m) {
+        MediaInfoWindow info = new MediaInfoWindow(m,this,currentUser);
+        add(info, new Integer(1));
+        info.setLocation(WIDTH/2-info.getWidth()/2, HEIGHT/2-info.getWidth()/2);
+        info.setVisible(true);
+        info.show();
+    }
+
+    public void buttonsSetEnabled(boolean b) {
+        for (JButton x : allResultButtons) {
+            x.setEnabled(b);
         }
-}
+    }
+}   
