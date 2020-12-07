@@ -15,6 +15,9 @@ public class SearchResult extends JLayeredPane {
     private MediaDB db;
     private Container contentPane;
     private JLabel yourSearch;
+    private JPanel allResultsPanel;
+    private ArrayList<JButton> allResultButtons;
+    private User currentUser;
     // search criteria
     private String textSearch;
     private boolean searchMovies;
@@ -30,13 +33,15 @@ public class SearchResult extends JLayeredPane {
     private int HEIGHT = 700;
     
     // The search results obejct will be called from the SearchPopUp class with the given parameters.
-    public SearchResult(String ts, boolean sm, boolean ss, boolean[] sg) {
+    public SearchResult(String ts, boolean sm, boolean ss, boolean[] sg, User currentUser) {
         textSearch = ts;
         searchMovies = sm;
         searchSeries = ss;
         searchGenres = sg;
         selectableGenres = new String[] {"Crime", "Drama", "Biography", "Sport", "History", "Romance", "War", "Mystery", "Adventure", "Family", "Fantasy", "Thriller", "Horror", "Film-Noir", "Action", "Sci-fi", "Comedy", "Musical", "Western", "Music", "Talk-show", "Documentary", "Animation"};
         db = MediaDB.getInstance();
+        allResultButtons = new ArrayList<>();
+        this.currentUser = currentUser;
         setup();
     }
 
@@ -113,27 +118,34 @@ public class SearchResult extends JLayeredPane {
     // to scroll through the results if there are more than what is shown on screen. The images of the media are put on buttons
     // which each call the showMediaInfo() method.
     private void showResults() {
-        JPanel allResults = new JPanel();
-        allResults.setLayout(new FlowLayout(FlowLayout.LEFT));
+        allResultsPanel = new JPanel();
+        allResultsPanel.setLayout(new FlowLayout(FlowLayout.LEFT));
 
         for (Media m : results) {
             JButton mediaPoster = new JButton(new ImageIcon(m.getPoster()));
+            allResultButtons.add(mediaPoster);
             mediaPoster.addActionListener(l -> showMediaInfo(m));
-            allResults.add(mediaPoster);
+            allResultsPanel.add(mediaPoster);
         }
 
         
-        //JScrollPane allResultsScroll = new JScrollPane(allResults,ScrollPaneConstants.VERTICAL_SCROLLBAR_ALWAYS,ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER);
-        //contentPane.add(allResultsScroll);
-        contentPane.add(allResults);
+        //JScrollPane allResultsPanelScroll = new JScrollPane(allResultsPanel,ScrollPaneConstants.VERTICAL_SCROLLBAR_ALWAYS,ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER);
+        //contentPane.add(allResultsPanelScroll);
+        contentPane.add(allResultsPanel);
     }
 
     // Make a MediaInfoWindow popup with the given media.
     private void showMediaInfo(Media m) {
-        MediaInfoWindow info = new MediaInfoWindow(m);
+        MediaInfoWindow info = new MediaInfoWindow(m, this, currentUser);
         add(info, new Integer(1));
         info.setLocation(WIDTH/2-info.getWidth()/2, HEIGHT/2-info.getWidth()/2);
         info.setVisible(true);
         info.show();
+    }
+
+    public void buttonsSetEnabled(boolean b) {
+        for (JButton x : allResultButtons) {
+            x.setEnabled(b);
+        }
     }
 }

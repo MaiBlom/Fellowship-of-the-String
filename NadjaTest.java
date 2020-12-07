@@ -27,7 +27,7 @@ public class NadjaTest {
         
         JFrame gui = new JFrame();
         Container c = gui.getContentPane();
-        c.add(new SearchResult("", false, true, new boolean[] {true, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false}));
+        c.add(new SearchResult("", true, false, new boolean[] {true, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false}, new User("Frodo")));
         gui.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
         gui.pack();
         gui.setVisible(true);

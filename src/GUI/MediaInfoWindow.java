@@ -4,6 +4,8 @@ import src.*;
 import src.Media.*;
 
 import javax.swing.*;
+import javax.swing.event.*;
+
 import java.awt.*;
 import java.awt.event.*;
 import java.awt.image.*;
@@ -13,6 +15,9 @@ import java.io.IOException;
 
 public class MediaInfoWindow extends JInternalFrame {
     private Media media;
+    private Container origin;
+    private User currentUser;
+
     private Container contentPane;
     private Container westContainer;
     private Container centerContainer;
@@ -20,10 +25,36 @@ public class MediaInfoWindow extends JInternalFrame {
     private Container seasonsContainer;
     private Container episodesContainer;
 
-    public MediaInfoWindow(Media media) {
+    public MediaInfoWindow(Media media, Container origin, User currentUser) {
         super(media.getTitle(), false, true);
         //setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
         this.media = media;
+        this.origin = origin;
+        this.currentUser = currentUser;
+
+        // This looks like shit, but it makes sure, that buttons are disabled when
+        // the window is opened, and enabled when the window is closed.
+        this.addInternalFrameListener(new InternalFrameListener() {
+            public void internalFrameClosed(InternalFrameEvent e) {
+                if (origin instanceof SearchResult) {
+                    SearchResult sr = (SearchResult) origin;
+                    sr.buttonsSetEnabled(true);
+                }
+            }
+            public void internalFrameOpened(InternalFrameEvent e) {
+                if (origin instanceof SearchResult) {
+                    SearchResult sr = (SearchResult) origin;
+                    sr.buttonsSetEnabled(false);
+                }
+            }    
+            public void internalFrameClosing(InternalFrameEvent e) {}
+            public void internalFrameIconified(InternalFrameEvent e) {}
+            public void internalFrameDeiconified(InternalFrameEvent e) {}
+            public void internalFrameActivated(InternalFrameEvent e) {}
+            public void internalFrameDeactivated(InternalFrameEvent e) {}
+    
+        });
+        
         setup();
         setPreferredSize(new Dimension(600,400));
         pack();
@@ -57,16 +88,41 @@ public class MediaInfoWindow extends JInternalFrame {
         mediaPosterContainer.add(mediaPosterLabel);
         westContainer.add(mediaPosterContainer, BorderLayout.NORTH);
 
-        JButton playButton;
-        if (media instanceof Movie) playButton = new JButton("Play");
-        else playButton = new JButton("Play from beginning");
-        playButton.addActionListener(l -> clickPlay());
-        Container playButtonContainer = new Container();
-        playButtonContainer.setLayout(new FlowLayout());
-        playButtonContainer.add(playButton);
-        westContainer.add(playButtonContainer, BorderLayout.CENTER);
+        setupLeftButtons();
 
         contentPane.add(westContainer, BorderLayout.WEST);
+    }
+
+    private void setupLeftButtons() {
+        Container leftButtonsOuter = new Container();
+        leftButtonsOuter.setLayout(new FlowLayout());
+
+        Container leftButtons = new Container();
+        leftButtons.setLayout(new GridLayout(2,1));
+        leftButtonsOuter.add(leftButtons);
+        
+        JButton playButton = new JButton();
+        if (media instanceof Movie) playButton.setText("Play movie");
+        else playButton.setText("Play from beginning");
+        playButton.addActionListener(l -> clickPlay());
+        leftButtons.add(playButton);
+
+        JButton favorite = new JButton();
+        if (currentUser.isFavorite(media)) favorite.setText("Unfavorite");
+        else favorite.setText("Favorite");
+        favorite.addActionListener(l -> {
+            if (currentUser.isFavorite(media)) {
+                currentUser.unfavorite(media);
+                favorite.setText("Favorite");
+            } 
+            else {
+                currentUser.favorite(media);
+                favorite.setText("Unfavorite");
+            }
+        });
+        leftButtons.add(favorite);
+
+        westContainer.add(leftButtonsOuter, BorderLayout.CENTER);
     }
 
     // Setup of the center container which holds the information about the media.
