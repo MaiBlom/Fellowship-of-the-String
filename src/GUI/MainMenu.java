@@ -21,6 +21,9 @@ public class MainMenu extends JLayeredPane {
     // The media database
     private MediaDB db;
 
+    // JFrame instance
+    private JFrame frame;
+
     // 
     private Container movieIcons;
     private Container seriesIcons;
@@ -32,7 +35,8 @@ public class MainMenu extends JLayeredPane {
     private int mediaToShow = 5;
 
     // The constructor setting both index's to 0, and initializing the database.
-    public MainMenu() {
+    public MainMenu(JFrame frame) {
+        this.frame = frame;
         movieIndex = 0;
         seriesIndex = 0;
         setup();
@@ -77,7 +81,7 @@ public class MainMenu extends JLayeredPane {
         // and loops through the objects to add them to the container.
         ArrayList<JButton> icons = loadRecommended();
         for (int i = 0; i < 3; i++) {
-            // iconContainer.add(icons.get(i));
+            iconContainer.add(icons.get(i));
         }
 
         // Adds the icon container to the main recommeded container.
@@ -92,15 +96,12 @@ public class MainMenu extends JLayeredPane {
     private ArrayList<JButton> loadRecommended() {
         ArrayList<JButton> recommended = new ArrayList<JButton>(3);
         try {
-            Movie movie1 = new Movie("The Lord of the Rings: The Fellowship of the Ring", 2001,
-                    new String[] { "Action", "Adventure", "Drama" }, 8.8, ImageIO.read(getClass().getClassLoader()
-                            .getResourceAsStream("./res/redaktionfilm/fellowship of the ring.jpg")));
-            Movie movie2 = new Movie("The Lord of the Rings: The Two Towers", 2002,
-                    new String[] { "Action", "Adventure", "Drama" }, 8.7, ImageIO.read(
-                            getClass().getClassLoader().getResourceAsStream("./res/redaktionfilm/two towers.jpg")));
-            Movie movie3 = new Movie("The Lord of the Rings: Return of the King", 2003,
-                    new String[] { "Action", "Adventure", "Drama" }, 8.9, ImageIO.read(getClass().getClassLoader()
-                            .getResourceAsStream("./res/redaktionfilm/return of the king.jpg")));
+            Movie movie1 = new Movie("The Lord of the Rings: The Fellowship of the Ring", 2001, new String[] { "Action", "Adventure", "Drama" },
+            8.8, ImageIO.read(getClass().getClassLoader().getResourceAsStream("./res/redaktionfilm/fellowship of the ring.jpg")));
+            Movie movie2 = new Movie("The Lord of the Rings: The Two Towers", 2002, new String[] { "Action", "Adventure", "Drama" },
+            8.7, ImageIO.read(getClass().getClassLoader().getResourceAsStream("./res/redaktionfilm/two towers.jpg")));
+            Movie movie3 = new Movie("The Lord of the Rings: Return of the King", 2003, new String[] { "Action", "Adventure", "Drama" },
+            8.9, ImageIO.read(getClass().getClassLoader().getResourceAsStream("./res/redaktionfilm/return of the king.jpg")));
 
             ImageIcon image1 = new ImageIcon();
             image1.setImage(movie1.getPoster());
@@ -151,12 +152,13 @@ public class MainMenu extends JLayeredPane {
                     movieIndex -= mediaToShow;
                     movieIcons.removeAll();
                     loadMovies();
+                    frame.pack();
                 } else if(movieIndex < mediaToShow) {
                     movieIndex = 99 - mediaToShow;
                     movieIcons.removeAll();
                     loadMovies();
+                    frame.pack();
                 }
-                
                 System.out.println(movieIndex);
             }
             
@@ -169,12 +171,13 @@ public class MainMenu extends JLayeredPane {
                     movieIndex += mediaToShow;
                     movieIcons.removeAll();
                     loadMovies();
+                    frame.pack();
                 } else if(movieIndex < mediaToShow) {
                     movieIndex = 0;
                     movieIcons.removeAll();
                     loadMovies();
+                    frame.pack();
                 }
-                
                 System.out.println(movieIndex);
             }
             
@@ -187,8 +190,7 @@ public class MainMenu extends JLayeredPane {
         movieIcons.setLayout(new FlowLayout());
         movieSelectionContainer.add(movieIcons, BorderLayout.CENTER);
 
-        // Initializes and loads movies from movieIndex to movieIndex+6.
-        // (Loads (field) mediaToShow movies)
+        // Loads the movies to show.
         loadMovies();
 
         // Adds the movie selector container to the movie section container.
@@ -199,7 +201,7 @@ public class MainMenu extends JLayeredPane {
     } 
 
     // This method loads the (field) mediaToShow currently viewing movies based on movieIndex,
-    // and returns them as a JButton ArrayList.
+    // and adds them to the movieIcons container.
     private void loadMovies() {
         ArrayList<JButton> movieDisplayIcons = new ArrayList<JButton>(mediaToShow);
 
@@ -212,6 +214,7 @@ public class MainMenu extends JLayeredPane {
             movieDisplayIcons.add(icon);
         }
 
+        // Adds all the JButtons to the movie icon container
         for(int i = 0; i < mediaToShow; i++) {
             movieIcons.add(movieDisplayIcons.get(i));
         }
@@ -234,7 +237,43 @@ public class MainMenu extends JLayeredPane {
 
         // Adds buttons to the series selector.
         JButton leftButton = new JButton("Left");
+        leftButton.setSize(new Dimension(50, 50));
+        leftButton.addActionListener(new ActionListener() {
+            @Override public void actionPerformed(ActionEvent e) {
+                if(seriesIndex > mediaToShow && seriesIndex <= 100) {
+                    seriesIndex -= mediaToShow;
+                    seriesIcons.removeAll();
+                    loadSeries();
+                    frame.pack();
+                } else if(seriesIndex < mediaToShow) {
+                    seriesIndex = 99 - mediaToShow;
+                    seriesIcons.removeAll();
+                    loadSeries();
+                    frame.pack();
+                }
+                System.out.println(seriesIndex);
+            }
+            
+        });
         JButton rightButton = new JButton("Right");
+        rightButton.setSize(new Dimension(50, 50));
+        rightButton.addActionListener(new ActionListener() {
+            @Override public void actionPerformed(ActionEvent e) {
+                if(seriesIndex >= 0 && seriesIndex < 100 - (mediaToShow * 2)) {
+                    seriesIndex += mediaToShow;
+                    seriesIcons.removeAll();
+                    loadSeries();
+                    frame.pack();
+                } else if(seriesIndex < mediaToShow) {
+                    seriesIndex = 0;
+                    seriesIcons.removeAll();
+                    loadSeries();
+                    frame.pack();
+                }
+                System.out.println(seriesIndex);
+            }
+            
+        });
         seriesSelectorContainer.add(leftButton, BorderLayout.WEST);
         seriesSelectorContainer.add(rightButton, BorderLayout.EAST);
 
@@ -243,8 +282,7 @@ public class MainMenu extends JLayeredPane {
         seriesIcons.setLayout(new FlowLayout());
         seriesSelectorContainer.add(seriesIcons, BorderLayout.CENTER);
 
-        // Initializes and loads the series from seriesIndex to seriesIndex+6.
-        // (Loads (field) mediaToShow series)
+        // Loads the series to show.
         loadSeries();
         
         // Adds the series selector container to the series section container.
@@ -268,6 +306,7 @@ public class MainMenu extends JLayeredPane {
             seriesDisplayIcons.add(icon);
         }
 
+        // Adds all the series JButtons to the series icon container.
         for(int i = 0; i < mediaToShow; i++) {
             seriesIcons.add(seriesDisplayIcons.get(i));
         }

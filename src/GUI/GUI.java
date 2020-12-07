@@ -23,7 +23,7 @@ public class GUI extends JFrame {
         makeFrame();
         makeTopMenu();
         
-        mainMenu = new MainMenu();
+        mainMenu = new MainMenu(frame);
         mainMenu.makeMediaVisualiser(contentPane);
 
         frame.pack();
