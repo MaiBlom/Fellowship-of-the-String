@@ -9,7 +9,7 @@ import src.Media.*;
  * will sort media highest rating to lowest.
  */ 
 
-public class RatingComp implements Comparator<Media> {
+public class RatingCompDecreasing implements Comparator<Media> {
     public int compare(Media a, Media b) {
         if (a.getRating()-b.getRating() < 0) return 1;
         else if (a.getRating()-b.getRating() > 0) return -1;

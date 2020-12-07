@@ -11,18 +11,20 @@ import java.awt.*;
 import javax.imageio.ImageIO;
 import javax.swing.*;
 
-import src.MediaDB;
-import src.MediaReader;
-import src.Media.Movie;
+import src.*;
+import src.Media.*;
 
-public class MainMenu extends JLayeredPane {
+public class MainMenu extends JLayeredPane implements Clickable {
     private static final long serialVersionUID = -5793860781733191506L;
 
     // The media database
     private MediaDB db;
 
-    // JFrame instance
-    private JFrame frame;
+    // Jorigin instance
+    private GUI origin;
+    private User currentUser;
+
+    private ArrayList<JButton> allButtons;
 
     // 
     private Container movieIcons;
@@ -35,8 +37,10 @@ public class MainMenu extends JLayeredPane {
     private int mediaToShow = 5;
 
     // The constructor setting both index's to 0, and initializing the database.
-    public MainMenu(JFrame frame) {
-        this.frame = frame;
+    public MainMenu(User currentUser, GUI origin) {
+        this.currentUser = currentUser;
+        this.origin = origin;
+        this.allButtons = new ArrayList<>();
         movieIndex = 0;
         seriesIndex = 0;
         setup();
@@ -55,18 +59,18 @@ public class MainMenu extends JLayeredPane {
     // BorderLayout
     public void makeMediaVisualiser() {
         // Middle container
-        Container cContainer = new Container();
-        cContainer.setLayout(new GridLayout(3, 1));
+        Container contentPane = new Container();
+        contentPane.setLayout(new GridLayout(3, 1));
 
         // Adds the 3 different media containers: (recommended media, movies, and
         // series)
-        cContainer.add(makeRecommendedContainer());
-        cContainer.add(makeMovieContainer());
-        cContainer.add(makeSeriesContainer());
-        cContainer.setBounds(0,0,1000,700-50);
+        contentPane.add(makeRecommendedContainer());
+        contentPane.add(makeMovieContainer());
+        contentPane.add(makeSeriesContainer());
+        contentPane.setBounds(0,0,1000,700-50);
 
         // Add the center container to the JLayeredPane
-        this.add(cContainer, 0);
+        this.add(contentPane, new Integer(0));
     }
 
     // Creates and returns the container containing the recommended media by
@@ -116,18 +120,21 @@ public class MainMenu extends JLayeredPane {
             JButton icon1 = new JButton();
             icon1.setIcon(image1);
             recommended.add(icon1);
+            allButtons.add(icon1);
 
             ImageIcon image2 = new ImageIcon();
             image2.setImage(movie2.getPoster());
             JButton icon2 = new JButton();
             icon2.setIcon(image2);
             recommended.add(icon2);
+            allButtons.add(icon2);
 
             ImageIcon image3 = new ImageIcon();
             image3.setImage(movie3.getPoster());
             JButton icon3 = new JButton();
             icon3.setIcon(image3);
             recommended.add(icon3);
+            allButtons.add(icon3);
         } catch (IllegalArgumentException e) {
             System.out.println(e.getMessage());
         } catch (IOException e) {
@@ -153,35 +160,37 @@ public class MainMenu extends JLayeredPane {
 
         // Adds buttons to the movie selector and creates an ActionListener to them.
         JButton leftButton = new JButton("Left");
+        allButtons.add(leftButton);
         leftButton.addActionListener(new ActionListener() {
             @Override public void actionPerformed(ActionEvent e) {
                 if(movieIndex > mediaToShow && movieIndex <= 100) {
                     movieIndex -= mediaToShow;
                     movieIcons.removeAll();
                     loadMovies();
-                    frame.pack();
+                    origin.pack();
                 } else if(movieIndex < mediaToShow) {
                     movieIndex = 99 - mediaToShow;
                     movieIcons.removeAll();
                     loadMovies();
-                    frame.pack();
+                    origin.pack();
                 }
             }
             
         });
         JButton rightButton = new JButton("Right");
+        allButtons.add(rightButton);
         rightButton.addActionListener(new ActionListener() {
             @Override public void actionPerformed(ActionEvent e) {
                 if(movieIndex >= 0 && movieIndex < 100 - (mediaToShow * 2)) {
                     movieIndex += mediaToShow;
                     movieIcons.removeAll();
                     loadMovies();
-                    frame.pack();
+                    origin.pack();
                 } else if(movieIndex < mediaToShow) {
                     movieIndex = 0;
                     movieIcons.removeAll();
                     loadMovies();
-                    frame.pack();
+                    origin.pack();
                 }
             }
             
@@ -216,6 +225,7 @@ public class MainMenu extends JLayeredPane {
             JButton icon = new JButton();
             icon.setIcon(image);
             movieDisplayIcons.add(icon);
+            allButtons.add(icon);
         }
 
         // Adds all the JButtons to the movie icon container
@@ -241,6 +251,7 @@ public class MainMenu extends JLayeredPane {
 
         // Adds buttons to the series selector.
         JButton leftButton = new JButton("Left");
+        allButtons.add(leftButton);
         leftButton.setSize(new Dimension(50, 50));
         leftButton.addActionListener(new ActionListener() {
             @Override public void actionPerformed(ActionEvent e) {
@@ -248,17 +259,18 @@ public class MainMenu extends JLayeredPane {
                     seriesIndex -= mediaToShow;
                     seriesIcons.removeAll();
                     loadSeries();
-                    frame.pack();
+                    origin.pack();
                 } else if(seriesIndex < mediaToShow) {
                     seriesIndex = 99 - mediaToShow;
                     seriesIcons.removeAll();
                     loadSeries();
-                    frame.pack();
+                    origin.pack();
                 }
             }
             
         });
         JButton rightButton = new JButton("Right");
+        allButtons.add(rightButton);
         rightButton.setSize(new Dimension(50, 50));
         rightButton.addActionListener(new ActionListener() {
             @Override public void actionPerformed(ActionEvent e) {
@@ -266,12 +278,12 @@ public class MainMenu extends JLayeredPane {
                     seriesIndex += mediaToShow;
                     seriesIcons.removeAll();
                     loadSeries();
-                    frame.pack();
+                    origin.pack();
                 } else if(seriesIndex < mediaToShow) {
                     seriesIndex = 0;
                     seriesIcons.removeAll();
                     loadSeries();
-                    frame.pack();
+                    origin.pack();
                 }
             }
             
@@ -306,11 +318,18 @@ public class MainMenu extends JLayeredPane {
             JButton icon = new JButton();
             icon.setIcon(image);
             seriesDisplayIcons.add(icon);
+            allButtons.add(icon);
         }
 
         // Adds all the series JButtons to the series icon container.
         for(int i = 0; i < mediaToShow; i++) {
             seriesIcons.add(seriesDisplayIcons.get(i));
+        }
+    }
+
+    public void buttonsSetEnabled(boolean b){
+        for (JButton x : allButtons) {
+            x.setEnabled(b);
         }
     }
 }

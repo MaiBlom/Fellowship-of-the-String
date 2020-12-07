@@ -9,7 +9,7 @@ import src.Media.*;
  * will sort media in alphabetical order.
  */ 
 
-public class TitleComp implements Comparator<Media> {
+public class TitleCompAZ implements Comparator<Media> {
     public int compare(Media a, Media b) {
         return a.getTitle().compareTo(b.getTitle());
     }

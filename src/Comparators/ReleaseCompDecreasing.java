@@ -9,7 +9,7 @@ import src.Media.*;
  * will sort media newest to oldest.
  */ 
 
-public class ReleaseComp implements Comparator<Media> {
+public class ReleaseCompDecreasing implements Comparator<Media> {
     public int compare(Media a, Media b) {
         if (a.getRelease()-b.getRelease() < 0) return 1;
         else if (a.getRelease()-b.getRelease() > 0) return -1;

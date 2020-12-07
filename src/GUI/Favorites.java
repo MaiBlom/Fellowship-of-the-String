@@ -1,9 +1,7 @@
 package src.GUI;
 
 import src.User;
-import src.Comparators.RatingComp;
-import src.Comparators.ReleaseComp;
-import src.Comparators.TitleComp;
+import src.Comparators.*;
 import src.Media.Media;
 import javax.swing.*;
 import java.awt.*;
@@ -41,7 +39,7 @@ public class Favorites extends JLayeredPane implements Clickable {
     public void setup() {
         contentPane = new Container();
         contentPane.setLayout(new BorderLayout());
-        this.add(contentPane, new Integer(-1));
+        this.add(contentPane, new Integer(0));
         setPreferredSize(new Dimension(WIDTH,HEIGHT));
         contentPane.setBounds(0,0,WIDTH,HEIGHT);
 
@@ -148,7 +146,7 @@ public class Favorites extends JLayeredPane implements Clickable {
 
     private void showMediaInfo(Media m) {
         MediaInfoWindow info = new MediaInfoWindow(m,origin,currentUser);
-        add(info, new Integer(1));
+        this.add(info, new Integer(1));
         info.setLocation(WIDTH/2-info.getWidth()/2, HEIGHT/2-info.getWidth()/2);
         info.setVisible(true);
         info.show();
@@ -158,7 +156,8 @@ public class Favorites extends JLayeredPane implements Clickable {
         Container sortingContainer = new Container();
         sortingContainer.setLayout(new FlowLayout(FlowLayout.RIGHT));
 
-        String[] sortingOptions = {"Sort by...", "Title", "Release", "Rating"};
+        String[] sortingOptions = {"Sort by...", "Title (A-Z)", "Title (Z-A)", "Release (newest to oldest)", 
+                                   "Release (oldest to newest)", "Rating (highest to lowest)", "Rating (lowest to highest)"};
         JComboBox<String> sortby = new JComboBox<>(sortingOptions);
         sortby.addActionListener(e -> sort((String) sortby.getSelectedItem()));
         sortingContainer.add(sortby);
@@ -167,15 +166,24 @@ public class Favorites extends JLayeredPane implements Clickable {
     }
 
     private void sort(String s) {
-        if (s.equals("Title")) {
-            Collections.sort(currentUser.getFavoriteMovies(), new TitleComp());
-            Collections.sort(currentUser.getFavoriteSeries(), new TitleComp());
-        } else if (s.equals("Release")) {
-            Collections.sort(currentUser.getFavoriteMovies(), new ReleaseComp());
-            Collections.sort(currentUser.getFavoriteSeries(), new ReleaseComp());
-        } else if (s.equals("Rating")) {
-            Collections.sort(currentUser.getFavoriteMovies(), new RatingComp());
-            Collections.sort(currentUser.getFavoriteSeries(), new RatingComp());
+        if (s.equals("Title (A-Z)")) {
+            Collections.sort(currentUser.getFavoriteMovies(), new TitleCompAZ());
+            Collections.sort(currentUser.getFavoriteSeries(), new TitleCompAZ());
+        } else if (s.equals("Release (newest to oldest)")) {
+            Collections.sort(currentUser.getFavoriteMovies(), new ReleaseCompDecreasing());
+            Collections.sort(currentUser.getFavoriteSeries(), new ReleaseCompDecreasing());
+        } else if (s.equals("Rating (highest to lowest)")) {
+            Collections.sort(currentUser.getFavoriteMovies(), new RatingCompDecreasing());
+            Collections.sort(currentUser.getFavoriteSeries(), new RatingCompDecreasing());
+        } else if (s.equals("Title (Z-A)")) {
+            Collections.sort(currentUser.getFavoriteMovies(), new TitleCompZA());
+            Collections.sort(currentUser.getFavoriteSeries(), new TitleCompZA());
+        } else if (s.equals("Release (oldest to newest)")) {
+            Collections.sort(currentUser.getFavoriteMovies(), new ReleaseCompIncreasing());
+            Collections.sort(currentUser.getFavoriteSeries(), new ReleaseCompIncreasing());
+        } else if (s.equals("Rating (lowest to highest)")) {
+            Collections.sort(currentUser.getFavoriteMovies(), new RatingCompIncreasing());
+            Collections.sort(currentUser.getFavoriteSeries(), new RatingCompIncreasing());
         }
         favoriteMoviesPanel.removeAll();
         favoriteSeriesPanel.removeAll();

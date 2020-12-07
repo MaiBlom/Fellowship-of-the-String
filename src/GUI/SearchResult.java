@@ -99,7 +99,8 @@ public class SearchResult extends JLayeredPane implements Clickable {
         Container sortingContainer = new Container();
         sortingContainer.setLayout(new FlowLayout(FlowLayout.RIGHT));
 
-        String[] sortingOptions = {"Sort by...", "Title", "Release", "Rating"};
+        String[] sortingOptions = {"Sort by...", "Title (A-Z)", "Title (Z-A)", "Release (newest to oldest)", 
+                                   "Release (oldest to newest)", "Rating (highest to lowest)", "Rating (lowest to highest)"};
         JComboBox<String> sortby = new JComboBox<>(sortingOptions);
         sortby.addActionListener(e -> sort((String) sortby.getSelectedItem()));
         sortingContainer.add(sortby);
@@ -108,12 +109,18 @@ public class SearchResult extends JLayeredPane implements Clickable {
     }
 
     private void sort(String s) {
-        if (s.equals("Title")) {
-            Collections.sort(results, new TitleComp());
-        } else if (s.equals("Release")) {
-            Collections.sort(results, new ReleaseComp());
-        } else if (s.equals("Rating")) {
-            Collections.sort(results, new RatingComp());
+        if (s.equals("Title (A-Z)")) {
+            Collections.sort(results, new TitleCompAZ());
+        } else if (s.equals("Title (Z-A)")) {
+            Collections.sort(results, new TitleCompZA());
+        } else if (s.equals("Release (newest to oldest)")) {
+            Collections.sort(results, new ReleaseCompDecreasing());
+        } else if (s.equals("Release (oldest to newest)")) {
+            Collections.sort(results, new ReleaseCompIncreasing());
+        } else if (s.equals("Rating (highest to lowest)")) {
+            Collections.sort(results, new RatingCompDecreasing());
+        } else if (s.equals("Rating (lowest to highest)")) {
+            Collections.sort(results, new RatingCompIncreasing());
         }
         allResultsPanel.removeAll();
         allButtons.clear();

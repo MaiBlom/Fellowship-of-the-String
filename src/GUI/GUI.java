@@ -25,10 +25,20 @@ public class GUI extends JFrame implements Clickable {
         new GUI();
     }
 
+    private void setupFrodo() {
+        currentUser = new User("Frodo"); // for testpurposes
+        currentUser.favorite(db.getMovies().get(0));
+        currentUser.favorite(db.getMovies().get(2));
+        currentUser.favorite(db.getMovies().get(3));
+        currentUser.favorite(db.getSeries().get(0));
+        currentUser.favorite(db.getSeries().get(2));
+        currentUser.favorite(db.getSeries().get(3));
+    }
+
     public GUI() {
         allButtons = new ArrayList<>();
-        currentUser = new User("Frodo"); // for testpurposes
         db = MediaDB.getInstance();
+        setupFrodo();
 
         makeFrame();
         makeTopMenu();
@@ -71,19 +81,34 @@ public class GUI extends JFrame implements Clickable {
         // Containers used for the top menu.
         nContainer = new Container();
         nContainer.setLayout(new BorderLayout());
-        Container eMenuContainer = new Container();
-        eMenuContainer.setLayout(new GridLayout(1,2));
 
         // Buttons used for the top menu
+        // Favorites button added to the west of the main top menu container 'nContainer' in the western spot.
+        Container wMenuContainer = new Container();
+        wMenuContainer.setLayout(new GridLayout(1,2));
+
+        JButton HomeButton = new JButton("Home");
+        HomeButton.setPreferredSize(new Dimension(100, 50));
+        HomeButton.addActionListener(e -> changeScenario(new MainMenu(currentUser, this)));
+        allButtons.add(HomeButton);
+        wMenuContainer.add(HomeButton);
+
         JButton favoritesButton = new JButton("Favorites");
         favoritesButton.setPreferredSize(new Dimension(100, 50));
         favoritesButton.addActionListener(e -> changeScenario(new Favorites(currentUser, this)));
         allButtons.add(favoritesButton);
+        wMenuContainer.add(favoritesButton);
+
+        nContainer.add(wMenuContainer, BorderLayout.WEST);
+
+        // Search and User button added to the east menu container 'eMenuContainer'
+        Container eMenuContainer = new Container();
+        eMenuContainer.setLayout(new GridLayout(1,2));
 
         JButton searchButton = new JButton("Search");
         searchButton.addActionListener(l -> {
             SearchPopUp popup = new SearchPopUp(this, currentUser);
-            centerContainer.add(popup, 1);
+            centerContainer.add(popup, new Integer(1));
             popup.setVisible(true);
             popup.show();
         });
@@ -92,10 +117,6 @@ public class GUI extends JFrame implements Clickable {
         JButton userButton = new JButton("User");
         allButtons.add(userButton);
 
-        // Favorites button added to the west of the main top menu container 'nContainer' in the western spot.
-        nContainer.add(favoritesButton, BorderLayout.WEST);
-
-        // Search and User button added to the east menu container 'eMenuContainer'
         eMenuContainer.add(searchButton);
         eMenuContainer.add(userButton);
 
@@ -107,7 +128,7 @@ public class GUI extends JFrame implements Clickable {
     }
 
     private void makeCenterContainer() {
-        centerContainer = new MainMenu(this);
+        centerContainer = new MainMenu(currentUser, this);
         contentPane.add(centerContainer,BorderLayout.CENTER);
     }
 

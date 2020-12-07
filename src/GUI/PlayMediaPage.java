@@ -22,6 +22,6 @@ public class PlayMediaPage extends JLayeredPane {
             "<html> <br>You've selected the " + (media instanceof Movie? "movie " : "series ") + media.getTitle() + ". <br>" +
             "Unfortunately, this " + (media instanceof Movie? "movie " : "series ") + "has been removed due to copyright regulations.<br> </html>"
         );
-        this.add(info);
+        this.add(info, 0);
     }
 }
