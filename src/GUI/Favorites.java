@@ -17,6 +17,8 @@ public class Favorites extends JLayeredPane implements Clickable {
     private Container mediaContainer;
     private Container favoriteMovieContainer;
     private Container favoriteSeriesContainer;
+    private JPanel favoriteSeriesPanel;
+    private JPanel favoriteMoviesPanel;
     private JLabel favoritesLabel;
     private JLabel resultsLabel;
     private User currentUser;
@@ -79,6 +81,29 @@ public class Favorites extends JLayeredPane implements Clickable {
         contentPane.add(mediaContainer,BorderLayout.CENTER);
     }
 
+
+    public void makeMovieButtons() {
+        ArrayList<Media> movies = currentUser.getFavoriteMovies();
+
+        for (Media m : movies) {                                               
+            JButton mediaPoster = new JButton(new ImageIcon(m.getPoster()));   
+            allResultButtons.add(mediaPoster);                                 
+            mediaPoster.addActionListener(l -> showMediaInfo(m));              
+            favoriteMoviesPanel.add(mediaPoster);                              
+            }
+    }
+
+    public void makeSeriesButtons() {
+        ArrayList<Media> series = currentUser.getFavoriteSeries();
+
+        for (Media m : series) {                                               
+            JButton mediaPoster = new JButton(new ImageIcon(m.getPoster()));   
+            allResultButtons.add(mediaPoster);                                 
+            mediaPoster.addActionListener(l -> showMediaInfo(m));              
+            favoriteSeriesPanel.add(mediaPoster);                              
+        }
+    }
+
     //Creates a container with a BorderLayout to display both the JLabel "My favorite movies:", as well as all
     //the JButtons that we add our images to.
     public void makeFavoriteMoviesContainer() {
@@ -87,21 +112,15 @@ public class Favorites extends JLayeredPane implements Clickable {
 
         //The panel that will hold all the JButtons with the accompanying images.
         //Uses a FlowLayout for the scalability properties.
-        JPanel favoriteMoviesPanel = new JPanel();
+        favoriteMoviesPanel = new JPanel();
         favoriteMoviesPanel.setLayout(new FlowLayout(FlowLayout.LEFT));
 
         //The label added just above the movie images to denote that the below images are a list of movies.
         JLabel favoriteMovieLabel = new JLabel("My Favorite Movies: ");
         favoriteMovieContainer.add(favoriteMovieLabel,BorderLayout.NORTH);
 
-        ArrayList<Media> movies = currentUser.getFavoriteMovies();
-
-        for (Media m : movies) {                                               //Loops through all the movies that are favorited
-            JButton mediaPoster = new JButton(new ImageIcon(m.getPoster()));   //by the current user, and adds them as JButtons
-            allResultButtons.add(mediaPoster);                                 //to the favoriteMoviesPanel, as well as adding
-            mediaPoster.addActionListener(l -> showMediaInfo(m));              //the favoriteMoviesPanel to the favoriteMovieContainer.
-            favoriteMoviesPanel.add(mediaPoster);                              //Also adds an ActionListener to each button, so that we
-            }                                                                  //are able to call our methods for the MediaInfoWindow.
+        makeMovieButtons();
+                                                                          
         favoriteMovieContainer.add(favoriteMoviesPanel,BorderLayout.CENTER);
         mediaContainer.add(favoriteMovieContainer);
 
@@ -115,20 +134,14 @@ public class Favorites extends JLayeredPane implements Clickable {
 
         //The panel that will hold all the JButtons with the accompanying images.
         //Uses a FlowLayout for the scalability properties.
-        JPanel favoriteSeriesPanel = new JPanel();
+        favoriteSeriesPanel = new JPanel();
         favoriteSeriesPanel.setLayout(new FlowLayout(FlowLayout.LEFT));
 
         JLabel favoriteSeriesLabel = new JLabel("My Favorite Series: ");
         favoriteSeriesContainer.add(favoriteSeriesLabel,BorderLayout.NORTH);
 
-        ArrayList<Media> series = currentUser.getFavoriteSeries();
+        makeSeriesButtons();
 
-        for (Media m : series) {
-            JButton mediaPoster = new JButton(new ImageIcon(m.getPoster()));     //Similarly to the loop in the makeFavoriteMovesContainer
-            allResultButtons.add(mediaPoster);                                   //this loop goes through each of the current user's
-            mediaPoster.addActionListener(l -> showMediaInfo(m));                //favorited series and adds them to the container as
-            favoriteSeriesPanel.add(mediaPoster);                                //JButtons with the corresponding images.
-        }
         favoriteSeriesContainer.add(favoriteSeriesPanel,BorderLayout.CENTER);
         mediaContainer.add(favoriteSeriesContainer);
     }
@@ -164,11 +177,11 @@ public class Favorites extends JLayeredPane implements Clickable {
             Collections.sort(currentUser.getFavoriteMovies(), new RatingComp());
             Collections.sort(currentUser.getFavoriteSeries(), new RatingComp());
         }
-        favoriteMovieContainer.removeAll();
-        favoriteSeriesContainer.removeAll();
+        favoriteMoviesPanel.removeAll();
+        favoriteSeriesPanel.removeAll();
         allResultButtons.clear();
-        makeFavoriteMoviesContainer();
-        makeFavoriteSeriesContainer();
+        makeMovieButtons();   
+        makeSeriesButtons();
         setPreferredSize(new Dimension(WIDTH,HEIGHT));
         contentPane.setBounds(0,0,WIDTH,HEIGHT);
         origin.pack();
