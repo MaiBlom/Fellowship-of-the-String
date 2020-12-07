@@ -8,6 +8,8 @@ import src.*;
 import src.GUI.Favorites;
 import src.Media.*;
 import src.User;
+
+//Tests the favorites window.
 public class FreyjaTest {
     
 public static void main(String[] args) {
@@ -25,11 +27,11 @@ public static void main(String[] args) {
     f.favorite(listeS.get(3));
     f.favorite(listeM.get(0));
     f.favorite(listeM.get(1));
-    Favorites hehe = new Favorites(f);
+    //Favorites hehe = new Favorites(f);
 
     JFrame gui = new JFrame();
         Container c = gui.getContentPane();
-        c.add(hehe);
+       //c.add(hehe);
         gui.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
         gui.pack();
         gui.setVisible(true);
