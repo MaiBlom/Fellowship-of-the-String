@@ -145,7 +145,6 @@ public class MainMenu extends JLayeredPane {
 
         // Adds buttons to the movie selector and creates an ActionListener to them.
         JButton leftButton = new JButton("Left");
-        leftButton.setPreferredSize(new Dimension(50, 50));
         leftButton.addActionListener(new ActionListener() {
             @Override public void actionPerformed(ActionEvent e) {
                 if(movieIndex > mediaToShow && movieIndex <= 100) {
@@ -163,7 +162,6 @@ public class MainMenu extends JLayeredPane {
             
         });
         JButton rightButton = new JButton("Right");
-        rightButton.setPreferredSize(new Dimension(50, 50));
         rightButton.addActionListener(new ActionListener() {
             @Override public void actionPerformed(ActionEvent e) {
                 if(movieIndex >= 0 && movieIndex < 100 - (mediaToShow * 2)) {
