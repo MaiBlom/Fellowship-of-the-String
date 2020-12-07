@@ -11,7 +11,7 @@ import java.util.*;
 import javax.imageio.ImageIO;
 import java.io.IOException;
 
-public class SearchResult extends JLayeredPane {
+public class SearchResult extends JLayeredPane implements HasMedia {
     private MediaDB db;
     private Container contentPane;
     private JLabel yourSearch;
