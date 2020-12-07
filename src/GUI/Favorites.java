@@ -25,7 +25,7 @@ public class Favorites extends JLayeredPane implements Clickable {
     private GUI origin;
 
     private int WIDTH = 1000;
-    private int HEIGHT = 700;
+    private int HEIGHT = 650;
 
 
     public Favorites(User currentUser, GUI origin) {

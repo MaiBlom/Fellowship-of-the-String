@@ -31,7 +31,7 @@ public class SearchResult extends JLayeredPane implements Clickable {
     private ArrayList<Media> results;
 
     private int WIDTH = 1000;
-    private int HEIGHT = 700;
+    private int HEIGHT = 650;
     
     // The search results obejct will be called from the SearchPopUp class with the given parameters.
     public SearchResult(String ts, boolean sm, boolean ss, boolean[] sg, User currentUser, GUI origin) {
