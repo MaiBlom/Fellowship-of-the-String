@@ -1,17 +1,12 @@
 package src.GUI;
 
-import src.MediaDB;
 import src.Media.*;
-import src.*;
 
-import javax.imageio.ImageIO;
 import javax.swing.*;
-import javax.swing.event.*;
 import java.awt.*;
-import java.io.IOException;
-import java.util.*;
 
 public class PlayMediaPage extends Container {
+    private static final long serialVersionUID = 1L;
     private Media media;
 
     public PlayMediaPage(Media media) {

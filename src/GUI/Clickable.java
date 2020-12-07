@@ -1,5 +1,5 @@
 package src.GUI;
 
-public interface HasMedia {
+public interface Clickable {
     public void buttonsSetEnabled(boolean b);
 }

@@ -24,7 +24,7 @@ public class NadjaTest {
         fr.readAll();
 
         ArrayList<Media> liste = db.getSeries();
-        testLoginPopUp();
+        testSearchResult();
 
     }
 

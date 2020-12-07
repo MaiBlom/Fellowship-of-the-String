@@ -1,19 +1,13 @@
 package src.GUI;
 
 import src.*;
-import src.Media.*;
 
 import javax.swing.*;
 import javax.swing.event.*;
-
 import java.awt.*;
-import java.awt.event.*;
-import java.awt.image.*;
-import java.util.*;
-import javax.imageio.ImageIO;
-import java.io.IOException;
 
 public class LoginPopUp extends JInternalFrame {
+    private static final long serialVersionUID = 1L;
     private Container origin;
     private UserDB db;
     
@@ -40,19 +34,6 @@ public class LoginPopUp extends JInternalFrame {
         this.setClosable(EDITABLE);
         this.setResizable(EDITABLE);
 
-        // This looks like shit, but it makes sure, that buttons are disabled when
-        // the window is opened, and enabled when the window is closed.
-        this.addInternalFrameListener(new InternalFrameListener() {
-            public void internalFrameClosed(InternalFrameEvent e) {}
-            public void internalFrameOpened(InternalFrameEvent e) {} 
-            public void internalFrameClosing(InternalFrameEvent e) {}
-            public void internalFrameIconified(InternalFrameEvent e) {}
-            public void internalFrameDeiconified(InternalFrameEvent e) {}
-            public void internalFrameActivated(InternalFrameEvent e) {}
-            public void internalFrameDeactivated(InternalFrameEvent e) {}
-    
-        });
-
         setup();
         setPreferredSize(new Dimension(600,400));
         pack();
@@ -73,12 +54,30 @@ public class LoginPopUp extends JInternalFrame {
         createUserContainerPanel.setBorder(BorderFactory.createEmptyBorder(5, 5, 5, 5));
         createUserContainerPanel.setLayout(new BorderLayout());
 
+        setupWindowListener();
         setupLoginInfoMessage();
         setupLoginFields();
         setupLoginButton();
         setupCreateInfoMessage();
         setupCreateFields();
         setupCreateButton();
+    }
+
+    // This looks like shit, but it makes sure, that buttons are disabled when
+    // the window is opened, and enabled when the window is closed.
+    private void setupWindowListener() {
+        this.addInternalFrameListener(new InternalFrameListener() {
+            public void internalFrameClosed(InternalFrameEvent e) {
+                origin.setVisible(true);
+            }
+            public void internalFrameOpened(InternalFrameEvent e) {} 
+            public void internalFrameClosing(InternalFrameEvent e) {}
+            public void internalFrameIconified(InternalFrameEvent e) {}
+            public void internalFrameDeiconified(InternalFrameEvent e) {}
+            public void internalFrameActivated(InternalFrameEvent e) {}
+            public void internalFrameDeactivated(InternalFrameEvent e) {}
+    
+        });
     }
 
     private void setupLoginInfoMessage() {

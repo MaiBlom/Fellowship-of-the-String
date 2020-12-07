@@ -11,7 +11,11 @@ import java.util.*;
 import javax.imageio.ImageIO;
 import java.io.IOException;
 
-public class SearchPopUp extends JFrame {
+public class SearchPopUp extends JInternalFrame {
+    private static final long serialVersionUID = 1L;
+    private GUI origin;
+    private User currentUser;
+
     private Container contentPane;
     private Container searchBarContainer;
     private Container centerContainer;
@@ -30,9 +34,10 @@ public class SearchPopUp extends JFrame {
         // Family, Fantasy, Thriller, Horror, Film-Noir, Action, Sci-fi, Comedy
         // Musical, Western, Music, Talk-show, Documentary, Animation
 
-    public SearchPopUp() {
-        // super("Search", false, true);
-        setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
+    public SearchPopUp(GUI origin, User currentUser) {
+        super("Search", false, true);
+        this.origin = origin;
+        this.currentUser = currentUser;
         setup();
         pack();
         setVisible(true);
@@ -153,7 +158,7 @@ public class SearchPopUp extends JFrame {
         contentPane.add(bottomBar, BorderLayout.SOUTH);
         
         JButton cancel = new JButton("Cancel");
-        cancel.addActionListener(e -> clickCancel());
+        cancel.addActionListener(e -> dispose());
         bottomBar.add(cancel);
 
         JButton search = new JButton("Search");
@@ -161,11 +166,9 @@ public class SearchPopUp extends JFrame {
         bottomBar.add(search);
     }
 
-    private void clickCancel() {
-        // should cancel the search and return the user to the previous page.
-    }
     private void clickSearch() {
-        String searchCriteria = searchBar.getText();
+        origin.changeScenario(new SearchResult(searchBar.getText(), searchMovies, searchSeries, searchGenres, currentUser));
+        dispose();
 
         // should refresh the page with and show all media that fits the given parameters. Parameters are stored in:
         // text search: searchCriteria

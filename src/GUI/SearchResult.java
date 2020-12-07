@@ -5,13 +5,10 @@ import src.Media.*;
 
 import javax.swing.*;
 import java.awt.*;
-import java.awt.event.*;
-import java.awt.image.*;
 import java.util.*;
-import javax.imageio.ImageIO;
-import java.io.IOException;
 
-public class SearchResult extends JLayeredPane implements HasMedia {
+public class SearchResult extends JLayeredPane implements Clickable {
+    private static final long serialVersionUID = 1L;
     private MediaDB db;
     private Container contentPane;
     private JLabel yourSearch;
@@ -50,8 +47,8 @@ public class SearchResult extends JLayeredPane implements HasMedia {
     private void setup() {
         contentPane = new Container();
         contentPane.setLayout(new BorderLayout());
-        this.add(contentPane, new Integer(-1));
-        this.add(new JLabel("hej"), new Integer(0));
+        this.add(contentPane, -1);
+        this.add(new JLabel("hej"), 0);
         setPreferredSize(new Dimension(WIDTH,HEIGHT));
         contentPane.setBounds(0,0,WIDTH,HEIGHT);
         makeSearchLabel();
@@ -137,7 +134,7 @@ public class SearchResult extends JLayeredPane implements HasMedia {
     // Make a MediaInfoWindow popup with the given media.
     private void showMediaInfo(Media m) {
         MediaInfoWindow info = new MediaInfoWindow(m, this, currentUser);
-        add(info, new Integer(1));
+        add(info, 1);
         info.setLocation(WIDTH/2-info.getWidth()/2, HEIGHT/2-info.getWidth()/2);
         info.setVisible(true);
         info.show();
