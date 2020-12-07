@@ -24,7 +24,29 @@ public class NadjaTest {
         fr.readAll();
 
         ArrayList<Media> liste = db.getSeries();
-        
+        testLoginPopUp();
+
+    }
+
+    private static void testLoginPopUp() {
+        JFrame gui = new JFrame();
+        Container c = gui.getContentPane();
+        c.add(new LoginPopUp(c));
+        gui.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
+        gui.pack();
+        gui.setVisible(true);
+    }
+
+    private static void testPlayMediaPage(Media m) {
+        JFrame gui = new JFrame();
+        Container c = gui.getContentPane();
+        c.add(new PlayMediaPage(m));
+        gui.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
+        gui.pack();
+        gui.setVisible(true);
+    }
+
+    private static void testSearchResult() {
         JFrame gui = new JFrame();
         Container c = gui.getContentPane();
         c.add(new SearchResult("", true, false, new boolean[] {true, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false}, new User("Frodo")));

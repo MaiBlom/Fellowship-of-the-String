@@ -24,14 +24,21 @@ public class UserTest {
     }
 
     @Test
-    public void getFavorites_returnsEmptySet() {
+    public void getFavoriteMovies_returnsEmptySet() {
         int expected = 0;
-        int actual = user.getFavorites().size();
+        int actual = user.getFavoriteMovies().size();
         assertEquals(expected, actual);
     }
 
     @Test
-    public void getFavorites_returnsSet() {
+    public void getFavoriteSeries_returnsEmptySet() {
+        int expected = 0;
+        int actual = user.getFavoriteSeries().size();
+        assertEquals(expected, actual);
+    }
+
+    @Test
+    public void getFavoriteMovies_returnsSet() {
         ArrayList<Media> expected = new ArrayList<>();
         Movie rotk = new Movie("Return of the King", 2002, new String[] {"Fantasy","Epic"}, 9.9, new BufferedImage(2,3,4));
         Movie fotr = new Movie("Fellowship of the Ring", 2000, new String[] {"Fantasy","Legendary"}, 9.8, new BufferedImage(2,3,4));
@@ -39,7 +46,25 @@ public class UserTest {
         expected.add(fotr);
         user.favorite(rotk);
         user.favorite(fotr);
-        ArrayList<Media> actual = user.getFavorites();
+        ArrayList<Media> actual = user.getFavoriteMovies();
+
+        assertEquals(expected.size(), actual.size());
+        
+        for (int i = 0; i<actual.size(); i++) {
+            assertTrue(expected.contains(actual.get(i)));
+        }
+    }
+
+    @Test
+    public void getFavoriteSeries_returnsSet() {
+        ArrayList<Media> expected = new ArrayList<>();
+        Series rotk = new Series("Return of the King", 2002, "2002-2004", new String[] {"Fantasy","Epic"}, 9.9, new BufferedImage(2,3,4), new int[] {1,2,3});
+        Series fotr = new Series("Fellowship of the Ring", 2000, "2000-2005", new String[] {"Fantasy","Legendary"}, 9.8, new BufferedImage(2,3,4), new int[] {1,2,3});
+        expected.add(rotk);
+        expected.add(fotr);
+        user.favorite(rotk);
+        user.favorite(fotr);
+        ArrayList<Media> actual = user.getFavoriteSeries();
 
         assertEquals(expected.size(), actual.size());
         

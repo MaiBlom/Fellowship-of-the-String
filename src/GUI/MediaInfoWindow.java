@@ -36,14 +36,14 @@ public class MediaInfoWindow extends JInternalFrame {
         // the window is opened, and enabled when the window is closed.
         this.addInternalFrameListener(new InternalFrameListener() {
             public void internalFrameClosed(InternalFrameEvent e) {
-                if (origin instanceof SearchResult) {
-                    SearchResult sr = (SearchResult) origin;
+                if (origin instanceof HasMedia) {
+                    HasMedia sr = (HasMedia) origin;
                     sr.buttonsSetEnabled(true);
                 }
             }
             public void internalFrameOpened(InternalFrameEvent e) {
-                if (origin instanceof SearchResult) {
-                    SearchResult sr = (SearchResult) origin;
+                if (origin instanceof HasMedia) {
+                    HasMedia sr = (HasMedia) origin;
                     sr.buttonsSetEnabled(false);
                 }
             }    
