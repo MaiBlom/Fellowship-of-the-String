@@ -4,8 +4,6 @@ import src.*;
 
 import javax.swing.*;
 import java.awt.*;
-import java.awt.event.ComponentEvent;
-import java.awt.event.ComponentListener;
 import java.util.ArrayList;
 
 public class GUI extends JFrame implements Clickable {
@@ -19,7 +17,7 @@ public class GUI extends JFrame implements Clickable {
 
     private ArrayList<JButton> allButtons;
 
-    private final int WIDTH = 1920, HEIGHT = 1080;
+    private final int WIDTH = 1040, HEIGHT = 807;
 
     public static void main(String[] args) {
         new GUI();
@@ -38,25 +36,25 @@ public class GUI extends JFrame implements Clickable {
     public GUI() {
         allButtons = new ArrayList<>();
         db = MediaDB.getInstance();
+        
         setupFrodo();
-
         makeFrame();
-        makeTopMenu();
-        makeCenterContainer();
-
-        pack();
-        setLocationRelativeTo(null);
-        setVisible(true);
     }
 
     // Initializes the JFrame, and get's the content pane and sets it.
     // Adds a ComponentListener
     private void makeFrame() {
-        setSize(new Dimension(WIDTH, HEIGHT));
         setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
+        setPreferredSize(new Dimension(WIDTH, HEIGHT));
 
         contentPane = getContentPane();
+        makeTopMenu();
+        makeCenterContainer();
 
+        setResizable(false);
+        pack();
+        setLocationRelativeTo(null);
+        setVisible(true);
 
         /* frame.addComponentListener(new ComponentListener() {
             public void componentResized(ComponentEvent e){
@@ -109,6 +107,7 @@ public class GUI extends JFrame implements Clickable {
         searchButton.addActionListener(l -> {
             SearchPopUp popup = new SearchPopUp(this, currentUser);
             centerContainer.add(popup, new Integer(1));
+            popup.setLocation(WIDTH/2-popup.getWidth()/2, HEIGHT/2-popup.getWidth()/2);
             popup.setVisible(true);
             popup.show();
         });
@@ -137,6 +136,7 @@ public class GUI extends JFrame implements Clickable {
         contentPane.add(nContainer, BorderLayout.NORTH);
         contentPane.add(container, BorderLayout.CENTER);
         centerContainer = container;
+        setPreferredSize(new Dimension(WIDTH, HEIGHT));
         pack();
     }
 
@@ -149,4 +149,7 @@ public class GUI extends JFrame implements Clickable {
             clickable.buttonsSetEnabled(b);
         }
     }
+
+    public int getwidth() { return WIDTH; }
+    public int getheight() { return HEIGHT; }
 }

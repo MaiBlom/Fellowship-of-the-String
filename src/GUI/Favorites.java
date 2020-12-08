@@ -24,9 +24,6 @@ public class Favorites extends JLayeredPane implements Clickable {
     private int numberOfResults;
     private GUI origin;
 
-    private int WIDTH = 1000;
-    private int HEIGHT = 650;
-
 
     public Favorites(User currentUser, GUI origin) {
         this.currentUser = currentUser;
@@ -40,8 +37,8 @@ public class Favorites extends JLayeredPane implements Clickable {
         contentPane = new Container();
         contentPane.setLayout(new BorderLayout());
         this.add(contentPane, new Integer(0));
-        setPreferredSize(new Dimension(WIDTH,HEIGHT));
-        contentPane.setBounds(0,0,WIDTH,HEIGHT);
+        setPreferredSize(new Dimension(origin.getwidth()-12,origin.getheight()-82));
+        contentPane.setBounds(0,0,origin.getwidth()-12,origin.getheight()-82);
 
         countResults();
         makeLabelContainer();
@@ -147,7 +144,7 @@ public class Favorites extends JLayeredPane implements Clickable {
     private void showMediaInfo(Media m) {
         MediaInfoWindow info = new MediaInfoWindow(m,origin,currentUser);
         this.add(info, new Integer(1));
-        info.setLocation(WIDTH/2-info.getWidth()/2, HEIGHT/2-info.getWidth()/2);
+        info.setLocation((origin.getwidth()-12)/2-info.getWidth()/2, (origin.getheight()-82)/2-info.getWidth()/2);
         info.setVisible(true);
         info.show();
     }
@@ -190,8 +187,8 @@ public class Favorites extends JLayeredPane implements Clickable {
         allResultButtons.clear();
         makeMovieButtons();   
         makeSeriesButtons();
-        setPreferredSize(new Dimension(WIDTH,HEIGHT));
-        contentPane.setBounds(0,0,WIDTH,HEIGHT);
+        setPreferredSize(new Dimension(origin.getwidth()-12,origin.getheight()-82));
+        contentPane.setBounds(0,0,origin.getwidth()-12,origin.getheight()-82);
         origin.pack();
     }
 

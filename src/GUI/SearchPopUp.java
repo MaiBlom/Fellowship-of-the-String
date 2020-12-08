@@ -1,16 +1,10 @@
 package src.GUI;
 
 import src.*;
-import src.Media.*;
 
 import javax.swing.*;
 import javax.swing.event.*;
 import java.awt.*;
-import java.awt.event.*;
-import java.awt.image.*;
-import java.util.*;
-import javax.imageio.ImageIO;
-import java.io.IOException;
 
 public class SearchPopUp extends JInternalFrame {
     private static final long serialVersionUID = 1L;
@@ -40,6 +34,7 @@ public class SearchPopUp extends JInternalFrame {
         this.origin = origin;
         this.currentUser = currentUser;
         setup();
+        setPreferredSize(new Dimension(400,400));
         pack();
         setVisible(true);
     }

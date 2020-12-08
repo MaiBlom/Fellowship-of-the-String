@@ -36,6 +36,8 @@ public class MainMenu extends JLayeredPane implements Clickable {
     // Integer that determines how many media icons to load
     private int mediaToShow = 5;
 
+    // private final int WIDTH = 1050, HEIGHT = 720;
+
     // The constructor setting both index's to 0, and initializing the database.
     public MainMenu(User currentUser, GUI origin) {
         this.currentUser = currentUser;
@@ -49,7 +51,7 @@ public class MainMenu extends JLayeredPane implements Clickable {
     // Initializes the database.
     private void setup() {
         db = MediaDB.getInstance();
-        this.setPreferredSize(new Dimension(1000,700-50));
+        this.setPreferredSize(new Dimension(origin.getwidth()-12,origin.getheight()-82));
         makeMediaVisualiser();
     }
 
@@ -67,7 +69,7 @@ public class MainMenu extends JLayeredPane implements Clickable {
         contentPane.add(makeRecommendedContainer());
         contentPane.add(makeMovieContainer());
         contentPane.add(makeSeriesContainer());
-        contentPane.setBounds(0,0,1000,700-50);
+        contentPane.setBounds(0,0,origin.getwidth()-12,origin.getheight()-82);
 
         // Add the center container to the JLayeredPane
         this.add(contentPane, new Integer(0));
@@ -87,7 +89,7 @@ public class MainMenu extends JLayeredPane implements Clickable {
 
         // Container for the displayed media, putting it to the left
         Container iconContainer = new Container();
-        iconContainer.setLayout(new FlowLayout(FlowLayout.LEFT));
+        iconContainer.setLayout(new FlowLayout(FlowLayout.CENTER));
 
         // Initializes the recommended media,
         // and loops through the objects to add them to the container.
@@ -106,7 +108,7 @@ public class MainMenu extends JLayeredPane implements Clickable {
     // This method loads the 3 recommended movies chosen by 'redaktionen',
     // and returns them as a JButton ArrayList.
     private ArrayList<JButton> loadRecommended() {
-        ArrayList<JButton> recommended = new ArrayList<JButton>(3);
+        ArrayList<JButton> recommended = new ArrayList<>(3);
         try {
             Movie movie1 = new Movie("The Lord of the Rings: The Fellowship of the Ring", 2001, new String[] { "Action", "Adventure", "Drama" },
             8.8, ImageIO.read(getClass().getClassLoader().getResourceAsStream("./res/redaktionfilm/fellowship of the ring.jpg")));

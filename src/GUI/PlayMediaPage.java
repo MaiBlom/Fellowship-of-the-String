@@ -10,11 +10,13 @@ public class PlayMediaPage extends JLayeredPane {
     private GUI origin;
     private Media media;
 
+    // private final int WIDTH = 1000, HEIGHT = 720;
+
     public PlayMediaPage(Media media, GUI origin) {
         this.media = media;
         this.origin = origin;
         this.setLayout(new FlowLayout());
-        setPreferredSize(new Dimension(1000,650));
+        setPreferredSize(new Dimension(origin.getwidth()-12,origin.getheight()-82));
         setup();
     }
 

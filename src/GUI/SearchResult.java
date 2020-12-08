@@ -30,8 +30,7 @@ public class SearchResult extends JLayeredPane implements Clickable {
         // Musical, Western, Music, Talk-show, Documentary, Animation
     private ArrayList<Media> results;
 
-    private int WIDTH = 1000;
-    private int HEIGHT = 650;
+    // private final int WIDTH = 1000, HEIGHT = 720;
     
     // The search results obejct will be called from the SearchPopUp class with the given parameters.
     public SearchResult(String ts, boolean sm, boolean ss, boolean[] sg, User currentUser, GUI origin) {
@@ -54,8 +53,8 @@ public class SearchResult extends JLayeredPane implements Clickable {
         contentPane.setLayout(new BorderLayout());
         this.add(contentPane, -1);
         this.add(new JLabel("hej"), 0);
-        setPreferredSize(new Dimension(WIDTH,HEIGHT));
-        contentPane.setBounds(0,0,WIDTH,HEIGHT);
+        setPreferredSize(new Dimension(origin.getwidth()-12,origin.getheight()-82));
+        contentPane.setBounds(0,0,origin.getwidth()-12,origin.getheight()-82);
         makeTopbar();
         findResults();
         showResults();
@@ -125,8 +124,8 @@ public class SearchResult extends JLayeredPane implements Clickable {
         allResultsPanel.removeAll();
         allButtons.clear();
         createButtons();
-        setPreferredSize(new Dimension(WIDTH,HEIGHT));
-        contentPane.setBounds(0,0,WIDTH,HEIGHT);
+        setPreferredSize(new Dimension(origin.getwidth()-12,origin.getheight()-82));
+        contentPane.setBounds(0,0,origin.getwidth()-12,origin.getheight()-82);
         origin.pack();
     }
 
@@ -187,7 +186,7 @@ public class SearchResult extends JLayeredPane implements Clickable {
     private void showMediaInfo(Media m) {
         MediaInfoWindow info = new MediaInfoWindow(m, origin, currentUser);
         add(info, 1);
-        info.setLocation(WIDTH/2-info.getWidth()/2, HEIGHT/2-info.getWidth()/2);
+        info.setLocation((origin.getwidth()-12)/2-info.getWidth()/2, (origin.getheight()-82)/2-info.getWidth()/2);
         info.setVisible(true);
         info.show();
     }
