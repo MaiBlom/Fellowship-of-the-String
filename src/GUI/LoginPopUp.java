@@ -17,14 +17,14 @@ public class LoginPopUp extends JInternalFrame {
     private JLabel loginInfo;
     private Container loginFields;
     private JTextField usernameField;
-    private JTextField passwordField;
+    private JPasswordField passwordField;
 
     private JPanel createUserContainerPanel;
     private JLabel createWelcome;
     private JLabel createInfo;
     private Container userFields;
     private JTextField newUsernameField;
-    private JTextField newPasswordField;
+    private JPasswordField newPasswordField;
 
     private final boolean EDITABLE = false;
 
@@ -115,7 +115,7 @@ public class LoginPopUp extends JInternalFrame {
         JLabel usernameLabel = new JLabel("Username: ");
         usernameField = new JTextField();
         JLabel passwordLabel = new JLabel("Password: ");
-        passwordField = new JTextField();
+        passwordField = new JPasswordField();
 
         loginFields.add(usernameLabel);
         loginFields.add(usernameField);
@@ -146,7 +146,7 @@ public class LoginPopUp extends JInternalFrame {
         JButton login = new JButton("Login");
         login.addActionListener(l -> {
             String username = usernameField.getText();
-            String password = passwordField.getText();
+            char[] password = passwordField.getPassword();
             try {
                 if (db.login(username, password)) {
                     origin.setCurrentUser(db.getUser(username));
@@ -185,7 +185,7 @@ public class LoginPopUp extends JInternalFrame {
         JLabel usernameLabel = new JLabel("Username: ");
         newUsernameField = new JTextField();
         JLabel passwordLabel = new JLabel("Password: ");
-        newPasswordField = new JTextField();
+        newPasswordField = new JPasswordField();
 
         userFields.add(usernameLabel);
         userFields.add(newUsernameField);
@@ -212,7 +212,7 @@ public class LoginPopUp extends JInternalFrame {
         JButton create = new JButton("Create user");
         create.addActionListener(l -> {
             String username = newUsernameField.getText();
-            String password = newPasswordField.getText();
+            char[] password = newPasswordField.getPassword();
             try {
                 db.createUser(username, password);
                 createInfo.setText("User created. Return to the login-screen to login.");

@@ -13,7 +13,7 @@ public class UserTest {
 
     @Before
     public void setup(){
-        this.user = new User("Frodo", "Frodo");
+        this.user = new User("Frodo", "Frodo".toCharArray());
     }
 
     @Test
@@ -25,9 +25,9 @@ public class UserTest {
 
     @Test
     public void getEncryptedPassword_returnsFrodo() {
-        String expected = "Frodo";
-        String actual = user.getEncryptedPassword();
-        assertEquals(expected, actual);
+        char[] expected = "Frodo".toCharArray();
+        char[] actual = user.getEncryptedPassword();
+        assertArrayEquals(expected, actual);
     }
 
     @Test

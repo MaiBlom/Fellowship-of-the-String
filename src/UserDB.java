@@ -2,8 +2,10 @@ package src;
 
 import src.Exceptions.*;
 import src.Media.*;
+
 import java.util.HashMap;
 import java.util.ArrayList;
+import java.util.Arrays;
 
 public class UserDB {
     private HashMap<String, User> users;
@@ -23,22 +25,26 @@ public class UserDB {
         return users.get(username);
     }
 
-    public void createUser(String username, String password) throws UsernameTakenException {
+    public void createUser(String username, char[] password) throws UsernameTakenException {
         if (users.containsKey(username)) throw new UsernameTakenException(username);
         else users.put(username, new User(username, encryptPassword(password)));
     }
-    private String encryptPassword(String s) {
-        StringBuilder encrypted = new StringBuilder();
-        for (int i = 0; i<s.length(); i++) {
-            int charVal = (int) s.charAt(i) + 5;
-            encrypted.append((char) charVal);
-        }
-        return encrypted.toString();
+
+    public void createUser(String username, String password) throws UsernameTakenException {
+        createUser(username, password.toCharArray());
     }
 
-    public boolean login(String username, String password) throws InvalidUsernameException, InvalidPasswordException {
+    private char[] encryptPassword(char[] password) {
+        for (int i = 0; i<password.length; i++) {
+            int charVal = (int) password[i] + 5;
+            password[i] = ((char) charVal);
+        }
+        return password;
+    }
+
+    public boolean login(String username, char[] password) throws InvalidUsernameException, InvalidPasswordException {
         if (!users.containsKey(username)) throw new InvalidUsernameException(username);
-        else if (!users.get(username).getEncryptedPassword().equals(encryptPassword(password))) throw new InvalidPasswordException();
+        else if (Arrays.equals(users.get(username).getEncryptedPassword(), password)) throw new InvalidPasswordException();
         else return true;
     }
 
