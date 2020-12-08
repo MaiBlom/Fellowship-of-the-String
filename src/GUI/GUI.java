@@ -23,21 +23,10 @@ public class GUI extends JFrame implements Clickable {
         new GUI();
     }
 
-    private void setupFrodo() {
-        currentUser = new User("Frodo"); // for testpurposes
-        currentUser.favorite(db.getMovies().get(0));
-        currentUser.favorite(db.getMovies().get(2));
-        currentUser.favorite(db.getMovies().get(3));
-        currentUser.favorite(db.getSeries().get(0));
-        currentUser.favorite(db.getSeries().get(2));
-        currentUser.favorite(db.getSeries().get(3));
-    }
-
     public GUI() {
         allButtons = new ArrayList<>();
         db = MediaDB.getInstance();
         
-        setupFrodo();
         makeFrame();
     }
 
@@ -50,6 +39,12 @@ public class GUI extends JFrame implements Clickable {
         contentPane = getContentPane();
         makeTopMenu();
         makeCenterContainer();
+
+        LoginPopUp loginOnStart = new LoginPopUp(this);
+        centerContainer.add(loginOnStart, new Integer(1));
+        loginOnStart.setLocation(WIDTH/2-loginOnStart.getWidth()/2, HEIGHT/2-loginOnStart.getWidth()/2);
+        loginOnStart.setVisible(true);
+        loginOnStart.show();
 
         setResizable(false);
         pack();
@@ -150,6 +145,9 @@ public class GUI extends JFrame implements Clickable {
         }
     }
 
+    public void setCurrentUser(User user) {
+        currentUser = user;
+    }
     public int getwidth() { return WIDTH; }
     public int getheight() { return HEIGHT; }
 }

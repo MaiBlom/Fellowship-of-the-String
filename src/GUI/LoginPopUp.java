@@ -8,7 +8,7 @@ import java.awt.*;
 
 public class LoginPopUp extends JInternalFrame {
     private static final long serialVersionUID = 1L;
-    private JFrame origin;
+    private GUI origin;
     private UserDB db;
     
     private Container contentPane;
@@ -28,8 +28,8 @@ public class LoginPopUp extends JInternalFrame {
 
     private final boolean EDITABLE = false;
 
-    // Create a login popUp with the main JFrame as the origin.
-    public LoginPopUp(JFrame origin) {
+    // Create a login popUp with the main GUI as the origin.
+    public LoginPopUp(GUI origin) {
         this.origin = origin;
         this.db = UserDB.getInstance();
         this.setClosable(EDITABLE);
@@ -71,9 +71,17 @@ public class LoginPopUp extends JInternalFrame {
     private void setupWindowListener() {
         this.addInternalFrameListener(new InternalFrameListener() {
             public void internalFrameClosed(InternalFrameEvent e) {
-                origin.setVisible(true);
-            }
-            public void internalFrameOpened(InternalFrameEvent e) {} 
+                if (origin instanceof Clickable) {
+                    Clickable sr = (Clickable) origin;
+                    sr.buttonsSetEnabled(true);
+                }
+            } 
+            public void internalFrameOpened(InternalFrameEvent e) {
+                if (origin instanceof Clickable) {
+                    Clickable sr = (Clickable) origin;
+                    sr.buttonsSetEnabled(false);
+                }
+            } 
             public void internalFrameClosing(InternalFrameEvent e) {}
             public void internalFrameIconified(InternalFrameEvent e) {}
             public void internalFrameDeiconified(InternalFrameEvent e) {}
@@ -114,6 +122,9 @@ public class LoginPopUp extends JInternalFrame {
         loginFields.add(passwordLabel);
         loginFields.add(passwordField);
 
+        JLabel help = new JLabel("Login with test / test to access the streaming service or create your own user.");
+        loginFieldsOuter.add(help);
+
         loginContainerPanel.add(loginFieldsOuter, BorderLayout.CENTER);
     }
 
@@ -138,6 +149,7 @@ public class LoginPopUp extends JInternalFrame {
             String password = passwordField.getText();
             try {
                 if (db.login(username, password)) {
+                    origin.setCurrentUser(db.getUser(username));
                     dispose();
                 }
             } catch (Exception e) {

@@ -13,13 +13,20 @@ public class UserTest {
 
     @Before
     public void setup(){
-        this.user = new User("Frodo");
+        this.user = new User("Frodo", "Frodo");
     }
 
     @Test
     public void getUsername_returnsFrodo() {
         String expected = "Frodo";
         String actual = user.getUsername();
+        assertEquals(expected, actual);
+    }
+
+    @Test
+    public void getEncryptedPassword_returnsFrodo() {
+        String expected = "Frodo";
+        String actual = user.getEncryptedPassword();
         assertEquals(expected, actual);
     }
 

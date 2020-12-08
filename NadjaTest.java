@@ -27,14 +27,14 @@ public class NadjaTest {
 
     }
 
-    private static void testLoginPopUp() {
-        JFrame gui = new JFrame();
-        Container c = gui.getContentPane();
-        c.add(new LoginPopUp(gui));
-        gui.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
-        gui.pack();
-        gui.setVisible(true);
-    }
+    // private static void testLoginPopUp() {
+    //     JFrame gui = new JFrame();
+    //     Container c = gui.getContentPane();
+    //     c.add(new LoginPopUp(gui));
+    //     gui.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
+    //     gui.pack();
+    //     gui.setVisible(true);
+    // }
 
     // private static void testPlayMediaPage(Media m) {
     //     JFrame gui = new JFrame();

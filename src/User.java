@@ -7,12 +7,14 @@ import java.util.HashMap;
 
 public class User {
     protected String username;
+    protected String encryptedPassword;
     protected ArrayList<Media> favoriteMovies;
     protected ArrayList<Media> favoriteSeries;
     protected HashMap<Media, Double> ratings;
     
-    public User (String username) {
+    public User (String username, String encryptedPassword) {
         this.username = username;
+        this.encryptedPassword = encryptedPassword;
         this.favoriteMovies = new ArrayList<>();
         this.favoriteSeries = new ArrayList<>();
         this.ratings = new HashMap<>();
@@ -24,6 +26,9 @@ public class User {
     }
     public ArrayList<Media> getFavoriteMovies() {
         return favoriteMovies;
+    }
+    public String getEncryptedPassword() {
+        return encryptedPassword;
     }
 
     public boolean isFavorite(Media m) {
