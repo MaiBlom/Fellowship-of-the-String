@@ -102,7 +102,7 @@ public class GUI extends JFrame implements Clickable {
         searchButton.addActionListener(l -> {
             SearchPopUp popup = new SearchPopUp(this, currentUser);
             centerContainer.add(popup, new Integer(1));
-            popup.setLocation(WIDTH/2-popup.getWidth()/2, HEIGHT/2-popup.getWidth()/2);
+            popup.setLocation(WIDTH/2-popup.getWidth()/2, 100);
             popup.setVisible(true);
             popup.show();
         });

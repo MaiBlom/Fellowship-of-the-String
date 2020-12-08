@@ -51,8 +51,7 @@ public class SearchResult extends JLayeredPane implements Clickable {
     private void setup() {
         contentPane = new Container();
         contentPane.setLayout(new BorderLayout());
-        this.add(contentPane, -1);
-        this.add(new JLabel("hej"), 0);
+        this.add(contentPane, new Integer(0));
         setPreferredSize(new Dimension(origin.getwidth()-12,origin.getheight()-82));
         contentPane.setBounds(0,0,origin.getwidth()-12,origin.getheight()-82);
         makeTopbar();
