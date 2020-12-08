@@ -164,22 +164,34 @@ public class SearchResult extends JLayeredPane implements Clickable {
     // which each call the showMediaInfo() method.
     private void showResults() {
         allResultsPanel = new JPanel();
-        allResultsPanel.setLayout(new FlowLayout(FlowLayout.LEFT));
+        allResultsPanel.setLayout(new FlowLayout(FlowLayout.LEFT,15,0));
 
         createButtons();
 
-        //JScrollPane allResultsPanelScroll = new JScrollPane(allResultsPanel,ScrollPaneConstants.VERTICAL_SCROLLBAR_ALWAYS,ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER);
-        //contentPane.add(allResultsPanelScroll);
-        contentPane.add(allResultsPanel);
+        JScrollPane allResultsScrollPane = new JScrollPane(allResultsPanel);
+        contentPane.add(allResultsScrollPane);
     }
 
     private void createButtons() {
+        int numberOfResults = results.size();
+
         for (Media m : results) {
             JButton mediaPoster = new JButton(new ImageIcon(m.getPoster()));
+
+            mediaPoster.setText(m.getTitle());
+            mediaPoster.setVerticalTextPosition(SwingConstants.BOTTOM);
+            mediaPoster.setHorizontalTextPosition(SwingConstants.CENTER);
+            mediaPoster.setBorderPainted(false);
+            mediaPoster.setBackground(new Color(238, 238, 238));
+            mediaPoster.setPreferredSize(new Dimension(150,250));
+
             allButtons.add(mediaPoster);
             mediaPoster.addActionListener(l -> showMediaInfo(m));
             allResultsPanel.add(mediaPoster);
         }
+
+        allResultsPanel.setPreferredSize(new Dimension(6*150,(numberOfResults/6 + (numberOfResults % 6 == 0? 0:1))*250));
+        origin.pack();
     }
 
     // Make a MediaInfoWindow popup with the given media.
