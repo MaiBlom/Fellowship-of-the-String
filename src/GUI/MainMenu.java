@@ -118,8 +118,8 @@ public class MainMenu extends JLayeredPane implements Clickable {
             8.8, ImageIO.read(getClass().getClassLoader().getResourceAsStream("./res/redaktionfilm/fellowship of the ring.jpg")));
             Movie movie2 = new Movie("The Lord of the Rings: The Two Towers", 2002, new String[] { "Action", "Adventure", "Drama" },
             8.7, ImageIO.read(getClass().getClassLoader().getResourceAsStream("./res/redaktionfilm/two towers.jpg")));
-            Movie movie3 = new Movie("The Lord of the Rings: Return of the King", 2003, new String[] { "Action", "Adventure", "Drama" },
-            8.9, ImageIO.read(getClass().getClassLoader().getResourceAsStream("./res/redaktionfilm/return of the king.jpg")));
+
+            Movie movie3 = (Movie) db.getMovies().get(32);
 
             Media[] movies = new Media[] {movie1, movie2, movie3};
 
@@ -140,6 +140,8 @@ public class MainMenu extends JLayeredPane implements Clickable {
                 recommended.add(icon);
                 allButtons.add(icon);
             }
+
+
         } catch (IllegalArgumentException e) {
             System.out.println(e.getMessage());
         } catch (IOException e) {
