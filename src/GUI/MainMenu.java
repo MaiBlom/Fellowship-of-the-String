@@ -13,6 +13,7 @@ import javax.swing.*;
 
 import src.*;
 import src.Media.*;
+import src.GUI.PopUps.*;
 
 public class MainMenu extends JLayeredPane implements Clickable {
     private static final long serialVersionUID = -5793860781733191506L;

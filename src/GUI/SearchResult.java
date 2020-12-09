@@ -3,6 +3,7 @@ package src.GUI;
 import src.*;
 import src.Comparators.*;
 import src.Media.*;
+import src.GUI.PopUps.*;
 
 import javax.swing.*;
 import java.awt.*;
@@ -196,7 +197,7 @@ public class SearchResult extends JLayeredPane implements Clickable {
     // Make a MediaInfoWindow popup with the given media.
     private void showMediaInfo(Media m) {
         MediaInfoWindow info = new MediaInfoWindow(m, origin, currentUser);
-        add(info, 1);
+        add(info, new Integer(1));
         info.setLocation((origin.getwidth()-12)/2-info.getWidth()/2, (origin.getheight()-82)/2-info.getWidth()/2);
         info.setVisible(true);
         info.show();

@@ -1,8 +1,9 @@
-package src.GUI;
+package src.GUI.PopUps;
 
 import javax.swing.*;
 import java.awt.*;
 
+import src.GUI.*;
 import src.User;
 import src.UserDB;
 
