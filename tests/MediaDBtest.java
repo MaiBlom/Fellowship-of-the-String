@@ -33,13 +33,6 @@ public class MediaDBtest {
         int actual = db.getSeries().size();
         assertEquals(expected, actual);
     }
-
-    @Test
-    public void genresSize_equals23() {
-        int expected = 23;
-        int actual = db.getAllGenres().size();
-        assertEquals(expected, actual);
-    }
     
     @After
     public void tearDown() {

@@ -4,7 +4,6 @@ import src.Media.*;
 
 import java.util.Locale;
 import java.util.Scanner;
-import java.util.HashMap;
 import javax.imageio.ImageIO;
 import java.io.IOException;
 import java.io.InputStream;
@@ -44,9 +43,6 @@ public class MediaReader {
         }
         sc.useDelimiter("\\s*;\\s*");
         sc.useLocale(Locale.FRANCE);
-
-        // Get genres to add media to them.
-        HashMap<String, Genre> allGenres = db.getAllGenres();
 
         while(sc.hasNext()){
             String title = sc.next();
@@ -112,12 +108,7 @@ public class MediaReader {
                 media = new Movie(title, release, genres, rating, image);
             }
             
-            db.add(media); 
-
-            // Add media object to the HashSet in the Genre objects.
-            for (int i = 0; i<genres.length; i++) {
-                allGenres.get(genres[i]).add(media);
-            }
+            db.add(media);
         }
     }
 }
