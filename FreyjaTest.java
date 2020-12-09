@@ -30,7 +30,7 @@
 //     Favorites hehe = new Favorites(f);
 
 //     JFrame gui = new JFrame();
-//         Container c = gui.getContentPane();
+//         JPanel c = gui.getContentPane();
 //        c.add(hehe);
 //         gui.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
 //         gui.pack();

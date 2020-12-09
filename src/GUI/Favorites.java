@@ -11,11 +11,11 @@ import java.util.Collections;
 
 public class Favorites extends JLayeredPane implements Clickable {
     private static final long serialVersionUID = 1L;
-    private Container contentPane;
-    private Container topMenu;
-    private Container mediaContainer;
-    private Container favoriteMovieContainer;
-    private Container favoriteSeriesContainer;
+    private JPanel contentPane;
+    private JPanel topMenu;
+    private JPanel mediaContainer;
+    private JPanel favoriteMovieContainer;
+    private JPanel favoriteSeriesContainer;
     private JPanel favoriteSeriesPanel;
     private JPanel favoriteMoviesPanel;
     private JLabel favoritesLabel;
@@ -35,7 +35,7 @@ public class Favorites extends JLayeredPane implements Clickable {
 
     //Sets up the Favorites window by calling all the makeContainer methods.
     public void setup() {
-        contentPane = new Container();
+        contentPane = new JPanel();
         contentPane.setLayout(new BorderLayout());
         this.add(contentPane, new Integer(0));
         setPreferredSize(new Dimension(origin.getwidth()-12,origin.getheight()-82));
@@ -49,10 +49,10 @@ public class Favorites extends JLayeredPane implements Clickable {
         makeSorting();
     }
 
-    //Makes the label container that holds just the small title bar stating that we're viewing the favorites window,
+    //Makes the label JPanel that holds just the small title bar stating that we're viewing the favorites window,
     //as well as displaying the total number of favorited media that the current user has.
     public void makeLabelContainer() {
-        topMenu = new Container();
+        topMenu = new JPanel();
         topMenu.setLayout(new GridLayout(1,3));
 
         favoritesLabel = new JLabel("Favorites");
@@ -68,10 +68,10 @@ public class Favorites extends JLayeredPane implements Clickable {
         numberOfResults = currentUser.getFavoriteMovies().size()+currentUser.getFavoriteSeries().size();
     }
 
-    //Creates the container that will hold the subcontainers "favoriteMovieContainer" and "favoriteSeriesContainer"
-    //and adds this container to the contentPane's BorderLayout in the center.
+    //Creates the JPanel that will hold the subcontainers "favoriteMovieContainer" and "favoriteSeriesContainer"
+    //and adds this JPanel to the contentPane's BorderLayout in the center.
     public void makeMediaContainer() {
-        mediaContainer = new Container();
+        mediaContainer = new JPanel();
         mediaContainer.setLayout(new GridLayout(2,1));
 
         contentPane.add(mediaContainer,BorderLayout.CENTER);
@@ -100,10 +100,10 @@ public class Favorites extends JLayeredPane implements Clickable {
         }
     }
 
-    //Creates a container with a BorderLayout to display both the JLabel "My favorite movies:", as well as all
+    //Creates a JPanel with a BorderLayout to display both the JLabel "My favorite movies:", as well as all
     //the JButtons that we add our images to.
     public void makeFavoriteMoviesContainer() {
-        favoriteMovieContainer = new Container();
+        favoriteMovieContainer = new JPanel();
         favoriteMovieContainer.setLayout(new BorderLayout());
 
         //The panel that will hold all the JButtons with the accompanying images.
@@ -122,10 +122,10 @@ public class Favorites extends JLayeredPane implements Clickable {
 
     }
 
-    //Creates a container with a BorderLayout to display both the JLabel "My favorite series:", as well as all
+    //Creates a JPanel with a BorderLayout to display both the JLabel "My favorite series:", as well as all
     //the JButtons that we add our images to.
     public void makeFavoriteSeriesContainer() {
-        favoriteSeriesContainer = new Container();
+        favoriteSeriesContainer = new JPanel();
         favoriteSeriesContainer.setLayout(new BorderLayout());
 
         //The panel that will hold all the JButtons with the accompanying images.
@@ -151,7 +151,7 @@ public class Favorites extends JLayeredPane implements Clickable {
     }
 
     private void makeSorting() {
-        Container sortingContainer = new Container();
+        JPanel sortingContainer = new JPanel();
         sortingContainer.setLayout(new FlowLayout(FlowLayout.RIGHT));
 
         String[] sortingOptions = {"Sort by...", "Title (A-Z)", "Title (Z-A)", "Release (newest to oldest)", 

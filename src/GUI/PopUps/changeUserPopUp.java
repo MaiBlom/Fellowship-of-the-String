@@ -10,29 +10,23 @@ import src.UserDB;
 public class changeUserPopUp extends JInternalFrame {
     private static final long serialVersionUID = 1L;
 
-    private UserDB userDB;
     private User currentUser;
 
-    private Container mainContainer;
+    private JPanel mainContainer;
 
     public changeUserPopUp(User currentUser) {
         this.currentUser = currentUser;
-        initUserDB();
         setup();
     }
 
     private void setup() {
-        mainContainer = new Container();
+        mainContainer = new JPanel();
         mainContainer.setLayout(new BorderLayout());
 
         JLabel header = new JLabel("Choose account:");
         mainContainer.add(header, BorderLayout.NORTH);
 
-        Container usersContainer = new Container();
+        JPanel usersContainer = new JPanel();
         usersContainer.setLayout(new FlowLayout());
-    }
-
-    private void initUserDB() {
-        userDB = UserDB.getInstance();
     }
 }

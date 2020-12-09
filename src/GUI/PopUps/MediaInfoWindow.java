@@ -18,11 +18,11 @@ public class MediaInfoWindow extends JInternalFrame {
     private User currentUser;
 
     private Container contentPane;
-    private Container westContainer;
-    private Container centerContainer;
-    private Container mediaInfo;
-    private Container seasonsContainer;
-    private Container episodesContainer;
+    private JPanel westContainer;
+    private JPanel centerContainer;
+    private JPanel mediaInfo;
+    private JPanel seasonsContainer;
+    private JPanel episodesContainer;
 
     public MediaInfoWindow(Media media, GUI origin, User currentUser) {
         super(media.getTitle(), false, true);
@@ -77,7 +77,7 @@ public class MediaInfoWindow extends JInternalFrame {
     // Setup of the westContainer which holds the image of the media 
     // (and soon also a "play" button).
     private void setupWestContainer() {
-        westContainer = new Container();
+        westContainer = new JPanel();
         westContainer.setLayout(new BorderLayout(2,2));
 
         // Is there a better way of inserting images?
@@ -85,7 +85,7 @@ public class MediaInfoWindow extends JInternalFrame {
         image.setImage(media.getPoster());
         JLabel mediaPosterLabel = new JLabel();
         mediaPosterLabel.setIcon(image);
-        Container mediaPosterContainer = new Container();
+        JPanel mediaPosterContainer = new JPanel();
         mediaPosterContainer.setLayout(new FlowLayout());
         mediaPosterContainer.add(mediaPosterLabel);
         westContainer.add(mediaPosterContainer, BorderLayout.NORTH);
@@ -96,10 +96,10 @@ public class MediaInfoWindow extends JInternalFrame {
     }
 
     private void setupLeftButtons() {
-        Container leftButtonsOuter = new Container();
+        JPanel leftButtonsOuter = new JPanel();
         leftButtonsOuter.setLayout(new FlowLayout());
 
-        Container leftButtons = new Container();
+        JPanel leftButtons = new JPanel();
         leftButtons.setLayout(new GridLayout(2,1));
         leftButtonsOuter.add(leftButtons);
         
@@ -127,12 +127,12 @@ public class MediaInfoWindow extends JInternalFrame {
         westContainer.add(leftButtonsOuter, BorderLayout.CENTER);
     }
 
-    // Setup of the center container which holds the information about the media.
-    // The container is split into two parts. The top is the information about the media
+    // Setup of the center JPanel which holds the information about the media.
+    // The JPanel is split into two parts. The top is the information about the media
     // (in the mediaInfo Container), and the bottom is only for series, which is the
     // information about the seasons.
     private void setupCenterContainer() {
-        centerContainer = new Container();
+        centerContainer = new JPanel();
         centerContainer.setLayout(new BorderLayout());
         contentPane.add(centerContainer, BorderLayout.CENTER);
 
@@ -140,10 +140,10 @@ public class MediaInfoWindow extends JInternalFrame {
         if (media instanceof Series) setupSeasons();
     }
 
-    // Setup of the mediaInfo container. The container is split in four rows, each with an
+    // Setup of the mediaInfo container. The JPanel is split in four rows, each with an
     // information element about the media. 
     private void setupMediaInfo() {
-        mediaInfo = new Container();
+        mediaInfo = new JPanel();
         mediaInfo.setLayout(new GridLayout(4,1));
 
         // First row in the grid is the title of the media.
@@ -152,9 +152,9 @@ public class MediaInfoWindow extends JInternalFrame {
 
         // Second row in the grid is the rating. The rating is found as a double and used
         // to crop the star-image at an appropriate length with the getSubimage() method.
-        Container ratingContainerOuter = new Container();
+        JPanel ratingContainerOuter = new JPanel();
         ratingContainerOuter.setLayout(new BorderLayout());
-        Container ratingContainer = new Container();
+        JPanel ratingContainer = new JPanel();
         ratingContainer.setLayout(new FlowLayout());
 
         double ratingVal = media.getRating();
@@ -223,18 +223,18 @@ public class MediaInfoWindow extends JInternalFrame {
     }
 
     // Setup of the seasonsContainer at the bottom of the center container. The 
-    // seasons container have two parts. The top part contains a JComboBox element
+    // seasons JPanel have two parts. The top part contains a JComboBox element
     // where the user can choose what season to view.
     private void setupSeasons() {
         if (media instanceof Movie) return;
 
-        seasonsContainer = new Container();
+        seasonsContainer = new JPanel();
         seasonsContainer.setLayout(new BorderLayout());
         centerContainer.add(seasonsContainer, BorderLayout.CENTER);
 
         // The seasonsTopBar has the JLabel "Seasons", and the JComboBox element.
 
-        Container seasonsTopBar = new Container();
+        JPanel seasonsTopBar = new JPanel();
         seasonsTopBar.setLayout(new GridLayout(1,2));
 
         JLabel seasonsTitle = new JLabel("Seasons");
@@ -259,12 +259,12 @@ public class MediaInfoWindow extends JInternalFrame {
 
         seasonsContainer.add(seasonsTopBar, BorderLayout.NORTH);
 
-        // The episodes container is initialised empty, but buttons will be added to it in
+        // The episodes JPanel is initialised empty, but buttons will be added to it in
         // the showSeasonX method.
-        Container episodesFlowContainer = new Container();
+        JPanel episodesFlowContainer = new JPanel();
         episodesFlowContainer.setLayout(new FlowLayout(FlowLayout.LEFT));
 
-        episodesContainer = new Container();
+        episodesContainer = new JPanel();
         episodesFlowContainer.add(episodesContainer);
 
         JScrollPane episodesScroll = new JScrollPane(episodesFlowContainer, JScrollPane.VERTICAL_SCROLLBAR_AS_NEEDED, JScrollPane.HORIZONTAL_SCROLLBAR_NEVER);
@@ -298,5 +298,14 @@ public class MediaInfoWindow extends JInternalFrame {
         origin.changeScenario(new PlayMediaPage(media, origin));
         dispose();
         // vinduet skal lukkes, main frame skal opdatere til video
+    }
+
+    // Make a MediaInfoWindow popup with the given media.
+    public static void showMediaInfo(Media m, GUI origin, User currentUser, JLayeredPane pane) {
+        MediaInfoWindow info = new MediaInfoWindow(m, origin, currentUser);
+        pane.add(info, new Integer(1));
+        info.setLocation((origin.getwidth()-12)/2-info.getWidth()/2, (origin.getheight()-82)/2-info.getWidth()/2);
+        info.setVisible(true);
+        info.show();
     }
 }

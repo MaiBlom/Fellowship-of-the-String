@@ -13,12 +13,12 @@ public class SearchPopUp extends JInternalFrame {
     private User currentUser;
 
     private Container contentPane;
-    private Container searchBarContainer;
-    private Container centerContainer;
-    private Container mediatypeContainer;
-    private Container genresContainer;
-    private Container bottomBar;
-    private Container allGenres;
+    private JPanel searchBarContainer;
+    private JPanel centerContainer;
+    private JPanel mediatypeContainer;
+    private JPanel genresContainer;
+    private JPanel bottomBar;
+    private JPanel allGenres;
 
     // search criteria fields
     private JTextField searchBar;
@@ -30,7 +30,7 @@ public class SearchPopUp extends JInternalFrame {
         // Family, Fantasy, Thriller, Horror, Film-Noir, Action, Sci-fi, Comedy
         // Musical, Western, Music, Talk-show, Documentary, Animation
 
-    public SearchPopUp(GUI origin, User currentUser) {
+    public SearchPopUp(User currentUser, GUI origin) {
         super("Search", false, true);
         this.origin = origin;
         this.currentUser = currentUser;
@@ -79,7 +79,7 @@ public class SearchPopUp extends JInternalFrame {
 
     // Setup of the topbar with a free-text searchbar. 
     private void setupSearchBar() {
-        searchBarContainer = new Container();
+        searchBarContainer = new JPanel();
         searchBarContainer.setLayout(new GridLayout(2,1));
         contentPane.add(searchBarContainer, BorderLayout.NORTH);
 
@@ -90,10 +90,10 @@ public class SearchPopUp extends JInternalFrame {
         searchBarContainer.add(searchBar);
     }
 
-    // Setup of the center container with a BorderLayout. This container contains checkboxes for media 
+    // Setup of the center JPanel with a BorderLayout. This JPanel contains checkboxes for media 
     // type at the top and checkboxes for genres in the center.
     private void setupCenterContainer() {
-        centerContainer = new Container();
+        centerContainer = new JPanel();
         centerContainer.setLayout(new BorderLayout());
         contentPane.add(centerContainer, BorderLayout.CENTER);
 
@@ -104,7 +104,7 @@ public class SearchPopUp extends JInternalFrame {
     // Setup of the media type checkboxes. Toggling the checkboxes will change the value of the two booleans
     // searchMovies and searchSeries which are used as search criteria.
     private void setupMediatypeContainer() {
-        mediatypeContainer = new Container();
+        mediatypeContainer = new JPanel();
         mediatypeContainer.setLayout(new FlowLayout(FlowLayout.LEFT));
         centerContainer.add(mediatypeContainer, BorderLayout.NORTH);
         
@@ -121,7 +121,7 @@ public class SearchPopUp extends JInternalFrame {
     // The following two methods are the setup of the genre checkboxes. Toggling the checkboxes 
     // will change the value of the booleans in the array searchGenres which are used as search criteria.
     private void setupGenreContainer() {
-        genresContainer = new Container();
+        genresContainer = new JPanel();
         genresContainer.setLayout(new BorderLayout());
         centerContainer.add(genresContainer, BorderLayout.CENTER);
 
@@ -132,17 +132,17 @@ public class SearchPopUp extends JInternalFrame {
     }
 
     private void setupGenres() {
-        allGenres = new Container();
+        allGenres = new JPanel();
         allGenres.setLayout(new GridLayout(1,3));
         genresContainer.add(allGenres, BorderLayout.CENTER);
 
-        Container leftGenres = new Container();
+        JPanel leftGenres = new JPanel();
         leftGenres.setLayout(new BoxLayout(leftGenres, BoxLayout.Y_AXIS));
         allGenres.add(leftGenres);
-        Container centerGenres = new Container();
+        JPanel centerGenres = new JPanel();
         centerGenres.setLayout(new BoxLayout(centerGenres, BoxLayout.Y_AXIS));
         allGenres.add(centerGenres);
-        Container rightGenres = new Container();
+        JPanel rightGenres = new JPanel();
         rightGenres.setLayout(new BoxLayout(rightGenres, BoxLayout.Y_AXIS));
         allGenres.add(rightGenres);
 
@@ -173,10 +173,10 @@ public class SearchPopUp extends JInternalFrame {
         searchGenres[index] = state;
     }
 
-    // Setup of the bottom bar. The container has two buttons: One to cancel the search and one to search
+    // Setup of the bottom bar. The JPanel has two buttons: One to cancel the search and one to search
     // with the given criteria. 
     private void setupBottomBar() {
-        bottomBar = new Container();
+        bottomBar = new JPanel();
         bottomBar.setLayout(new FlowLayout(FlowLayout.RIGHT));
         contentPane.add(bottomBar, BorderLayout.SOUTH);
         

@@ -10,7 +10,7 @@ public class PlayMediaPage extends JLayeredPane {
     private static final long serialVersionUID = 1L;
     private GUI origin;
     private Media media;
-    private Container contentPane;
+    private JPanel contentPane;
 
     // private final int WIDTH = 1000, HEIGHT = 720;
 
@@ -23,7 +23,7 @@ public class PlayMediaPage extends JLayeredPane {
     private void setup() {
         setPreferredSize(new Dimension(origin.getwidth()-12,origin.getheight()-82));
 
-        contentPane = new Container();
+        contentPane = new JPanel();
         contentPane.setLayout(new FlowLayout());
         contentPane.setBounds(0,0,origin.getwidth()-12,origin.getheight()-82);
         this.add(contentPane, new Integer(0));

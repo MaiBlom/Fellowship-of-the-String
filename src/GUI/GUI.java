@@ -13,7 +13,7 @@ public class GUI extends JFrame implements Clickable {
     private MediaDB db;
 
     private Container contentPane;
-    private Container nContainer;
+    private JPanel nContainer;
     private JLayeredPane centerContainer;
 
     private ArrayList<JButton> allButtons;
@@ -73,12 +73,12 @@ public class GUI extends JFrame implements Clickable {
     // Makes the top menu that is located in the northern part of the content pane's BorderLayout
     private void makeTopMenu() {
         // Containers used for the top menu.
-        nContainer = new Container();
+        nContainer = new JPanel();
         nContainer.setLayout(new BorderLayout());
 
         // Buttons used for the top menu
-        // Favorites button added to the west of the main top menu container 'nContainer' in the western spot.
-        Container wMenuContainer = new Container();
+        // Favorites button added to the west of the main top menu JPanel 'nContainer' in the western spot.
+        JPanel wMenuContainer = new JPanel();
         wMenuContainer.setLayout(new GridLayout(1,2));
 
         JButton HomeButton = new JButton("Home");
@@ -95,13 +95,13 @@ public class GUI extends JFrame implements Clickable {
 
         nContainer.add(wMenuContainer, BorderLayout.WEST);
 
-        // Search and User button added to the east menu container 'eMenuContainer'
-        Container eMenuContainer = new Container();
+        // Search and User button added to the east menu JPanel 'eMenuContainer'
+        JPanel eMenuContainer = new JPanel();
         eMenuContainer.setLayout(new GridLayout(1,2));
 
         JButton searchButton = new JButton("Search");
         searchButton.addActionListener(l -> {
-            SearchPopUp popup = new SearchPopUp(this, currentUser);
+            SearchPopUp popup = new SearchPopUp(currentUser, this);
             centerContainer.add(popup, new Integer(1));
             popup.setLocation(WIDTH/2-popup.getWidth()/2, 100);
             popup.setVisible(true);
@@ -109,16 +109,25 @@ public class GUI extends JFrame implements Clickable {
         });
         allButtons.add(searchButton);
 
-        JButton userButton = new JButton("User");
+        JButton userButton = new JButton("Logout");
+        userButton.addActionListener(e -> {
+            currentUser = null;
+            changeScenario(new MainMenu(currentUser, this));
+            LoginPopUp loginPopUp = new LoginPopUp(this);
+            centerContainer.add(loginPopUp, new Integer(1));
+            loginPopUp.setLocation(WIDTH/2-loginPopUp.getWidth()/2, HEIGHT/2-loginPopUp.getWidth()/2);
+            loginPopUp.setVisible(true);
+            loginPopUp.show();
+        });
         allButtons.add(userButton);
 
         eMenuContainer.add(searchButton);
         eMenuContainer.add(userButton);
 
-        // East menu container added to the north menu container 'nContainer' in the eastern spot.
+        // East menu JPanel added to the north menu JPanel 'nContainer' in the eastern spot.
         nContainer.add(eMenuContainer, BorderLayout.EAST);
 
-        // The north menu container added to the content pane in the northern spot.
+        // The north menu JPanel added to the content pane in the northern spot.
         contentPane.add(nContainer, BorderLayout.NORTH);
     }
 

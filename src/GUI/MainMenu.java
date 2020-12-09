@@ -28,8 +28,8 @@ public class MainMenu extends JLayeredPane implements Clickable {
     private ArrayList<JButton> allButtons;
 
     // 
-    private Container movieIcons;
-    private Container seriesIcons;
+    private JPanel movieIcons;
+    private JPanel seriesIcons;
 
     // Int's to keep track of what movies to be displaying in the media lists.
     private int movieIndex, seriesIndex;
@@ -62,7 +62,7 @@ public class MainMenu extends JLayeredPane implements Clickable {
     // BorderLayout
     public void makeMediaVisualiser() {
         // Middle container
-        Container contentPane = new Container();
+        JPanel contentPane = new JPanel();
         contentPane.setLayout(new GridLayout(3, 1));
 
         // Adds the 3 different media containers: (recommended media, movies, and
@@ -72,15 +72,15 @@ public class MainMenu extends JLayeredPane implements Clickable {
         contentPane.add(makeSeriesContainer());
         contentPane.setBounds(0,0,origin.getwidth()-12,origin.getheight()-82);
 
-        // Add the center container to the JLayeredPane
+        // Add the center JPanel to the JLayeredPane
         this.add(contentPane, new Integer(0));
     }
 
-    // Creates and returns the container containing the recommended media by
+    // Creates and returns the JPanel containing the recommended media by
     // 'redaktionen'
-    private Container makeRecommendedContainer() {
-        // Main container for the recommended section.
-        Container recommendedContainer = new Container();
+    private JPanel makeRecommendedContainer() {
+        // Main JPanel for the recommended section.
+        JPanel recommendedContainer = new JPanel();
         recommendedContainer.setLayout(new BorderLayout());
 
         // Sets the top text of the recommended media section,
@@ -88,8 +88,8 @@ public class MainMenu extends JLayeredPane implements Clickable {
         JLabel recommendedLabel = new JLabel("Recommended:");
         recommendedContainer.add(recommendedLabel, BorderLayout.NORTH);
 
-        // Container for the displayed media, putting it to the left
-        Container iconContainer = new Container();
+        // JPanel for the displayed media, putting it to the left
+        JPanel iconContainer = new JPanel();
         iconContainer.setLayout(new FlowLayout(FlowLayout.CENTER));
 
         // Initializes the recommended media,
@@ -99,7 +99,7 @@ public class MainMenu extends JLayeredPane implements Clickable {
             iconContainer.add(icons.get(i));
         }
 
-        // Adds the icon container to the main recommeded container.
+        // Adds the icon JPanel to the main recommeded container.
         recommendedContainer.add(iconContainer, BorderLayout.CENTER);
 
         // Returns the recommended container.
@@ -122,6 +122,16 @@ public class MainMenu extends JLayeredPane implements Clickable {
             image1.setImage(movie1.getPoster());
             JButton icon1 = new JButton();
             icon1.setIcon(image1);
+
+            icon1.setText(movie1.getTitle());
+            icon1.setVerticalTextPosition(SwingConstants.BOTTOM);
+            icon1.setHorizontalTextPosition(SwingConstants.CENTER);
+            icon1.setBorderPainted(false);
+            icon1.setBackground(new Color(238, 238, 238));
+            icon1.setPreferredSize(new Dimension(150,250));
+
+            icon1.addActionListener(l -> MediaInfoWindow.showMediaInfo(movie1, origin, currentUser, this));
+
             recommended.add(icon1);
             allButtons.add(icon1);
 
@@ -129,6 +139,16 @@ public class MainMenu extends JLayeredPane implements Clickable {
             image2.setImage(movie2.getPoster());
             JButton icon2 = new JButton();
             icon2.setIcon(image2);
+
+            icon2.setText(movie2.getTitle());
+            icon2.setVerticalTextPosition(SwingConstants.BOTTOM);
+            icon2.setHorizontalTextPosition(SwingConstants.CENTER);
+            icon2.setBorderPainted(false);
+            icon2.setBackground(new Color(238, 238, 238));
+            icon2.setPreferredSize(new Dimension(150,250));
+
+            icon2.addActionListener(l -> MediaInfoWindow.showMediaInfo(movie2, origin, currentUser, this));
+
             recommended.add(icon2);
             allButtons.add(icon2);
 
@@ -136,6 +156,16 @@ public class MainMenu extends JLayeredPane implements Clickable {
             image3.setImage(movie3.getPoster());
             JButton icon3 = new JButton();
             icon3.setIcon(image3);
+
+            icon3.setText(movie3.getTitle());
+            icon3.setVerticalTextPosition(SwingConstants.BOTTOM);
+            icon3.setHorizontalTextPosition(SwingConstants.CENTER);
+            icon3.setBorderPainted(false);
+            icon3.setBackground(new Color(238, 238, 238));
+            icon3.setPreferredSize(new Dimension(150,250));
+
+            icon3.addActionListener(l -> MediaInfoWindow.showMediaInfo(movie3, origin, currentUser, this));
+
             recommended.add(icon3);
             allButtons.add(icon3);
         } catch (IllegalArgumentException e) {
@@ -147,9 +177,9 @@ public class MainMenu extends JLayeredPane implements Clickable {
     }
 
     // Creates and returns the movie section container.
-    private Container makeMovieContainer() {
-        // Main container for the movie section.
-        Container movieContainer = new Container();
+    private JPanel makeMovieContainer() {
+        // Main JPanel for the movie section.
+        JPanel movieContainer = new JPanel();
         movieContainer.setLayout(new BorderLayout());
 
         // Sets the top text of the movie section,
@@ -157,8 +187,8 @@ public class MainMenu extends JLayeredPane implements Clickable {
         JLabel movieLabel = new JLabel("Movies:");
         movieContainer.add(movieLabel, BorderLayout.NORTH);
 
-        // Container for the movie selector.
-        Container movieSelectionContainer = new Container();
+        // JPanel for the movie selector.
+        JPanel movieSelectionContainer = new JPanel();
         movieSelectionContainer.setLayout(new BorderLayout());
 
         // Adds buttons to the movie selector and creates an ActionListener to them.
@@ -166,13 +196,13 @@ public class MainMenu extends JLayeredPane implements Clickable {
         allButtons.add(leftButton);
         leftButton.addActionListener(new ActionListener() {
             @Override public void actionPerformed(ActionEvent e) {
-                if(movieIndex > mediaToShow && movieIndex <= 100) {
+                if(movieIndex >= mediaToShow && movieIndex <= 99) {
                     movieIndex -= mediaToShow;
                     movieIcons.removeAll();
                     loadMovies();
                     origin.pack();
                 } else if(movieIndex < mediaToShow) {
-                    movieIndex = 99 - mediaToShow;
+                    movieIndex = 95;
                     movieIcons.removeAll();
                     loadMovies();
                     origin.pack();
@@ -184,32 +214,31 @@ public class MainMenu extends JLayeredPane implements Clickable {
         allButtons.add(rightButton);
         rightButton.addActionListener(new ActionListener() {
             @Override public void actionPerformed(ActionEvent e) {
-                if(movieIndex >= 0 && movieIndex < 100 - (mediaToShow * 2)) {
+                if(movieIndex >= 0 && movieIndex < 95) {
                     movieIndex += mediaToShow;
                     movieIcons.removeAll();
                     loadMovies();
                     origin.pack();
-                } else if(movieIndex < mediaToShow) {
+                } else if(movieIndex >= 95) {
                     movieIndex = 0;
                     movieIcons.removeAll();
                     loadMovies();
                     origin.pack();
                 }
             }
-            
         });
         movieSelectionContainer.add(leftButton, BorderLayout.WEST);
         movieSelectionContainer.add(rightButton, BorderLayout.EAST);
 
-        // Adds the movie icons container to the movie selector container.
-        movieIcons = new Container();
+        // Adds the movie icons JPanel to the movie selector container.
+        movieIcons = new JPanel();
         movieIcons.setLayout(new FlowLayout());
         movieSelectionContainer.add(movieIcons, BorderLayout.CENTER);
 
         // Loads the movies to show.
         loadMovies();
 
-        // Adds the movie selector container to the movie section container.
+        // Adds the movie selector JPanel to the movie section container.
         movieContainer.add(movieSelectionContainer,BorderLayout.CENTER);
 
         // Returns the movie section container.
@@ -238,9 +267,9 @@ public class MainMenu extends JLayeredPane implements Clickable {
     }
 
     // Creates and returns the series section container.
-    private Container makeSeriesContainer() {
-        // Main container for the series section.
-        Container seriesContainer = new Container();
+    private JPanel makeSeriesContainer() {
+        // Main JPanel for the series section.
+        JPanel seriesContainer = new JPanel();
         seriesContainer.setLayout(new BorderLayout());
 
         // Sets the top label for the series section,
@@ -248,23 +277,22 @@ public class MainMenu extends JLayeredPane implements Clickable {
         JLabel seriesLabel = new JLabel("Series:");
         seriesContainer.add(seriesLabel,BorderLayout.NORTH);
 
-        // Container for the series selector
-        Container seriesSelectorContainer = new Container();
+        // JPanel for the series selector
+        JPanel seriesSelectorContainer = new JPanel();
         seriesSelectorContainer.setLayout(new BorderLayout());
 
         // Adds buttons to the series selector.
         JButton leftButton = new JButton("Left");
         allButtons.add(leftButton);
-        leftButton.setSize(new Dimension(50, 50));
         leftButton.addActionListener(new ActionListener() {
             @Override public void actionPerformed(ActionEvent e) {
-                if(seriesIndex > mediaToShow && seriesIndex <= 100) {
+                if(seriesIndex >= mediaToShow && seriesIndex <= 99) {
                     seriesIndex -= mediaToShow;
                     seriesIcons.removeAll();
                     loadSeries();
                     origin.pack();
                 } else if(seriesIndex < mediaToShow) {
-                    seriesIndex = 99 - mediaToShow;
+                    seriesIndex = 95;
                     seriesIcons.removeAll();
                     loadSeries();
                     origin.pack();
@@ -274,35 +302,33 @@ public class MainMenu extends JLayeredPane implements Clickable {
         });
         JButton rightButton = new JButton("Right");
         allButtons.add(rightButton);
-        rightButton.setSize(new Dimension(50, 50));
         rightButton.addActionListener(new ActionListener() {
             @Override public void actionPerformed(ActionEvent e) {
-                if(seriesIndex >= 0 && seriesIndex < 100 - (mediaToShow * 2)) {
+                if(seriesIndex >= 0 && seriesIndex < 95) {
                     seriesIndex += mediaToShow;
                     seriesIcons.removeAll();
                     loadSeries();
                     origin.pack();
-                } else if(seriesIndex < mediaToShow) {
+                } else if(seriesIndex >= 95) {
                     seriesIndex = 0;
                     seriesIcons.removeAll();
                     loadSeries();
                     origin.pack();
                 }
             }
-            
         });
         seriesSelectorContainer.add(leftButton, BorderLayout.WEST);
         seriesSelectorContainer.add(rightButton, BorderLayout.EAST);
 
-        // Adds the series icon container to the series selector container.
-        seriesIcons = new Container();
+        // Adds the series icon JPanel to the series selector container.
+        seriesIcons = new JPanel();
         seriesIcons.setLayout(new FlowLayout());
         seriesSelectorContainer.add(seriesIcons, BorderLayout.CENTER);
 
         // Loads the series to show.
         loadSeries();
         
-        // Adds the series selector container to the series section container.
+        // Adds the series selector JPanel to the series section container.
         seriesContainer.add(seriesSelectorContainer,BorderLayout.CENTER);
 
         // Returns the series section container

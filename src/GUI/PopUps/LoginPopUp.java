@@ -16,14 +16,14 @@ public class LoginPopUp extends JInternalFrame {
     private JPanel loginContainerPanel;
     private JLabel loginWelcome;
     private JLabel loginInfo;
-    private Container loginFields;
+    private JPanel loginFields;
     private JTextField usernameField;
     private JPasswordField passwordField;
 
     private JPanel createUserContainerPanel;
     private JLabel createWelcome;
     private JLabel createInfo;
-    private Container userFields;
+    private JPanel userFields;
     private JTextField newUsernameField;
     private JPasswordField newPasswordField;
 
@@ -94,7 +94,7 @@ public class LoginPopUp extends JInternalFrame {
 
     // Setup of the login info message. It tells you if there are eny errors in the input you give.
     private void setupLoginInfoMessage() {
-        Container infoContainer = new Container();
+        JPanel infoContainer = new JPanel();
         infoContainer.setLayout(new GridLayout(2,1));
         loginWelcome = new JLabel("Welcome to the streaming service.");
         loginInfo = new JLabel(" ");
@@ -105,10 +105,10 @@ public class LoginPopUp extends JInternalFrame {
 
     // Setup of the login fields, which are in the center of the window.
     private void setupLoginFields() {
-        Container loginFieldsOuter = new Container();
+        JPanel loginFieldsOuter = new JPanel();
         loginFieldsOuter.setLayout(new FlowLayout());
 
-        loginFields = new Container();
+        loginFields = new JPanel();
         loginFields.setLayout(new GridLayout(2,2));
         loginFields.setPreferredSize(new Dimension(500,100));
         loginFieldsOuter.add(loginFields);
@@ -133,7 +133,7 @@ public class LoginPopUp extends JInternalFrame {
     // checks whether or not your login credentials are valid and let's you into the streaming service if
     // they are.
     private void setupLoginButton() {
-        Container buttons = new Container();
+        JPanel buttons = new JPanel();
         buttons.setLayout(new GridLayout(1,2,2,2));
 
         JButton createUser = new JButton("Create new user");
@@ -164,7 +164,7 @@ public class LoginPopUp extends JInternalFrame {
 
     // Setup of the create user info message. It tells you if there are eny errors in the input you give.
     private void setupCreateInfoMessage() {
-        Container infoContainer = new Container();
+        JPanel infoContainer = new JPanel();
         infoContainer.setLayout(new GridLayout(2,1));
         createWelcome = new JLabel("Create a new user.");
         createInfo = new JLabel(" ");
@@ -175,10 +175,10 @@ public class LoginPopUp extends JInternalFrame {
 
     // Setup of the login fields, which are in the center of the window.
     private void setupCreateFields() {
-        Container userFieldsOuter = new Container();
+        JPanel userFieldsOuter = new JPanel();
         userFieldsOuter.setLayout(new FlowLayout());
 
-        userFields = new Container();
+        userFields = new JPanel();
         userFields.setLayout(new GridLayout(2,2));
         userFields.setPreferredSize(new Dimension(500,100));
         userFieldsOuter.add(userFields);
@@ -199,7 +199,7 @@ public class LoginPopUp extends JInternalFrame {
     // Setup of the create-buttons. The createUser button creates the user if the given username isn't already
     // taken. The cancel button takes you back to the login-screen.
     private void setupCreateButton() {
-        Container buttons = new Container();
+        JPanel buttons = new JPanel();
         buttons.setLayout(new GridLayout(1,2,2,2));
 
         JButton cancel = new JButton("Return");

@@ -14,8 +14,8 @@ public class SearchResult extends JLayeredPane implements Clickable {
     private MediaDB db;
     private GUI origin;
 
-    private Container contentPane;
-    private Container topbar;
+    private JPanel contentPane;
+    private JPanel topbar;
     private JLabel yourSearch;
     private JPanel allResultsPanel;
     private ArrayList<JButton> allButtons;
@@ -50,7 +50,7 @@ public class SearchResult extends JLayeredPane implements Clickable {
     // Setup of the main page, which contains of a small description of what the search criteria are
     // and the results.
     private void setup() {
-        contentPane = new Container();
+        contentPane = new JPanel();
         contentPane.setLayout(new BorderLayout());
         this.add(contentPane, new Integer(0));
         setPreferredSize(new Dimension(origin.getwidth()-12,origin.getheight()-82));
@@ -61,7 +61,7 @@ public class SearchResult extends JLayeredPane implements Clickable {
     }
 
     private void makeTopbar() {
-        topbar = new Container();
+        topbar = new JPanel();
         topbar.setLayout(new GridLayout());
         contentPane.add(topbar, BorderLayout.NORTH);
 
@@ -95,7 +95,7 @@ public class SearchResult extends JLayeredPane implements Clickable {
     }
 
     private void makeSorting() {
-        Container sortingContainer = new Container();
+        JPanel sortingContainer = new JPanel();
         sortingContainer.setLayout(new FlowLayout(FlowLayout.RIGHT));
 
         String[] sortingOptions = {"Sort by...", "Title (A-Z)", "Title (Z-A)", "Release (newest to oldest)", 
@@ -186,21 +186,12 @@ public class SearchResult extends JLayeredPane implements Clickable {
             mediaPoster.setPreferredSize(new Dimension(150,250));
 
             allButtons.add(mediaPoster);
-            mediaPoster.addActionListener(l -> showMediaInfo(m));
+            mediaPoster.addActionListener(l -> MediaInfoWindow.showMediaInfo(m, origin, currentUser, this));
             allResultsPanel.add(mediaPoster);
         }
 
         allResultsPanel.setPreferredSize(new Dimension(6*150,(numberOfResults/6 + (numberOfResults % 6 == 0? 0:1))*250));
         origin.pack();
-    }
-
-    // Make a MediaInfoWindow popup with the given media.
-    private void showMediaInfo(Media m) {
-        MediaInfoWindow info = new MediaInfoWindow(m, origin, currentUser);
-        add(info, new Integer(1));
-        info.setLocation((origin.getwidth()-12)/2-info.getWidth()/2, (origin.getheight()-82)/2-info.getWidth()/2);
-        info.setVisible(true);
-        info.show();
     }
 
     public void buttonsSetEnabled(boolean b) {
