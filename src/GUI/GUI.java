@@ -58,6 +58,7 @@ public class GUI extends JFrame implements Clickable {
         // Containers used for the top menu.
         nContainer = new JPanel();
         nContainer.setLayout(new BorderLayout());
+        ColorTheme.paintAccentPanel(nContainer);
 
         // Buttons used for the top menu
         // Favorites button added to the west of the main top menu JPanel 'nContainer' in the western spot.
@@ -67,22 +68,36 @@ public class GUI extends JFrame implements Clickable {
         JButton HomeButton = new JButton("Home");
         HomeButton.setPreferredSize(new Dimension(100, 50));
         HomeButton.addActionListener(e -> changeScenario(new MainMenu(currentUser, this)));
+        HomeButton.setForeground(Color.white);                    //Temporary Font properties
+        HomeButton.setFont(new Font("Verdana", Font.BOLD, 15));   //Temporary Font properties
+     
+        ColorTheme.paintClickableButton(HomeButton);
         allButtons.add(HomeButton);
         wMenuContainer.add(HomeButton);
 
         JButton favoritesButton = new JButton("Favorites");
         favoritesButton.setPreferredSize(new Dimension(100, 50));
         favoritesButton.addActionListener(e -> changeScenario(new Favorites(currentUser, this)));
+        favoritesButton.setForeground(Color.white);                    //Temporary Font properties
+        favoritesButton.setFont(new Font("Verdana", Font.BOLD, 15));   //Temporary Font properties
+
+        ColorTheme.paintClickableButton(favoritesButton);
         allButtons.add(favoritesButton);
         wMenuContainer.add(favoritesButton);
+
 
         nContainer.add(wMenuContainer, BorderLayout.WEST);
 
         // Search and User button added to the east menu JPanel 'eMenuContainer'
         JPanel eMenuContainer = new JPanel();
         eMenuContainer.setLayout(new GridLayout(1,2));
+        ColorTheme.paintAccentPanel(eMenuContainer);
 
         JButton searchButton = new JButton("Search");
+        ColorTheme.paintClickableButton(searchButton);
+        searchButton.setForeground(Color.white);                    //Temporary Font properties
+        searchButton.setFont(new Font("Verdana", Font.BOLD, 15));   //Temporary Font properties
+
         searchButton.addActionListener(l -> {
             SearchPopUp popup = new SearchPopUp(currentUser, this);
             centerContainer.add(popup, new Integer(1));
@@ -93,6 +108,10 @@ public class GUI extends JFrame implements Clickable {
         allButtons.add(searchButton);
 
         JButton userButton = new JButton("Logout");
+        ColorTheme.paintClickableButton(userButton);
+        userButton.setForeground(Color.white);                    //Temporary Font properties
+        userButton.setFont(new Font("Verdana", Font.BOLD, 15));   //Temporary Font properties
+        
         userButton.addActionListener(e -> {
             currentUser = null;
             changeScenario(new MainMenu(currentUser, this));

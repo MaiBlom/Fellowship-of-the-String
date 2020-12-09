@@ -8,6 +8,7 @@ import javax.swing.*;
 import java.awt.*;
 import java.util.ArrayList;
 import java.util.Collections;
+import src.GUI.*;
 
 public class Favorites extends JLayeredPane implements Clickable {
     private static final long serialVersionUID = 1L;
@@ -55,13 +56,19 @@ public class Favorites extends JLayeredPane implements Clickable {
         topMenu = new JPanel();
         topMenu.setLayout(new GridLayout(1,3));
 
-        favoritesLabel = new JLabel("Favorites");
+        favoritesLabel = new JLabel("  Favorites");
+        favoritesLabel.setForeground(ColorTheme.textColor);
+        favoritesLabel.setFont(new Font("Verdana", Font.BOLD, 15));
         resultsLabel = new JLabel("Total Results: " + numberOfResults);
+        resultsLabel.setForeground(ColorTheme.textColor);
+        resultsLabel.setFont(new Font("Verdana", Font.BOLD, 15));
 
         topMenu.add(favoritesLabel);
         topMenu.add(resultsLabel);
+        ColorTheme.paintMainPanel(topMenu);
 
         contentPane.add(topMenu,BorderLayout.NORTH);
+        
     }
 
     public void countResults() {
@@ -73,6 +80,7 @@ public class Favorites extends JLayeredPane implements Clickable {
     public void makeMediaContainer() {
         mediaContainer = new JPanel();
         mediaContainer.setLayout(new GridLayout(2,1));
+        //ColorTheme.paintMainPanel(mediaContainer);
 
         contentPane.add(mediaContainer,BorderLayout.CENTER);
     }
@@ -83,7 +91,8 @@ public class Favorites extends JLayeredPane implements Clickable {
 
         for (Media m : movies) {                                               
             JButton mediaPoster = new JButton(new ImageIcon(m.getPoster()));   
-            allResultButtons.add(mediaPoster);                                 
+            allResultButtons.add(mediaPoster); 
+            ColorTheme.paintMediaButton(mediaPoster);        
             mediaPoster.addActionListener(l -> showMediaInfo(m));              
             favoriteMoviesPanel.add(mediaPoster);                              
             }
@@ -94,7 +103,8 @@ public class Favorites extends JLayeredPane implements Clickable {
 
         for (Media m : series) {                                               
             JButton mediaPoster = new JButton(new ImageIcon(m.getPoster()));   
-            allResultButtons.add(mediaPoster);                                 
+            allResultButtons.add(mediaPoster);      
+            ColorTheme.paintMediaButton(mediaPoster);                                                        
             mediaPoster.addActionListener(l -> showMediaInfo(m));              
             favoriteSeriesPanel.add(mediaPoster);                              
         }
@@ -105,14 +115,18 @@ public class Favorites extends JLayeredPane implements Clickable {
     public void makeFavoriteMoviesContainer() {
         favoriteMovieContainer = new JPanel();
         favoriteMovieContainer.setLayout(new BorderLayout());
+        ColorTheme.paintMainPanel(favoriteMovieContainer);
 
         //The panel that will hold all the JButtons with the accompanying images.
         //Uses a FlowLayout for the scalability properties.
         favoriteMoviesPanel = new JPanel();
         favoriteMoviesPanel.setLayout(new FlowLayout(FlowLayout.LEFT));
+        ColorTheme.paintMainPanel(favoriteMoviesPanel);
 
         //The label added just above the movie images to denote that the below images are a list of movies.
-        JLabel favoriteMovieLabel = new JLabel("My Favorite Movies: ");
+        JLabel favoriteMovieLabel = new JLabel("  My Favorite Movies: ");
+        favoriteMovieLabel.setForeground(ColorTheme.textColor);
+        favoriteMovieLabel.setFont(new Font("Verdana", Font.BOLD, 15));
         favoriteMovieContainer.add(favoriteMovieLabel,BorderLayout.NORTH);
 
         makeMovieButtons();
@@ -127,13 +141,17 @@ public class Favorites extends JLayeredPane implements Clickable {
     public void makeFavoriteSeriesContainer() {
         favoriteSeriesContainer = new JPanel();
         favoriteSeriesContainer.setLayout(new BorderLayout());
+        ColorTheme.paintMainPanel(favoriteSeriesContainer);
 
         //The panel that will hold all the JButtons with the accompanying images.
         //Uses a FlowLayout for the scalability properties.
         favoriteSeriesPanel = new JPanel();
         favoriteSeriesPanel.setLayout(new FlowLayout(FlowLayout.LEFT));
+        ColorTheme.paintMainPanel(favoriteSeriesPanel);
 
-        JLabel favoriteSeriesLabel = new JLabel("My Favorite Series: ");
+        JLabel favoriteSeriesLabel = new JLabel("  My Favorite Series: ");
+        favoriteSeriesLabel.setForeground(ColorTheme.textColor);
+        favoriteSeriesLabel.setFont(new Font("Verdana", Font.BOLD, 15));
         favoriteSeriesContainer.add(favoriteSeriesLabel,BorderLayout.NORTH);
 
         makeSeriesButtons();
@@ -153,12 +171,17 @@ public class Favorites extends JLayeredPane implements Clickable {
     private void makeSorting() {
         JPanel sortingContainer = new JPanel();
         sortingContainer.setLayout(new FlowLayout(FlowLayout.RIGHT));
+        sortingContainer.setBackground(ColorTheme.mainColor);
 
         String[] sortingOptions = {"Sort by...", "Title (A-Z)", "Title (Z-A)", "Release (newest to oldest)", 
                                    "Release (oldest to newest)", "Rating (highest to lowest)", "Rating (lowest to highest)"};
         JComboBox<String> sortby = new JComboBox<>(sortingOptions);
         sortby.addActionListener(e -> sort((String) sortby.getSelectedItem()));
+        sortby.setBackground(ColorTheme.mainColor);
+        sortby.setForeground(ColorTheme.textColor);
+        sortby.setFont(new Font("Verdana", Font.BOLD, 15));
         sortingContainer.add(sortby);
+
 
         topMenu.add(sortingContainer);
     }
