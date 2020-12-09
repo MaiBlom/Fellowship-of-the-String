@@ -26,7 +26,7 @@ public class MainMenu extends JLayeredPane implements Clickable {
     private User currentUser;
 
     private ArrayList<JButton> allButtons;
-
+     
     // 
     private JPanel movieIcons;
     private JPanel seriesIcons;
@@ -35,7 +35,7 @@ public class MainMenu extends JLayeredPane implements Clickable {
     private int movieIndex, seriesIndex;
 
     // Integer that determines how many media icons to load
-    private int mediaToShow = 5;
+    private int mediaPerRow = 5;
 
     // private final int WIDTH = 1050, HEIGHT = 720;
 
@@ -118,56 +118,24 @@ public class MainMenu extends JLayeredPane implements Clickable {
             Movie movie3 = new Movie("The Lord of the Rings: Return of the King", 2003, new String[] { "Action", "Adventure", "Drama" },
             8.9, ImageIO.read(getClass().getClassLoader().getResourceAsStream("./res/redaktionfilm/return of the king.jpg")));
 
-            ImageIcon image1 = new ImageIcon();
-            image1.setImage(movie1.getPoster());
-            JButton icon1 = new JButton();
-            icon1.setIcon(image1);
+            Media[] movies = new Media[] {movie1, movie2, movie3};
 
-            icon1.setText(movie1.getTitle());
-            icon1.setVerticalTextPosition(SwingConstants.BOTTOM);
-            icon1.setHorizontalTextPosition(SwingConstants.CENTER);
-            icon1.setBorderPainted(false);
-            icon1.setBackground(new Color(238, 238, 238));
-            icon1.setPreferredSize(new Dimension(150,250));
+            for(Media m : movies) {
+                ImageIcon image = new ImageIcon(m.getPoster());
+                JButton icon = new JButton(image);
 
-            icon1.addActionListener(l -> MediaInfoWindow.showMediaInfo(movie1, origin, currentUser, this));
+                icon.setText(m.getTitle());
+                icon.setVerticalTextPosition(SwingConstants.BOTTOM);
+                icon.setHorizontalTextPosition(SwingConstants.CENTER);
+                icon.setBorderPainted(false);
+                icon.setBackground(new Color(238, 238, 238));
+                icon.setPreferredSize(new Dimension(150,250));
 
-            recommended.add(icon1);
-            allButtons.add(icon1);
+                icon.addActionListener(l -> MediaInfoWindow.showMediaInfo(m, origin, currentUser, this));
 
-            ImageIcon image2 = new ImageIcon();
-            image2.setImage(movie2.getPoster());
-            JButton icon2 = new JButton();
-            icon2.setIcon(image2);
-
-            icon2.setText(movie2.getTitle());
-            icon2.setVerticalTextPosition(SwingConstants.BOTTOM);
-            icon2.setHorizontalTextPosition(SwingConstants.CENTER);
-            icon2.setBorderPainted(false);
-            icon2.setBackground(new Color(238, 238, 238));
-            icon2.setPreferredSize(new Dimension(150,250));
-
-            icon2.addActionListener(l -> MediaInfoWindow.showMediaInfo(movie2, origin, currentUser, this));
-
-            recommended.add(icon2);
-            allButtons.add(icon2);
-
-            ImageIcon image3 = new ImageIcon();
-            image3.setImage(movie3.getPoster());
-            JButton icon3 = new JButton();
-            icon3.setIcon(image3);
-
-            icon3.setText(movie3.getTitle());
-            icon3.setVerticalTextPosition(SwingConstants.BOTTOM);
-            icon3.setHorizontalTextPosition(SwingConstants.CENTER);
-            icon3.setBorderPainted(false);
-            icon3.setBackground(new Color(238, 238, 238));
-            icon3.setPreferredSize(new Dimension(150,250));
-
-            icon3.addActionListener(l -> MediaInfoWindow.showMediaInfo(movie3, origin, currentUser, this));
-
-            recommended.add(icon3);
-            allButtons.add(icon3);
+                recommended.add(icon);
+                allButtons.add(icon);
+            }
         } catch (IllegalArgumentException e) {
             System.out.println(e.getMessage());
         } catch (IOException e) {
@@ -196,12 +164,12 @@ public class MainMenu extends JLayeredPane implements Clickable {
         allButtons.add(leftButton);
         leftButton.addActionListener(new ActionListener() {
             @Override public void actionPerformed(ActionEvent e) {
-                if(movieIndex >= mediaToShow && movieIndex <= 99) {
-                    movieIndex -= mediaToShow;
+                if(movieIndex >= mediaPerRow && movieIndex <= db.getMovies().size() - mediaPerRow) {
+                    movieIndex -= mediaPerRow;
                     movieIcons.removeAll();
                     loadMovies();
                     origin.pack();
-                } else if(movieIndex < mediaToShow) {
+                } else if(movieIndex < mediaPerRow) {
                     movieIndex = 95;
                     movieIcons.removeAll();
                     loadMovies();
@@ -214,8 +182,8 @@ public class MainMenu extends JLayeredPane implements Clickable {
         allButtons.add(rightButton);
         rightButton.addActionListener(new ActionListener() {
             @Override public void actionPerformed(ActionEvent e) {
-                if(movieIndex >= 0 && movieIndex < 95) {
-                    movieIndex += mediaToShow;
+                if(movieIndex >= 0 && movieIndex < db.getMovies().size() - mediaPerRow) {
+                    movieIndex += mediaPerRow;
                     movieIcons.removeAll();
                     loadMovies();
                     origin.pack();
@@ -245,23 +213,35 @@ public class MainMenu extends JLayeredPane implements Clickable {
         return movieContainer;
     } 
 
-    // This method loads the (field) mediaToShow currently viewing movies based on movieIndex,
+    // This method loads the (field) mediaPerRow currently viewing movies based on movieIndex,
     // and adds them to the movieIcons container.
     private void loadMovies() {
-        ArrayList<JButton> movieDisplayIcons = new ArrayList<JButton>(mediaToShow);
+        ArrayList<JButton> movieDisplayIcons = new ArrayList<JButton>(mediaPerRow);
 
-        // Loops through the movie database and loads (field) mediaToShow of them as JButton.
-        for(int i = movieIndex; i < movieIndex + mediaToShow; i++){
+        // Loops through the movie database and loads (field) mediaPerRow of them as JButton.
+        for(int i = movieIndex; i < movieIndex + mediaPerRow; i++){
             ImageIcon image = new ImageIcon();
-            image.setImage(db.getMovies().get(i).getPoster());
-            JButton icon = new JButton();
+            Media m = db.getMovies().get(i);
+            image.setImage(m.getPoster());
+            JButton icon = new JButton();            
+
+            icon.setText(db.getMovies().get(i).getTitle());
+            icon.setVerticalTextPosition(SwingConstants.BOTTOM);
+            icon.setHorizontalTextPosition(SwingConstants.CENTER);
+            icon.setBorderPainted(false);
+            icon.setBackground(new Color(238, 238, 238));
+            icon.setPreferredSize(new Dimension(150,250));
+
+            icon.addActionListener(l -> MediaInfoWindow.showMediaInfo(m, origin, currentUser, this));
+
             icon.setIcon(image);
+
             movieDisplayIcons.add(icon);
             allButtons.add(icon);
         }
 
         // Adds all the JButtons to the movie icon container
-        for(int i = 0; i < mediaToShow; i++) {
+        for(int i = 0; i < mediaPerRow; i++) {
             movieIcons.add(movieDisplayIcons.get(i));
         }
     }
@@ -286,12 +266,12 @@ public class MainMenu extends JLayeredPane implements Clickable {
         allButtons.add(leftButton);
         leftButton.addActionListener(new ActionListener() {
             @Override public void actionPerformed(ActionEvent e) {
-                if(seriesIndex >= mediaToShow && seriesIndex <= 99) {
-                    seriesIndex -= mediaToShow;
+                if(seriesIndex >= mediaPerRow && seriesIndex <= 99) {
+                    seriesIndex -= mediaPerRow;
                     seriesIcons.removeAll();
                     loadSeries();
                     origin.pack();
-                } else if(seriesIndex < mediaToShow) {
+                } else if(seriesIndex < mediaPerRow) {
                     seriesIndex = 95;
                     seriesIcons.removeAll();
                     loadSeries();
@@ -304,12 +284,12 @@ public class MainMenu extends JLayeredPane implements Clickable {
         allButtons.add(rightButton);
         rightButton.addActionListener(new ActionListener() {
             @Override public void actionPerformed(ActionEvent e) {
-                if(seriesIndex >= 0 && seriesIndex < 95) {
-                    seriesIndex += mediaToShow;
+                if(seriesIndex >= 0 && seriesIndex < db.getMovies().size() - mediaPerRow) {
+                    seriesIndex += mediaPerRow;
                     seriesIcons.removeAll();
                     loadSeries();
                     origin.pack();
-                } else if(seriesIndex >= 95) {
+                } else if(seriesIndex >= db.getMovies().size() - mediaPerRow) {
                     seriesIndex = 0;
                     seriesIcons.removeAll();
                     loadSeries();
@@ -335,23 +315,34 @@ public class MainMenu extends JLayeredPane implements Clickable {
         return seriesContainer;
     }
 
-    // This method loads the (field) mediaToShow currently viewing series based on seriesIndex,
+    // This method loads the (field) mediaPerRow currently viewing series based on seriesIndex,
     // and returns them as a JButton ArrayList.
     private void loadSeries() {
-        ArrayList<JButton> seriesDisplayIcons = new ArrayList<JButton>(mediaToShow);
+        ArrayList<JButton> seriesDisplayIcons = new ArrayList<JButton>(mediaPerRow);
 
-        // Loops through the series database and loads (field) mediaToShow of them as JButtons.
-        for(int i = seriesIndex; i < seriesIndex + mediaToShow; i++){
+        // Loops through the series database and loads (field) mediaPerRow of them as JButtons.
+        for(int i = seriesIndex; i < seriesIndex + mediaPerRow; i++){
             ImageIcon image = new ImageIcon();
-            image.setImage(db.getSeries().get(i).getPoster());
+            Media m = db.getSeries().get(i);
+            image.setImage(m.getPoster());
             JButton icon = new JButton();
+
+            icon.setText(db.getSeries().get(i).getTitle());
+            icon.setVerticalTextPosition(SwingConstants.BOTTOM);
+            icon.setHorizontalTextPosition(SwingConstants.CENTER);
+            icon.setBorderPainted(false);
+            icon.setBackground(new Color(238, 238, 238));
+            icon.setPreferredSize(new Dimension(150,250));
+
+            icon.addActionListener(l -> MediaInfoWindow.showMediaInfo(m, origin, currentUser, this));
+
             icon.setIcon(image);
             seriesDisplayIcons.add(icon);
             allButtons.add(icon);
         }
 
         // Adds all the series JButtons to the series icon container.
-        for(int i = 0; i < mediaToShow; i++) {
+        for(int i = 0; i < mediaPerRow; i++) {
             seriesIcons.add(seriesDisplayIcons.get(i));
         }
     }

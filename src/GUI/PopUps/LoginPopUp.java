@@ -151,6 +151,7 @@ public class LoginPopUp extends JInternalFrame {
             try {
                 if (db.login(username, password)) {
                     origin.setCurrentUser(db.getUser(username));
+                    origin.changeScenario(new MainMenu(db.getUser(username), origin));
                     dispose();
                 }
             } catch (Exception e) {

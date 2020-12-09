@@ -18,7 +18,7 @@ public class GUI extends JFrame implements Clickable {
 
     private ArrayList<JButton> allButtons;
 
-    private final int WIDTH = 1040, HEIGHT = 807;
+    private final int WIDTH = 1040, HEIGHT = 900;
 
     public static void main(String[] args) {
         new GUI();
@@ -51,23 +51,6 @@ public class GUI extends JFrame implements Clickable {
         pack();
         setLocationRelativeTo(null);
         setVisible(true);
-
-        /* frame.addComponentListener(new ComponentListener() {
-            public void componentResized(ComponentEvent e){
-                Component c = (Component)e.getSource();
-                c.repaint();
-                //The purpose of this component is to be able to repaint the frame when the window is resized although IT DOESNT WORK
-            }
-            @Override
-            public void componentMoved(ComponentEvent e) {
-            }
-            @Override
-            public void componentShown(ComponentEvent e) {
-            }
-            @Override
-            public void componentHidden(ComponentEvent e) {
-            }
-        }); */
     }
 
     // Makes the top menu that is located in the northern part of the content pane's BorderLayout
