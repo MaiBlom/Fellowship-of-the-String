@@ -167,7 +167,10 @@ public class MainMenu extends JLayeredPane implements Clickable {
         ColorTheme.paintMainPanel(movieSelectionContainer);
 
         // Adds buttons to the movie selector and creates an ActionListener to them.
-        JButton leftButton = new JButton("Left");
+        JButton leftButton = new JButton();
+        try {
+            leftButton.setIcon(new ImageIcon(ImageIO.read(getClass().getClassLoader().getResourceAsStream("./res/buttons/buttons_left.png"))));
+        } catch (IOException e) {}
         allButtons.add(leftButton);
         leftButton.addActionListener(new ActionListener() {
             @Override public void actionPerformed(ActionEvent e) {
@@ -185,7 +188,10 @@ public class MainMenu extends JLayeredPane implements Clickable {
             }
             
         });
-        JButton rightButton = new JButton("Right");
+        JButton rightButton = new JButton();
+        try {
+            rightButton.setIcon(new ImageIcon(ImageIO.read(getClass().getClassLoader().getResourceAsStream("./res/buttons/buttons_right.png"))));
+        } catch (IOException e) {}
         allButtons.add(rightButton);
         rightButton.addActionListener(new ActionListener() {
             @Override public void actionPerformed(ActionEvent e) {
@@ -272,7 +278,10 @@ public class MainMenu extends JLayeredPane implements Clickable {
         seriesSelectorContainer.setLayout(new BorderLayout());
 
         // Adds buttons to the series selector.
-        JButton leftButton = new JButton("Left");
+        JButton leftButton = new JButton();
+        try {
+            leftButton.setIcon(new ImageIcon(ImageIO.read(getClass().getClassLoader().getResourceAsStream("./res/buttons/buttons_left.png"))));
+        } catch (IOException e) {}
         allButtons.add(leftButton);
         leftButton.addActionListener(new ActionListener() {
             @Override public void actionPerformed(ActionEvent e) {
@@ -290,7 +299,10 @@ public class MainMenu extends JLayeredPane implements Clickable {
             }
             
         });
-        JButton rightButton = new JButton("Right");
+        JButton rightButton = new JButton();
+        try {
+            rightButton.setIcon(new ImageIcon(ImageIO.read(getClass().getClassLoader().getResourceAsStream("./res/buttons/buttons_right.png"))));
+        } catch (IOException e) {}
         allButtons.add(rightButton);
         rightButton.addActionListener(new ActionListener() {
             @Override public void actionPerformed(ActionEvent e) {
