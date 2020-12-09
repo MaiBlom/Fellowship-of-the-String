@@ -44,7 +44,7 @@ public class UserDB {
 
     public boolean login(String username, char[] password) throws InvalidUsernameException, InvalidPasswordException {
         if (!users.containsKey(username)) throw new InvalidUsernameException(username);
-        else if (Arrays.equals(users.get(username).getEncryptedPassword(), password)) throw new InvalidPasswordException();
+        else if (!Arrays.equals(users.get(username).getEncryptedPassword(), encryptPassword(password))) throw new InvalidPasswordException();
         else return true;
     }
 
