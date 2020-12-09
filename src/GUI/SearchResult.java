@@ -93,6 +93,7 @@ public class SearchResult extends JLayeredPane implements Clickable {
 
         sb.append("<br>Results: ");
         yourSearch = new JLabel(sb.toString());
+        TextSettings.paintHeader(yourSearch);
         topbar.add(yourSearch);
     }
 
