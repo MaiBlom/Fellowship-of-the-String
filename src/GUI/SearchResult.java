@@ -6,6 +6,8 @@ import src.Media.*;
 import src.GUI.PopUps.*;
 
 import javax.swing.*;
+import javax.swing.plaf.basic.BasicScrollBarUI;
+
 import java.awt.*;
 import java.util.*;
 
@@ -93,6 +95,7 @@ public class SearchResult extends JLayeredPane implements Clickable {
 
         sb.append("<br>Results: ");
         yourSearch = new JLabel(sb.toString());
+        TextSettings.paintHeader(yourSearch);
         topbar.add(yourSearch);
     }
 
@@ -176,6 +179,24 @@ public class SearchResult extends JLayeredPane implements Clickable {
         createButtons();
 
         JScrollPane allResultsScrollPane = new JScrollPane(allResultsPanel);
+        allResultsScrollPane.getVerticalScrollBar().setUI(new BasicScrollBarUI() {
+            protected void configureScrollBarColors() {
+                    thumbHighlightColor = ColorTheme.accentColor;
+                    thumbLightShadowColor = ColorTheme.accentColor;
+                    thumbDarkShadowColor = ColorTheme.accentColor;
+                    thumbColor = ColorTheme.accentColor;
+                    trackColor = ColorTheme.mainColor;
+                    trackHighlightColor = ColorTheme.mainColor;
+                }
+            protected JButton createDecreaseButton(int orientation) { return createZeroButton(); }
+            protected JButton createIncreaseButton(int orientation) { return createZeroButton(); }
+            private JButton createZeroButton() {
+                JButton jbutton = new JButton();
+                jbutton.setPreferredSize(new Dimension(0, 0));
+                jbutton.setMinimumSize(new Dimension(0, 0));
+                jbutton.setMaximumSize(new Dimension(0, 0));
+                return jbutton;
+            }});
         contentPane.add(allResultsScrollPane);
     }
 
@@ -186,6 +207,7 @@ public class SearchResult extends JLayeredPane implements Clickable {
             JButton mediaPoster = new JButton(new ImageIcon(m.getPoster()));
 
             mediaPoster.setText(m.getTitle());
+            TextSettings.paintMediaInfoButtons(mediaPoster);
             mediaPoster.setVerticalTextPosition(SwingConstants.BOTTOM);
             mediaPoster.setHorizontalTextPosition(SwingConstants.CENTER);
             ColorTheme.paintMediaButton(mediaPoster);

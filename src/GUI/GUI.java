@@ -121,8 +121,7 @@ public class GUI extends JFrame implements Clickable {
             userButton.setIcon(new ImageIcon(ImageIO.read(getClass().getClassLoader().getResourceAsStream("./res/buttons/buttons_logout.png"))));
         } catch (IOException e) {}
         ColorTheme.paintClickableButton(userButton);
-        userButton.setForeground(Color.white);                    //Temporary Font properties
-        userButton.setFont(new Font("Verdana", Font.BOLD, 15));   //Temporary Font properties
+        TextSettings.paintButtonFont(userButton);
 
         userButton.addActionListener(e -> {
             currentUser = null;

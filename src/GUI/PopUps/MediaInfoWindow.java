@@ -11,6 +11,8 @@ import java.awt.image.*;
 import javax.imageio.ImageIO;
 import java.io.IOException;
 
+import javax.swing.plaf.basic.BasicScrollBarUI;
+
 public class MediaInfoWindow extends JInternalFrame {
     private static final long serialVersionUID = 1L;
     private Media media;
@@ -78,6 +80,7 @@ public class MediaInfoWindow extends JInternalFrame {
     // (and soon also a "play" button).
     private void setupWestContainer() {
         westContainer = new JPanel();
+        ColorTheme.paintAccentPanel(westContainer);
         westContainer.setLayout(new BorderLayout(2,2));
 
         // Is there a better way of inserting images?
@@ -87,6 +90,7 @@ public class MediaInfoWindow extends JInternalFrame {
         mediaPosterLabel.setIcon(image);
         JPanel mediaPosterContainer = new JPanel();
         mediaPosterContainer.setLayout(new FlowLayout());
+        ColorTheme.paintAccentPanel(mediaPosterContainer);
         mediaPosterContainer.add(mediaPosterLabel);
         westContainer.add(mediaPosterContainer, BorderLayout.NORTH);
 
@@ -97,19 +101,25 @@ public class MediaInfoWindow extends JInternalFrame {
 
     private void setupLeftButtons() {
         JPanel leftButtonsOuter = new JPanel();
+        ColorTheme.paintAccentPanel(leftButtonsOuter);
         leftButtonsOuter.setLayout(new FlowLayout());
 
         JPanel leftButtons = new JPanel();
+        ColorTheme.paintAccentPanel(leftButtons);
         leftButtons.setLayout(new GridLayout(2,1));
         leftButtonsOuter.add(leftButtons);
         
         JButton playButton = new JButton();
+        ColorTheme.paintClickableButton(playButton);
+        TextSettings.paintButtonFont(playButton);
         if (media instanceof Movie) playButton.setText("Play movie");
-        else playButton.setText("Play from beginning");
+        else playButton.setText("Play");
         playButton.addActionListener(l -> clickPlay());
         leftButtons.add(playButton);
 
         JButton favorite = new JButton();
+        ColorTheme.paintClickableButton(favorite);
+        TextSettings.paintButtonFont(favorite);
         if (currentUser.isFavorite(media)) favorite.setText("Unfavorite");
         else favorite.setText("Favorite");
         favorite.addActionListener(l -> {
@@ -134,6 +144,7 @@ public class MediaInfoWindow extends JInternalFrame {
     private void setupCenterContainer() {
         centerContainer = new JPanel();
         centerContainer.setLayout(new BorderLayout());
+        ColorTheme.paintMainPanel(centerContainer);
         contentPane.add(centerContainer, BorderLayout.CENTER);
 
         setupMediaInfo();
@@ -144,21 +155,26 @@ public class MediaInfoWindow extends JInternalFrame {
     // information element about the media. 
     private void setupMediaInfo() {
         mediaInfo = new JPanel();
+        ColorTheme.paintMainPanel(mediaInfo);
         mediaInfo.setLayout(new GridLayout(4,1));
 
         // First row in the grid is the title of the media.
         JLabel title = new JLabel(media.getTitle());
+        TextSettings.paintMediaInfoFont(title);
         mediaInfo.add(title);
 
         // Second row in the grid is the rating. The rating is found as a double and used
         // to crop the star-image at an appropriate length with the getSubimage() method.
         JPanel ratingContainerOuter = new JPanel();
+        ColorTheme.paintMainPanel(ratingContainerOuter);
         ratingContainerOuter.setLayout(new BorderLayout());
         JPanel ratingContainer = new JPanel();
+        ColorTheme.paintMainPanel(ratingContainer);
         ratingContainer.setLayout(new FlowLayout());
 
         double ratingVal = media.getRating();
         JLabel rating = new JLabel(" " + Double.toString(ratingVal));
+        TextSettings.paintMediaInfoFont(rating);
         JLayeredPane bothStarImages = new JLayeredPane();
         
         try {
@@ -201,6 +217,7 @@ public class MediaInfoWindow extends JInternalFrame {
         // Third row is the release date / run time. The string is found differently depending
         // on the media type.
         JLabel release = new JLabel();
+        TextSettings.paintMediaInfoFont(release);
         if (media instanceof Movie) release.setText(Integer.toString(media.getRelease()));
         else {
             Series s = (Series) media;
@@ -217,6 +234,7 @@ public class MediaInfoWindow extends JInternalFrame {
         }
         genreBuilder.append("</html>");
         JLabel genres = new JLabel(genreBuilder.toString());
+        TextSettings.paintMediaInfoFont(genres);
         mediaInfo.add(genres);
 
         centerContainer.add(mediaInfo, BorderLayout.NORTH);
@@ -229,15 +247,18 @@ public class MediaInfoWindow extends JInternalFrame {
         if (media instanceof Movie) return;
 
         seasonsContainer = new JPanel();
+        ColorTheme.paintMainPanel(seasonsContainer);
         seasonsContainer.setLayout(new BorderLayout());
         centerContainer.add(seasonsContainer, BorderLayout.CENTER);
 
         // The seasonsTopBar has the JLabel "Seasons", and the JComboBox element.
 
         JPanel seasonsTopBar = new JPanel();
+        ColorTheme.paintMainPanel(seasonsTopBar);
         seasonsTopBar.setLayout(new GridLayout(1,2));
 
         JLabel seasonsTitle = new JLabel("Seasons");
+        TextSettings.paintMediaInfoFont(seasonsTitle);
         seasonsTopBar.add(seasonsTitle);
 
         // I convert the Media object to a Series object. Then I get the 
@@ -254,6 +275,9 @@ public class MediaInfoWindow extends JInternalFrame {
             else comboboxLabels[i] = "Season " + (i);
         }
         JComboBox<String> seasonList = new JComboBox<>(comboboxLabels);
+        seasonList.setBackground(ColorTheme.mainColor);
+        seasonList.setForeground(ColorTheme.textColor);
+        seasonList.setFont(new Font("Verdana", Font.BOLD, 15));
         seasonList.addActionListener(e -> showSeasonX((String) seasonList.getSelectedItem(), seasonEpisodes));
         seasonsTopBar.add(seasonList);
 
@@ -262,12 +286,33 @@ public class MediaInfoWindow extends JInternalFrame {
         // The episodes JPanel is initialised empty, but buttons will be added to it in
         // the showSeasonX method.
         JPanel episodesFlowContainer = new JPanel();
+        ColorTheme.paintMainPanel(episodesFlowContainer);
         episodesFlowContainer.setLayout(new FlowLayout(FlowLayout.LEFT));
 
         episodesContainer = new JPanel();
+        ColorTheme.paintMainPanel(episodesContainer);
         episodesFlowContainer.add(episodesContainer);
 
         JScrollPane episodesScroll = new JScrollPane(episodesFlowContainer, JScrollPane.VERTICAL_SCROLLBAR_AS_NEEDED, JScrollPane.HORIZONTAL_SCROLLBAR_NEVER);
+        episodesScroll.getVerticalScrollBar().setUI(new BasicScrollBarUI() {
+            protected void configureScrollBarColors() {
+                    thumbHighlightColor = ColorTheme.accentColor;
+                    thumbLightShadowColor = ColorTheme.accentColor;
+                    thumbDarkShadowColor = ColorTheme.accentColor;
+                    thumbColor = ColorTheme.accentColor;
+                    trackColor = ColorTheme.mainColor;
+                    trackHighlightColor = ColorTheme.mainColor;
+                }
+            protected JButton createDecreaseButton(int orientation) { return createZeroButton(); }
+            protected JButton createIncreaseButton(int orientation) { return createZeroButton(); }
+            private JButton createZeroButton() {
+                JButton jbutton = new JButton();
+                jbutton.setPreferredSize(new Dimension(0, 0));
+                jbutton.setMinimumSize(new Dimension(0, 0));
+                jbutton.setMaximumSize(new Dimension(0, 0));
+                return jbutton;
+            }});
+        
         seasonsContainer.add(episodesScroll, BorderLayout.CENTER);
     }
 
@@ -281,6 +326,8 @@ public class MediaInfoWindow extends JInternalFrame {
             numberOfEpisodes = seasonEpisodes[seasonNumber-1];
             for (int i = 0; i<numberOfEpisodes; i++) {
                 JButton button = new JButton("Episode " + (i+1));
+                ColorTheme.paintMediaInfoButtons(button);
+                TextSettings.paintMediaInfoButtons(button);
                 button.addActionListener(e -> clickPlay());
                 episodesContainer.add(button);
             } 
