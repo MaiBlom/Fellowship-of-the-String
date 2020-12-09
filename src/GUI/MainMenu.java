@@ -15,7 +15,7 @@ import src.*;
 import src.Media.*;
 
 public class MainMenu extends JLayeredPane implements Clickable {
-    private static final long serialVersionUID = -5793860781733191506L;
+    private static final long serialVersionUID = 1L;
 
     // The media database
     private MediaDB db;
