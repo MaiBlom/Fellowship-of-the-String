@@ -168,6 +168,7 @@ public class MainMenu extends JLayeredPane implements Clickable {
 
         // Adds buttons to the movie selector and creates an ActionListener to them.
         JButton leftButton = new JButton();
+        ColorTheme.paintArrowButtons(leftButton);
         try {
             leftButton.setIcon(new ImageIcon(ImageIO.read(getClass().getClassLoader().getResourceAsStream("./res/buttons/buttons_left.png"))));
         } catch (IOException e) {}
@@ -189,6 +190,7 @@ public class MainMenu extends JLayeredPane implements Clickable {
             
         });
         JButton rightButton = new JButton();
+        ColorTheme.paintArrowButtons(rightButton);
         try {
             rightButton.setIcon(new ImageIcon(ImageIO.read(getClass().getClassLoader().getResourceAsStream("./res/buttons/buttons_right.png"))));
         } catch (IOException e) {}
@@ -279,6 +281,7 @@ public class MainMenu extends JLayeredPane implements Clickable {
 
         // Adds buttons to the series selector.
         JButton leftButton = new JButton();
+        ColorTheme.paintArrowButtons(leftButton);
         try {
             leftButton.setIcon(new ImageIcon(ImageIO.read(getClass().getClassLoader().getResourceAsStream("./res/buttons/buttons_left.png"))));
         } catch (IOException e) {}
@@ -300,6 +303,7 @@ public class MainMenu extends JLayeredPane implements Clickable {
             
         });
         JButton rightButton = new JButton();
+        ColorTheme.paintArrowButtons(rightButton);
         try {
             rightButton.setIcon(new ImageIcon(ImageIO.read(getClass().getClassLoader().getResourceAsStream("./res/buttons/buttons_right.png"))));
         } catch (IOException e) {}
