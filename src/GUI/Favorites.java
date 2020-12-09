@@ -56,12 +56,10 @@ public class Favorites extends JLayeredPane implements Clickable {
         topMenu = new JPanel();
         topMenu.setLayout(new GridLayout(1,3));
 
-        favoritesLabel = new JLabel("  Favorites");
-        favoritesLabel.setForeground(ColorTheme.textColor);
-        favoritesLabel.setFont(new Font("Verdana", Font.BOLD, 15));
+        favoritesLabel = new JLabel("Favorites");
+        TextSettings.paintHeader(favoritesLabel);
         resultsLabel = new JLabel("Total Results: " + numberOfResults);
-        resultsLabel.setForeground(ColorTheme.textColor);
-        resultsLabel.setFont(new Font("Verdana", Font.BOLD, 15));
+        TextSettings.paintHeader(resultsLabel);
 
         topMenu.add(favoritesLabel);
         topMenu.add(resultsLabel);
@@ -124,9 +122,8 @@ public class Favorites extends JLayeredPane implements Clickable {
         ColorTheme.paintMainPanel(favoriteMoviesPanel);
 
         //The label added just above the movie images to denote that the below images are a list of movies.
-        JLabel favoriteMovieLabel = new JLabel("  My Favorite Movies: ");
-        favoriteMovieLabel.setForeground(ColorTheme.textColor);
-        favoriteMovieLabel.setFont(new Font("Verdana", Font.BOLD, 15));
+        JLabel favoriteMovieLabel = new JLabel("My Favorite Movies: ");
+        TextSettings.paintHeader(favoriteMovieLabel);
         favoriteMovieContainer.add(favoriteMovieLabel,BorderLayout.NORTH);
 
         makeMovieButtons();
@@ -149,9 +146,8 @@ public class Favorites extends JLayeredPane implements Clickable {
         favoriteSeriesPanel.setLayout(new FlowLayout(FlowLayout.LEFT));
         ColorTheme.paintMainPanel(favoriteSeriesPanel);
 
-        JLabel favoriteSeriesLabel = new JLabel("  My Favorite Series: ");
-        favoriteSeriesLabel.setForeground(ColorTheme.textColor);
-        favoriteSeriesLabel.setFont(new Font("Verdana", Font.BOLD, 15));
+        JLabel favoriteSeriesLabel = new JLabel("My Favorite Series: ");
+        TextSettings.paintHeader(favoriteSeriesLabel);
         favoriteSeriesContainer.add(favoriteSeriesLabel,BorderLayout.NORTH);
 
         makeSeriesButtons();

@@ -87,7 +87,7 @@ public class MainMenu extends JLayeredPane implements Clickable {
         // Sets the top text of the recommended media section,
         // and adds it to the main container.
         JLabel recommendedLabel = new JLabel("Recommended:");
-        TextSettings.paintMediaLabel(recommendedLabel);
+        TextSettings.paintHeader(recommendedLabel);
         recommendedContainer.add(recommendedLabel, BorderLayout.NORTH);
 
         // JPanel for the displayed media, putting it to the left
@@ -129,9 +129,10 @@ public class MainMenu extends JLayeredPane implements Clickable {
 
                 icon.setText(m.getTitle());
                 TextSettings.paintMediaFont(icon);
+                ColorTheme.paintMediaButton(icon);
+
                 icon.setVerticalTextPosition(SwingConstants.BOTTOM);
                 icon.setHorizontalTextPosition(SwingConstants.CENTER);
-                ColorTheme.paintMediaButton(icon);
                 icon.setPreferredSize(new Dimension(150,250));
 
                 icon.addActionListener(l -> MediaInfoWindow.showMediaInfo(m, origin, currentUser, this));
@@ -157,7 +158,7 @@ public class MainMenu extends JLayeredPane implements Clickable {
         // Sets the top text of the movie section,
         // and adds it to the main container.
         JLabel movieLabel = new JLabel("Movies:");
-        TextSettings.paintMediaLabel(movieLabel);
+        TextSettings.paintHeader(movieLabel);
         movieContainer.add(movieLabel, BorderLayout.NORTH);
 
         // JPanel for the movie selector.
@@ -263,7 +264,7 @@ public class MainMenu extends JLayeredPane implements Clickable {
         // Sets the top label for the series section,
         // and adds it to the container.
         JLabel seriesLabel = new JLabel("Series:");
-        TextSettings.paintMediaLabel(seriesLabel);
+        TextSettings.paintHeader(seriesLabel);
         seriesContainer.add(seriesLabel,BorderLayout.NORTH);
 
         // JPanel for the series selector
