@@ -3,8 +3,10 @@ package src.GUI;
 import src.*;
 import src.GUI.PopUps.*;
 
+import javax.imageio.ImageIO;
 import javax.swing.*;
 import java.awt.*;
+import java.io.IOException;
 import java.util.ArrayList;
 
 public class GUI extends JFrame implements Clickable {
@@ -66,6 +68,9 @@ public class GUI extends JFrame implements Clickable {
         wMenuContainer.setLayout(new GridLayout(1,2));
 
         JButton homeButton = new JButton("Home");
+        try {
+            homeButton.setIcon(new ImageIcon(ImageIO.read(getClass().getClassLoader().getResourceAsStream("./res/buttons/buttons_home.png"))));
+        } catch (IOException e) {}
         homeButton.setPreferredSize(new Dimension(100, 50));
         homeButton.addActionListener(e -> changeScenario(new MainMenu(currentUser, this)));
         TextSettings.paintButtonFont(homeButton);
@@ -75,6 +80,9 @@ public class GUI extends JFrame implements Clickable {
         wMenuContainer.add(homeButton);
 
         JButton favoritesButton = new JButton("Favorites");
+        try {
+            favoritesButton.setIcon(new ImageIcon(ImageIO.read(getClass().getClassLoader().getResourceAsStream("./res/buttons/buttons_favourites.png"))));
+        } catch (IOException e) {}
         favoritesButton.setPreferredSize(new Dimension(100, 50));
         favoritesButton.addActionListener(e -> changeScenario(new Favorites(currentUser, this)));
 
@@ -93,6 +101,9 @@ public class GUI extends JFrame implements Clickable {
         ColorTheme.paintAccentPanel(eMenuContainer);
 
         JButton searchButton = new JButton("Search");
+        try {
+            searchButton.setIcon(new ImageIcon(ImageIO.read(getClass().getClassLoader().getResourceAsStream("./res/buttons/buttons_search.png"))));
+        } catch (IOException e) {}
         ColorTheme.paintClickableButton(searchButton);
         TextSettings.paintButtonFont(searchButton);
 
@@ -106,6 +117,9 @@ public class GUI extends JFrame implements Clickable {
         allButtons.add(searchButton);
 
         JButton userButton = new JButton("Logout");
+        try {
+            userButton.setIcon(new ImageIcon(ImageIO.read(getClass().getClassLoader().getResourceAsStream("./res/buttons/buttons_logout.png"))));
+        } catch (IOException e) {}
         ColorTheme.paintClickableButton(userButton);
         userButton.setForeground(Color.white);                    //Temporary Font properties
         userButton.setFont(new Font("Verdana", Font.BOLD, 15));   //Temporary Font properties
