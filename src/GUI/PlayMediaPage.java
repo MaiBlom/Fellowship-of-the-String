@@ -1,6 +1,7 @@
 package src.GUI;
 
 import src.Media.*;
+import src.GUI.PopUps.*;
 
 import javax.swing.*;
 import java.awt.*;

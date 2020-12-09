@@ -2,6 +2,7 @@ package src.GUI;
 
 import src.User;
 import src.Comparators.*;
+import src.GUI.PopUps.*;
 import src.Media.Media;
 import javax.swing.*;
 import java.awt.*;
