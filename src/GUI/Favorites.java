@@ -3,12 +3,12 @@ package src.GUI;
 import src.User;
 import src.Comparators.*;
 import src.GUI.PopUps.*;
-import src.Media.Media;
+import src.Media.*;
+
 import javax.swing.*;
 import java.awt.*;
 import java.util.ArrayList;
 import java.util.Collections;
-import src.GUI.*;
 
 public class Favorites extends JLayeredPane implements Clickable {
     private static final long serialVersionUID = 1L;
@@ -35,12 +35,12 @@ public class Favorites extends JLayeredPane implements Clickable {
     }
 
     //Sets up the Favorites window by calling all the makeContainer methods.
-    public void setup() {
+    private void setup() {
         contentPane = new JPanel();
         contentPane.setLayout(new BorderLayout());
         this.add(contentPane, new Integer(0));
-        setPreferredSize(new Dimension(origin.getwidth()-12,origin.getheight()-82));
-        contentPane.setBounds(0,0,origin.getwidth()-12,origin.getheight()-82);
+        setPreferredSize(origin.getCenterDimension());
+        contentPane.setBounds(origin.getCenterBounds());
 
         countResults();
         makeLabelContainer();
@@ -52,7 +52,7 @@ public class Favorites extends JLayeredPane implements Clickable {
 
     //Makes the label JPanel that holds just the small title bar stating that we're viewing the favorites window,
     //as well as displaying the total number of favorited media that the current user has.
-    public void makeLabelContainer() {
+    private void makeLabelContainer() {
         topMenu = new JPanel();
         topMenu.setLayout(new GridLayout(1,3));
 
@@ -69,13 +69,13 @@ public class Favorites extends JLayeredPane implements Clickable {
         
     }
 
-    public void countResults() {
+    private void countResults() {
         numberOfResults = currentUser.getFavoriteMovies().size()+currentUser.getFavoriteSeries().size();
     }
 
     //Creates the JPanel that will hold the subcontainers "favoriteMovieContainer" and "favoriteSeriesContainer"
     //and adds this JPanel to the contentPane's BorderLayout in the center.
-    public void makeMediaContainer() {
+    private void makeMediaContainer() {
         mediaContainer = new JPanel();
         mediaContainer.setLayout(new GridLayout(2,1));
         //ColorTheme.paintMainPanel(mediaContainer);
@@ -84,33 +84,33 @@ public class Favorites extends JLayeredPane implements Clickable {
     }
 
 
-    public void makeMovieButtons() {
+    private void makeMovieButtons() {
         ArrayList<Media> movies = currentUser.getFavoriteMovies();
 
         for (Media m : movies) {                                               
             JButton mediaPoster = new JButton(new ImageIcon(m.getPoster()));   
             allResultButtons.add(mediaPoster); 
             ColorTheme.paintMediaButton(mediaPoster);        
-            mediaPoster.addActionListener(l -> showMediaInfo(m));              
+            mediaPoster.addActionListener(l -> MediaInfoWindow.showMediaInfo(m, origin, currentUser, this));              
             favoriteMoviesPanel.add(mediaPoster);                              
             }
     }
 
-    public void makeSeriesButtons() {
+    private void makeSeriesButtons() {
         ArrayList<Media> series = currentUser.getFavoriteSeries();
 
         for (Media m : series) {                                               
             JButton mediaPoster = new JButton(new ImageIcon(m.getPoster()));   
             allResultButtons.add(mediaPoster);      
             ColorTheme.paintMediaButton(mediaPoster);                                                        
-            mediaPoster.addActionListener(l -> showMediaInfo(m));              
+            mediaPoster.addActionListener(l -> MediaInfoWindow.showMediaInfo(m, origin, currentUser, this));              
             favoriteSeriesPanel.add(mediaPoster);                              
         }
     }
 
     //Creates a JPanel with a BorderLayout to display both the JLabel "My favorite movies:", as well as all
     //the JButtons that we add our images to.
-    public void makeFavoriteMoviesContainer() {
+    private void makeFavoriteMoviesContainer() {
         favoriteMovieContainer = new JPanel();
         favoriteMovieContainer.setLayout(new BorderLayout());
         ColorTheme.paintMainPanel(favoriteMovieContainer);
@@ -135,7 +135,7 @@ public class Favorites extends JLayeredPane implements Clickable {
 
     //Creates a JPanel with a BorderLayout to display both the JLabel "My favorite series:", as well as all
     //the JButtons that we add our images to.
-    public void makeFavoriteSeriesContainer() {
+    private void makeFavoriteSeriesContainer() {
         favoriteSeriesContainer = new JPanel();
         favoriteSeriesContainer.setLayout(new BorderLayout());
         ColorTheme.paintMainPanel(favoriteSeriesContainer);
@@ -154,14 +154,6 @@ public class Favorites extends JLayeredPane implements Clickable {
 
         favoriteSeriesContainer.add(favoriteSeriesPanel,BorderLayout.CENTER);
         mediaContainer.add(favoriteSeriesContainer);
-    }
-
-    private void showMediaInfo(Media m) {
-        MediaInfoWindow info = new MediaInfoWindow(m,origin,currentUser);
-        this.add(info, new Integer(1));
-        info.setLocation((origin.getwidth()-12)/2-info.getWidth()/2, (origin.getheight()-82)/2-info.getWidth()/2);
-        info.setVisible(true);
-        info.show();
     }
 
     private void makeSorting() {
@@ -207,8 +199,8 @@ public class Favorites extends JLayeredPane implements Clickable {
         allResultButtons.clear();
         makeMovieButtons();   
         makeSeriesButtons();
-        setPreferredSize(new Dimension(origin.getwidth()-12,origin.getheight()-82));
-        contentPane.setBounds(0,0,origin.getwidth()-12,origin.getheight()-82);
+        setPreferredSize(origin.getCenterDimension());
+        contentPane.setBounds(origin.getCenterBounds());
         origin.pack();
     }
 

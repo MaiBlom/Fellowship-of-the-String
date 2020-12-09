@@ -1,9 +1,9 @@
 package src.GUI;
 
 import java.awt.*;
-
 import javax.swing.*;
-import javax.swing.border.LineBorder;
+import javax.swing.border.*;
+import javax.swing.plaf.basic.BasicScrollBarUI;
 
 public class ColorTheme {
     public static Color buttonColor = new Color(17, 19, 21);
@@ -14,30 +14,57 @@ public class ColorTheme {
 
     public static void paintMediaButton(JButton b) {
         b.setBorder(new LineBorder(new Color(58,77,104),4,true));
-        b.setBackground(ColorTheme.mainColor);
+        b.setBackground(mainColor);
     }
 
     public static void paintClickableButton(JButton c) { 
         c.setPreferredSize(new Dimension(150,40));
-        c.setBackground(ColorTheme.buttonColor);
+        c.setBackground(buttonColor);
         c.setBorder(new LineBorder(new Color(44 , 60, 77),1));
     }
 
     public static void paintMediaInfoButtons(JButton e) {
-        e.setBackground(ColorTheme.buttonColor);
+        e.setBackground(buttonColor);
         e.setBorderPainted(false);
     } 
 
     public static void paintArrowButtons(JButton d) {
         d.setBorderPainted(false);
-        d.setBackground(ColorTheme.mainColor);
+        d.setBackground(mainColor);
     }
 
     public static void paintMainPanel(JPanel p) {
-        p.setBackground(ColorTheme.mainColor);
+        p.setBackground(mainColor);
+        p.setBorder(null);
     }
 
     public static void paintAccentPanel(JPanel a) {
-        a.setBackground(ColorTheme.accentColor);
+        a.setBackground(accentColor);
+    }
+
+    public static void paintScrollBar(JScrollPane sp) {
+        sp.setBorder(null);
+        sp.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_AS_NEEDED);
+        sp.setHorizontalScrollBarPolicy(JScrollPane.HORIZONTAL_SCROLLBAR_NEVER);
+        
+        sp.getVerticalScrollBar().setUI(new BasicScrollBarUI() {
+            protected void configureScrollBarColors() {
+                thumbHighlightColor = ColorTheme.accentColor;
+                thumbLightShadowColor = ColorTheme.accentColor;
+                thumbDarkShadowColor = ColorTheme.accentColor;
+                thumbColor = ColorTheme.accentColor;
+                trackColor = ColorTheme.mainColor;
+                trackHighlightColor = ColorTheme.mainColor;
+            }
+            protected JButton createDecreaseButton(int orientation) { return createZeroButton(); }
+            protected JButton createIncreaseButton(int orientation) { return createZeroButton(); }
+            private JButton createZeroButton() {
+                JButton jbutton = new JButton();
+                jbutton.setPreferredSize(new Dimension(0, 0));
+                jbutton.setMinimumSize(new Dimension(0, 0));
+                jbutton.setMaximumSize(new Dimension(0, 0));
+                return jbutton;
+            }
+        });
     }
 }

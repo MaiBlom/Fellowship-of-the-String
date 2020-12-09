@@ -6,8 +6,6 @@ import src.Media.*;
 import src.GUI.PopUps.*;
 
 import javax.swing.*;
-import javax.swing.plaf.basic.BasicScrollBarUI;
-
 import java.awt.*;
 import java.util.*;
 
@@ -56,8 +54,8 @@ public class SearchResult extends JLayeredPane implements Clickable {
         contentPane.setLayout(new BorderLayout());
         ColorTheme.paintMainPanel(contentPane);
         this.add(contentPane, new Integer(0));
-        setPreferredSize(new Dimension(origin.getwidth()-12,origin.getheight()-82));
-        contentPane.setBounds(0,0,origin.getwidth()-12,origin.getheight()-82);
+        setPreferredSize(origin.getCenterDimension());
+        contentPane.setBounds(origin.getCenterBounds());
         makeTopbar();
         findResults();
         showResults();
@@ -133,8 +131,8 @@ public class SearchResult extends JLayeredPane implements Clickable {
         allResultsPanel.removeAll();
         allButtons.clear();
         createButtons();
-        setPreferredSize(new Dimension(origin.getwidth()-12,origin.getheight()-82));
-        contentPane.setBounds(0,0,origin.getwidth()-12,origin.getheight()-82);
+        setPreferredSize(origin.getCenterDimension());
+        contentPane.setBounds(origin.getCenterBounds());
         origin.pack();
     }
 
@@ -178,25 +176,8 @@ public class SearchResult extends JLayeredPane implements Clickable {
 
         createButtons();
 
-        JScrollPane allResultsScrollPane = new JScrollPane(allResultsPanel);
-        allResultsScrollPane.getVerticalScrollBar().setUI(new BasicScrollBarUI() {
-            protected void configureScrollBarColors() {
-                    thumbHighlightColor = ColorTheme.accentColor;
-                    thumbLightShadowColor = ColorTheme.accentColor;
-                    thumbDarkShadowColor = ColorTheme.accentColor;
-                    thumbColor = ColorTheme.accentColor;
-                    trackColor = ColorTheme.mainColor;
-                    trackHighlightColor = ColorTheme.mainColor;
-                }
-            protected JButton createDecreaseButton(int orientation) { return createZeroButton(); }
-            protected JButton createIncreaseButton(int orientation) { return createZeroButton(); }
-            private JButton createZeroButton() {
-                JButton jbutton = new JButton();
-                jbutton.setPreferredSize(new Dimension(0, 0));
-                jbutton.setMinimumSize(new Dimension(0, 0));
-                jbutton.setMaximumSize(new Dimension(0, 0));
-                return jbutton;
-            }});
+        JScrollPane allResultsScrollPane = new JScrollPane(allResultsPanel);        
+        ColorTheme.paintScrollBar(allResultsScrollPane);
         contentPane.add(allResultsScrollPane);
     }
 

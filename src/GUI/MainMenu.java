@@ -1,19 +1,16 @@
 package src.GUI;
 
-import java.util.ArrayList;
-import java.awt.Container;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
-import java.io.IOException;
-import java.awt.BorderLayout;
-import java.awt.*;
-
-import javax.imageio.ImageIO;
-import javax.swing.*;
-
 import src.*;
 import src.Media.*;
 import src.GUI.PopUps.*;
+
+import java.util.ArrayList;
+import java.awt.event.*;
+import java.io.IOException;
+import java.awt.BorderLayout;
+import java.awt.*;
+import javax.imageio.ImageIO;
+import javax.swing.*;
 
 public class MainMenu extends JLayeredPane implements Clickable {
     private static final long serialVersionUID = 1L;
@@ -52,7 +49,7 @@ public class MainMenu extends JLayeredPane implements Clickable {
     // Initializes the database.
     private void setup() {
         db = MediaDB.getInstance();
-        this.setPreferredSize(new Dimension(origin.getwidth()-12,origin.getheight()-82));
+        this.setPreferredSize(origin.getCenterDimension());
         makeMediaVisualiser();
     }
 
@@ -70,7 +67,7 @@ public class MainMenu extends JLayeredPane implements Clickable {
         contentPane.add(makeRecommendedContainer());
         contentPane.add(makeMovieContainer());
         contentPane.add(makeSeriesContainer());
-        contentPane.setBounds(0,0,origin.getwidth()-12,origin.getheight()-82);
+        contentPane.setBounds(origin.getCenterBounds());
 
         // Add the center JPanel to the JLayeredPane
         this.add(contentPane, new Integer(0));

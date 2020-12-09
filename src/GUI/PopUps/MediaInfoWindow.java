@@ -11,8 +11,6 @@ import java.awt.image.*;
 import javax.imageio.ImageIO;
 import java.io.IOException;
 
-import javax.swing.plaf.basic.BasicScrollBarUI;
-
 public class MediaInfoWindow extends JInternalFrame {
     private static final long serialVersionUID = 1L;
     private Media media;
@@ -293,26 +291,8 @@ public class MediaInfoWindow extends JInternalFrame {
         ColorTheme.paintMainPanel(episodesContainer);
         episodesFlowContainer.add(episodesContainer);
 
-        JScrollPane episodesScroll = new JScrollPane(episodesFlowContainer, JScrollPane.VERTICAL_SCROLLBAR_AS_NEEDED, JScrollPane.HORIZONTAL_SCROLLBAR_NEVER);
-        episodesScroll.getVerticalScrollBar().setUI(new BasicScrollBarUI() {
-            protected void configureScrollBarColors() {
-                    thumbHighlightColor = ColorTheme.accentColor;
-                    thumbLightShadowColor = ColorTheme.accentColor;
-                    thumbDarkShadowColor = ColorTheme.accentColor;
-                    thumbColor = ColorTheme.accentColor;
-                    trackColor = ColorTheme.mainColor;
-                    trackHighlightColor = ColorTheme.mainColor;
-                }
-            protected JButton createDecreaseButton(int orientation) { return createZeroButton(); }
-            protected JButton createIncreaseButton(int orientation) { return createZeroButton(); }
-            private JButton createZeroButton() {
-                JButton jbutton = new JButton();
-                jbutton.setPreferredSize(new Dimension(0, 0));
-                jbutton.setMinimumSize(new Dimension(0, 0));
-                jbutton.setMaximumSize(new Dimension(0, 0));
-                return jbutton;
-            }});
-        
+        JScrollPane episodesScroll = new JScrollPane(episodesFlowContainer);
+        ColorTheme.paintScrollBar(episodesScroll);
         seasonsContainer.add(episodesScroll, BorderLayout.CENTER);
     }
 
@@ -351,7 +331,7 @@ public class MediaInfoWindow extends JInternalFrame {
     public static void showMediaInfo(Media m, GUI origin, User currentUser, JLayeredPane pane) {
         MediaInfoWindow info = new MediaInfoWindow(m, origin, currentUser);
         pane.add(info, new Integer(1));
-        info.setLocation((origin.getwidth()-12)/2-info.getWidth()/2, (origin.getheight()-82)/2-info.getWidth()/2);
+        info.setLocation(214, 209);
         info.setVisible(true);
         info.show();
     }

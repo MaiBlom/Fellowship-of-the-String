@@ -12,7 +12,6 @@ import java.util.ArrayList;
 public class GUI extends JFrame implements Clickable {
     private static final long serialVersionUID = 1L;
     private User currentUser;
-    private MediaDB db;
 
     private Container contentPane;
     private JPanel nContainer;
@@ -28,7 +27,6 @@ public class GUI extends JFrame implements Clickable {
 
     public GUI() {
         allButtons = new ArrayList<>();
-        db = MediaDB.getInstance();
         
         makeFrame();
     }
@@ -171,6 +169,7 @@ public class GUI extends JFrame implements Clickable {
     public void setCurrentUser(User user) {
         currentUser = user;
     }
-    public int getwidth() { return WIDTH; }
-    public int getheight() { return HEIGHT; }
+
+    public Dimension getCenterDimension() { return new Dimension(WIDTH-15,HEIGHT-78); }
+    public Rectangle getCenterBounds() { return new Rectangle(0,0,WIDTH-15,HEIGHT-78); }
 }

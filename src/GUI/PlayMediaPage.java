@@ -1,7 +1,6 @@
 package src.GUI;
 
 import src.Media.*;
-import src.GUI.PopUps.*;
 
 import javax.swing.*;
 import java.awt.*;
@@ -21,12 +20,12 @@ public class PlayMediaPage extends JLayeredPane {
     }
 
     private void setup() {
-        setPreferredSize(new Dimension(origin.getwidth()-12,origin.getheight()-82));
+        setPreferredSize(origin.getCenterDimension());
 
         contentPane = new JPanel();
         ColorTheme.paintMainPanel(contentPane);
         contentPane.setLayout(new FlowLayout());
-        contentPane.setBounds(0,0,origin.getwidth()-12,origin.getheight()-82);
+        contentPane.setBounds(origin.getCenterBounds());
         this.add(contentPane, new Integer(0));
 
 
