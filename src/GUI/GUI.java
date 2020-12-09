@@ -65,23 +65,22 @@ public class GUI extends JFrame implements Clickable {
         JPanel wMenuContainer = new JPanel();
         wMenuContainer.setLayout(new GridLayout(1,2));
 
-        JButton HomeButton = new JButton("Home");
-        HomeButton.setPreferredSize(new Dimension(100, 50));
-        HomeButton.addActionListener(e -> changeScenario(new MainMenu(currentUser, this)));
-        HomeButton.setForeground(Color.white);                    //Temporary Font properties
-        HomeButton.setFont(new Font("Verdana", Font.BOLD, 15));   //Temporary Font properties
+        JButton homeButton = new JButton("Home");
+        homeButton.setPreferredSize(new Dimension(100, 50));
+        homeButton.addActionListener(e -> changeScenario(new MainMenu(currentUser, this)));
+        TextSettings.paintButtonFont(homeButton);
      
-        ColorTheme.paintClickableButton(HomeButton);
-        allButtons.add(HomeButton);
-        wMenuContainer.add(HomeButton);
+        ColorTheme.paintClickableButton(homeButton);
+        allButtons.add(homeButton);
+        wMenuContainer.add(homeButton);
 
         JButton favoritesButton = new JButton("Favorites");
         favoritesButton.setPreferredSize(new Dimension(100, 50));
         favoritesButton.addActionListener(e -> changeScenario(new Favorites(currentUser, this)));
-        favoritesButton.setForeground(Color.white);                    //Temporary Font properties
-        favoritesButton.setFont(new Font("Verdana", Font.BOLD, 15));   //Temporary Font properties
 
+        TextSettings.paintButtonFont(favoritesButton);
         ColorTheme.paintClickableButton(favoritesButton);
+
         allButtons.add(favoritesButton);
         wMenuContainer.add(favoritesButton);
 
@@ -95,8 +94,7 @@ public class GUI extends JFrame implements Clickable {
 
         JButton searchButton = new JButton("Search");
         ColorTheme.paintClickableButton(searchButton);
-        searchButton.setForeground(Color.white);                    //Temporary Font properties
-        searchButton.setFont(new Font("Verdana", Font.BOLD, 15));   //Temporary Font properties
+        TextSettings.paintButtonFont(searchButton);
 
         searchButton.addActionListener(l -> {
             SearchPopUp popup = new SearchPopUp(currentUser, this);
@@ -111,7 +109,7 @@ public class GUI extends JFrame implements Clickable {
         ColorTheme.paintClickableButton(userButton);
         userButton.setForeground(Color.white);                    //Temporary Font properties
         userButton.setFont(new Font("Verdana", Font.BOLD, 15));   //Temporary Font properties
-        
+
         userButton.addActionListener(e -> {
             currentUser = null;
             changeScenario(new MainMenu(currentUser, this));

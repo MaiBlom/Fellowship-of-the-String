@@ -82,15 +82,18 @@ public class MainMenu extends JLayeredPane implements Clickable {
         // Main JPanel for the recommended section.
         JPanel recommendedContainer = new JPanel();
         recommendedContainer.setLayout(new BorderLayout());
+        ColorTheme.paintMainPanel(recommendedContainer);
 
         // Sets the top text of the recommended media section,
         // and adds it to the main container.
         JLabel recommendedLabel = new JLabel("Recommended:");
+        TextSettings.paintMediaLabel(recommendedLabel);
         recommendedContainer.add(recommendedLabel, BorderLayout.NORTH);
 
         // JPanel for the displayed media, putting it to the left
         JPanel iconContainer = new JPanel();
         iconContainer.setLayout(new FlowLayout(FlowLayout.CENTER));
+        ColorTheme.paintMainPanel(iconContainer);
 
         // Initializes the recommended media,
         // and loops through the objects to add them to the container.
@@ -125,10 +128,10 @@ public class MainMenu extends JLayeredPane implements Clickable {
                 JButton icon = new JButton(image);
 
                 icon.setText(m.getTitle());
+                TextSettings.paintMediaFont(icon);
                 icon.setVerticalTextPosition(SwingConstants.BOTTOM);
                 icon.setHorizontalTextPosition(SwingConstants.CENTER);
-                icon.setBorderPainted(false);
-                icon.setBackground(new Color(238, 238, 238));
+                ColorTheme.paintMediaButton(icon);
                 icon.setPreferredSize(new Dimension(150,250));
 
                 icon.addActionListener(l -> MediaInfoWindow.showMediaInfo(m, origin, currentUser, this));
@@ -149,15 +152,18 @@ public class MainMenu extends JLayeredPane implements Clickable {
         // Main JPanel for the movie section.
         JPanel movieContainer = new JPanel();
         movieContainer.setLayout(new BorderLayout());
+        ColorTheme.paintMainPanel(movieContainer);
 
         // Sets the top text of the movie section,
         // and adds it to the main container.
         JLabel movieLabel = new JLabel("Movies:");
+        TextSettings.paintMediaLabel(movieLabel);
         movieContainer.add(movieLabel, BorderLayout.NORTH);
 
         // JPanel for the movie selector.
         JPanel movieSelectionContainer = new JPanel();
         movieSelectionContainer.setLayout(new BorderLayout());
+        ColorTheme.paintMainPanel(movieSelectionContainer);
 
         // Adds buttons to the movie selector and creates an ActionListener to them.
         JButton leftButton = new JButton("Left");
@@ -200,6 +206,7 @@ public class MainMenu extends JLayeredPane implements Clickable {
 
         // Adds the movie icons JPanel to the movie selector container.
         movieIcons = new JPanel();
+        ColorTheme.paintMainPanel(movieIcons);
         movieIcons.setLayout(new FlowLayout());
         movieSelectionContainer.add(movieIcons, BorderLayout.CENTER);
 
@@ -226,10 +233,10 @@ public class MainMenu extends JLayeredPane implements Clickable {
             JButton icon = new JButton();            
 
             icon.setText(db.getMovies().get(i).getTitle());
+            TextSettings.paintMediaFont(icon);
             icon.setVerticalTextPosition(SwingConstants.BOTTOM);
             icon.setHorizontalTextPosition(SwingConstants.CENTER);
-            icon.setBorderPainted(false);
-            icon.setBackground(new Color(238, 238, 238));
+            ColorTheme.paintMediaButton(icon);
             icon.setPreferredSize(new Dimension(150,250));
 
             icon.addActionListener(l -> MediaInfoWindow.showMediaInfo(m, origin, currentUser, this));
@@ -250,11 +257,13 @@ public class MainMenu extends JLayeredPane implements Clickable {
     private JPanel makeSeriesContainer() {
         // Main JPanel for the series section.
         JPanel seriesContainer = new JPanel();
+        ColorTheme.paintMainPanel(seriesContainer);
         seriesContainer.setLayout(new BorderLayout());
 
         // Sets the top label for the series section,
         // and adds it to the container.
         JLabel seriesLabel = new JLabel("Series:");
+        TextSettings.paintMediaLabel(seriesLabel);
         seriesContainer.add(seriesLabel,BorderLayout.NORTH);
 
         // JPanel for the series selector
@@ -302,6 +311,7 @@ public class MainMenu extends JLayeredPane implements Clickable {
 
         // Adds the series icon JPanel to the series selector container.
         seriesIcons = new JPanel();
+        ColorTheme.paintMainPanel(seriesIcons);
         seriesIcons.setLayout(new FlowLayout());
         seriesSelectorContainer.add(seriesIcons, BorderLayout.CENTER);
 
@@ -328,10 +338,10 @@ public class MainMenu extends JLayeredPane implements Clickable {
             JButton icon = new JButton();
 
             icon.setText(db.getSeries().get(i).getTitle());
+            TextSettings.paintMediaFont(icon);
             icon.setVerticalTextPosition(SwingConstants.BOTTOM);
             icon.setHorizontalTextPosition(SwingConstants.CENTER);
-            icon.setBorderPainted(false);
-            icon.setBackground(new Color(238, 238, 238));
+            ColorTheme.paintMediaButton(icon);
             icon.setPreferredSize(new Dimension(150,250));
 
             icon.addActionListener(l -> MediaInfoWindow.showMediaInfo(m, origin, currentUser, this));
