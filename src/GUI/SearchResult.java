@@ -6,6 +6,8 @@ import src.Media.*;
 import src.GUI.PopUps.*;
 
 import javax.swing.*;
+import javax.swing.plaf.basic.BasicScrollBarUI;
+
 import java.awt.*;
 import java.util.*;
 
@@ -177,6 +179,16 @@ public class SearchResult extends JLayeredPane implements Clickable {
         createButtons();
 
         JScrollPane allResultsScrollPane = new JScrollPane(allResultsPanel);
+        allResultsScrollPane.getVerticalScrollBar().setUI(new BasicScrollBarUI() { 
+            protected JButton createDecreaseButton(int orientation) { return createZeroButton(); }
+            protected JButton createIncreaseButton(int orientation) { return createZeroButton(); }
+            private JButton createZeroButton() {
+                JButton jbutton = new JButton();
+                jbutton.setPreferredSize(new Dimension(0, 0));
+                jbutton.setMinimumSize(new Dimension(0, 0));
+                jbutton.setMaximumSize(new Dimension(0, 0));
+                return jbutton;
+            }});
         contentPane.add(allResultsScrollPane);
     }
 
