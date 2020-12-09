@@ -52,6 +52,7 @@ public class SearchResult extends JLayeredPane implements Clickable {
     private void setup() {
         contentPane = new JPanel();
         contentPane.setLayout(new BorderLayout());
+        ColorTheme.paintMainPanel(contentPane);
         this.add(contentPane, new Integer(0));
         setPreferredSize(new Dimension(origin.getwidth()-12,origin.getheight()-82));
         contentPane.setBounds(0,0,origin.getwidth()-12,origin.getheight()-82);
@@ -62,6 +63,7 @@ public class SearchResult extends JLayeredPane implements Clickable {
 
     private void makeTopbar() {
         topbar = new JPanel();
+        ColorTheme.paintMainPanel(topbar);
         topbar.setLayout(new GridLayout());
         contentPane.add(topbar, BorderLayout.NORTH);
 
@@ -96,11 +98,15 @@ public class SearchResult extends JLayeredPane implements Clickable {
 
     private void makeSorting() {
         JPanel sortingContainer = new JPanel();
+        ColorTheme.paintMainPanel(sortingContainer);
         sortingContainer.setLayout(new FlowLayout(FlowLayout.RIGHT));
 
         String[] sortingOptions = {"Sort by...", "Title (A-Z)", "Title (Z-A)", "Release (newest to oldest)", 
                                    "Release (oldest to newest)", "Rating (highest to lowest)", "Rating (lowest to highest)"};
         JComboBox<String> sortby = new JComboBox<>(sortingOptions);
+        sortby.setBackground(ColorTheme.mainColor);
+        sortby.setForeground(ColorTheme.textColor);
+        sortby.setFont(new Font("Verdana", Font.BOLD, 15));
         sortby.addActionListener(e -> sort((String) sortby.getSelectedItem()));
         sortingContainer.add(sortby);
 
@@ -164,6 +170,7 @@ public class SearchResult extends JLayeredPane implements Clickable {
     // which each call the showMediaInfo() method.
     private void showResults() {
         allResultsPanel = new JPanel();
+        ColorTheme.paintMainPanel(allResultsPanel);
         allResultsPanel.setLayout(new FlowLayout(FlowLayout.LEFT,15,0));
 
         createButtons();
@@ -181,8 +188,7 @@ public class SearchResult extends JLayeredPane implements Clickable {
             mediaPoster.setText(m.getTitle());
             mediaPoster.setVerticalTextPosition(SwingConstants.BOTTOM);
             mediaPoster.setHorizontalTextPosition(SwingConstants.CENTER);
-            mediaPoster.setBorderPainted(false);
-            mediaPoster.setBackground(new Color(238, 238, 238));
+            ColorTheme.paintMediaButton(mediaPoster);
             mediaPoster.setPreferredSize(new Dimension(150,250));
 
             allButtons.add(mediaPoster);

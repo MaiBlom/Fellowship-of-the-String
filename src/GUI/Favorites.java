@@ -167,7 +167,7 @@ public class Favorites extends JLayeredPane implements Clickable {
     private void makeSorting() {
         JPanel sortingContainer = new JPanel();
         sortingContainer.setLayout(new FlowLayout(FlowLayout.RIGHT));
-        sortingContainer.setBackground(ColorTheme.mainColor);
+        ColorTheme.paintMainPanel(sortingContainer);
 
         String[] sortingOptions = {"Sort by...", "Title (A-Z)", "Title (Z-A)", "Release (newest to oldest)", 
                                    "Release (oldest to newest)", "Rating (highest to lowest)", "Rating (lowest to highest)"};
