@@ -179,7 +179,15 @@ public class SearchResult extends JLayeredPane implements Clickable {
         createButtons();
 
         JScrollPane allResultsScrollPane = new JScrollPane(allResultsPanel);
-        allResultsScrollPane.getVerticalScrollBar().setUI(new BasicScrollBarUI() { 
+        allResultsScrollPane.getVerticalScrollBar().setUI(new BasicScrollBarUI() {
+            protected void configureScrollBarColors() {
+                    thumbHighlightColor = ColorTheme.accentColor;
+                    thumbLightShadowColor = ColorTheme.accentColor;
+                    thumbDarkShadowColor = ColorTheme.accentColor;
+                    thumbColor = ColorTheme.accentColor;
+                    trackColor = ColorTheme.mainColor;
+                    trackHighlightColor = ColorTheme.mainColor;
+                }
             protected JButton createDecreaseButton(int orientation) { return createZeroButton(); }
             protected JButton createIncreaseButton(int orientation) { return createZeroButton(); }
             private JButton createZeroButton() {
@@ -199,6 +207,7 @@ public class SearchResult extends JLayeredPane implements Clickable {
             JButton mediaPoster = new JButton(new ImageIcon(m.getPoster()));
 
             mediaPoster.setText(m.getTitle());
+            TextSettings.paintMediaInfoButtons(mediaPoster);
             mediaPoster.setVerticalTextPosition(SwingConstants.BOTTOM);
             mediaPoster.setHorizontalTextPosition(SwingConstants.CENTER);
             ColorTheme.paintMediaButton(mediaPoster);

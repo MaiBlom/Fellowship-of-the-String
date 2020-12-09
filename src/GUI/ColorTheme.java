@@ -23,6 +23,11 @@ public class ColorTheme {
         c.setBorder(new LineBorder(new Color(44 , 60, 77),1));
     }
 
+    public static void paintMediaInfoButtons(JButton e) {
+        e.setBackground(ColorTheme.buttonColor);
+        e.setBorderPainted(false);
+    } 
+
     public static void paintArrowButtons(JButton d) {
         d.setBorderPainted(false);
         d.setBackground(ColorTheme.mainColor);
