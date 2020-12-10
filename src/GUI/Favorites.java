@@ -122,6 +122,11 @@ public class Favorites extends JLayeredPane implements Clickable{
         for (Media m : favorites) {
             JButton mediaPoster = new JButton(new ImageIcon(m.getPoster()));
             allResultButtons.add(mediaPoster);
+            mediaPoster.setText(m.getTitle());
+            TextSettings.paintMediaButton(mediaPoster);
+            mediaPoster.setVerticalTextPosition(SwingConstants.BOTTOM);
+            mediaPoster.setHorizontalTextPosition(SwingConstants.CENTER);
+            mediaPoster.setPreferredSize(new Dimension(150,250));
             ColorTheme.paintMediaButton(mediaPoster);
             mediaPoster.addActionListener(l -> MediaInfoWindow.showMediaInfo(m, origin, currentUser, this));
             mediaContainer.add(mediaPoster);

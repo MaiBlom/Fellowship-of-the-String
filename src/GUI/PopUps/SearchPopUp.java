@@ -19,7 +19,6 @@ public class SearchPopUp extends JInternalFrame {
     private JPanel genresContainer;
     private JPanel bottomBar;
     private JPanel allGenres;
-
     // search criteria fields
     private JTextField searchBar;
     private boolean searchMovies;
@@ -113,15 +112,13 @@ public class SearchPopUp extends JInternalFrame {
         centerContainer.add(mediatypeContainer, BorderLayout.NORTH);
         
         JCheckBox movieSearch = new JCheckBox("Movies  ");
-        movieSearch.setBackground(new Color(45, 53, 64));
-        movieSearch.setForeground(Color.WHITE);
-        movieSearch.setFont(new Font("Verdana", Font.BOLD, 14));
+        ColorTheme.paintCheckBox(movieSearch);
+        TextSettings.paintCheckBoxFont(movieSearch);
         movieSearch.addItemListener(l -> searchMovies = l.getStateChange()==1 ? true : false);
 
         JCheckBox seriesSearch = new JCheckBox("Series  ");
-        seriesSearch.setBackground(new Color(45, 53, 64));
-        seriesSearch.setForeground(Color.WHITE);
-        seriesSearch.setFont(new Font("Verdana", Font.BOLD, 14));
+        ColorTheme.paintCheckBox(seriesSearch);
+        TextSettings.paintCheckBoxFont(seriesSearch);
         seriesSearch.addItemListener(l -> searchSeries = l.getStateChange()==1 ? true : false);
 
         mediatypeContainer.add(movieSearch);
