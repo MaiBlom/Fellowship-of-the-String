@@ -27,6 +27,7 @@ public class GUI extends JFrame implements Clickable {
     }
 
     public GUI() {
+        super("Shire Streaming");
         allButtons = new ArrayList<>();
         
         makeFrame();

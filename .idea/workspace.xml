@@ -6,12 +6,10 @@
     </artifacts-to-build>
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="47fb2499-c87e-449b-9347-8d3697457d28" name="Default Changelist" comment="fixed testclasses">
-      <change beforePath="$PROJECT_DIR$/src/GUI/ColorTheme.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/GUI/ColorTheme.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/GUI/Favorites.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/GUI/Favorites.java" afterDir="false" />
+    <list default="true" id="e7c21751-4094-4da6-82b5-e0b5d1c86306" name="Default Changelist" comment="TextSettings paint Media button method updated">
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/GUI/GUI.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/GUI/GUI.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/GUI/MainMenu.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/GUI/MainMenu.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Misc/MediaReader.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Misc/MediaReader.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/GUI/PopUps/LoginPopUp.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/GUI/PopUps/LoginPopUp.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -22,7 +20,10 @@
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
   </component>
   <component name="ProjectId" id="1lRHjCinfUM7OmuTLBEj66V7dbB" />
-  <component name="ProjectLevelVcsManager" settingsEditedManually="true" />
+  <component name="ProjectLevelVcsManager" settingsEditedManually="true">
+    <OptionsSetting value="false" id="Update" />
+    <ConfirmationsSetting value="2" id="Add" />
+  </component>
   <component name="ProjectViewState">
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />

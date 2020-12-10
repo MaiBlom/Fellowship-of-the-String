@@ -98,8 +98,8 @@ public class LoginPopUp extends JInternalFrame {
         JPanel infoContainer = new JPanel();
         ColorTheme.paintMainPanel(infoContainer);
         infoContainer.setLayout(new GridLayout(2,1));
-        loginWelcome = new JLabel("Welcome to the streaming service.");
-        loginInfo = new JLabel(" ");
+        loginWelcome = new JLabel("Welcome to Shire Streaming - hobbits only.");
+        loginInfo = new JLabel("Login to access the streaming service.");
         TextSettings.paintLoginScreenFont(loginWelcome);
         TextSettings.paintLoginScreenFont(loginInfo);
 
