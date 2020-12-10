@@ -1,6 +1,6 @@
-package src.GUI;
+package GUI;
 
-import src.Media.*;
+import Media.*;
 
 import javax.swing.*;
 import java.awt.*;

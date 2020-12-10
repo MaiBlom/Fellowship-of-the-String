@@ -1,4 +1,4 @@
-package src.Exceptions;
+package Exceptions;
 
 public class UsernameTakenException extends RuntimeException {
     private static final long serialVersionUID = 1L;

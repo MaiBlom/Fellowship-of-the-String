@@ -1,11 +1,10 @@
-package src.GUI.PopUps;
+package GUI.PopUps;
 
-import src.*;
-import src.GUI.*;
-
+import GUI.*;
 import javax.swing.*;
 import javax.swing.event.*;
 import java.awt.*;
+import Misc.*;
 
 public class LoginPopUp extends JInternalFrame {
     private static final long serialVersionUID = 1L;

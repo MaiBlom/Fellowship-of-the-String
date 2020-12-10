@@ -1,7 +1,7 @@
-package src.Comparators;
+package Comparators;
 
 import java.util.Comparator;
-import src.Media.*;
+import Media.*;
 
 /* 
  * This class is used for comparing to Media objects

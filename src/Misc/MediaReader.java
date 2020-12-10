@@ -1,12 +1,10 @@
-package src;
+package Misc;
 
-import src.Media.*;
-
+import Media.*;
 import java.util.Locale;
 import java.util.Scanner;
 import javax.imageio.ImageIO;
 import java.io.IOException;
-import java.io.InputStream;
 import java.awt.image.*;
 
 public class MediaReader {
@@ -16,17 +14,13 @@ public class MediaReader {
     // This class is a singleton, because we will never need more than a single MediaReader.
     private MediaReader(MediaDB db) {
         this.db = db;
+        read(false);
+        read(true);
     }
     //Ændret til ikke bare at overskrive instance. (Singleton)
     public static MediaReader getInstance(MediaDB db) {
         if (instance == null) instance = new MediaReader(db);
         return instance;
-    }
-
-    // readAll() will call read(isSeries = false) (all movies) and then read(isSeries = true) (all series).
-    public void readAll() {
-        instance.read(false);
-        instance.read(true);
     }
 
     // The read() method takes a single boolean parameter to know whether it's reading series or movies.
@@ -37,9 +31,9 @@ public class MediaReader {
         // we're reading movies or series.
         Scanner sc;
         if (isSeries) {
-            sc = new Scanner(getClass().getClassLoader().getResourceAsStream("res/series.txt"));
+            sc = new Scanner(getClass().getClassLoader().getResourceAsStream("series.txt"));
         } else {
-            sc = new Scanner(getClass().getClassLoader().getResourceAsStream("res/movies.txt"));
+            sc = new Scanner(getClass().getClassLoader().getResourceAsStream("movies.txt"));
         }
         sc.useDelimiter("\\s*;\\s*");
         sc.useLocale(Locale.FRANCE);
@@ -71,16 +65,16 @@ public class MediaReader {
             //Er det bedre ikke at læse dem ind her, men at have billederne med i projektet, også bare referere til dem i GUI i stedet?
             //Sammensætningen af medie objekt og billedet skal ske i controlleren
             //BufferedInputStream er en mulighed??
-            InputStream file;
-            if (isSeries) {
-                file = getClass().getClassLoader().getResourceAsStream("res/serieforsider/"+title+".jpg");
-            } else {
-                file = getClass().getClassLoader().getResourceAsStream("res/filmplakater/"+title+".jpg");
-            }
-
             BufferedImage image;
+            String path;
             try {
-                image = ImageIO.read(file);
+                if (isSeries) {
+                    System.out.println(title);
+                    if (title.contains("Scener ur ett")) image = ImageIO.read(getClass().getClassLoader().getResourceAsStream("serieforsider/Scener ur ett aktenskap.jpg"));
+                    else image = ImageIO.read(getClass().getClassLoader().getResourceAsStream("serieforsider/"+title+".jpg"));
+                } else {
+                    image = ImageIO.read(getClass().getClassLoader().getResourceAsStream("filmplakater/"+title+".jpg"));
+                }
             } catch (IOException e) {
                 image = null;
             }

@@ -1,7 +1,6 @@
-package src.Media;
+package Media;
 
 import java.awt.image.*;
-
 
 public abstract class Media {
     protected String title;

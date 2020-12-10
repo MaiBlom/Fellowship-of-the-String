@@ -1,7 +1,6 @@
-package src;
+package Misc;
 
-import src.Media.*;
-
+import Media.*;
 import java.util.ArrayList;
 
 public class MediaDB {
@@ -13,7 +12,6 @@ public class MediaDB {
         allMedia = new ArrayList<>();
 
         MediaReader fr = MediaReader.getInstance(this);
-        fr.readAll();
     }
     public static MediaDB getInstance() {
         if(instance == null) instance = new MediaDB();

@@ -1,8 +1,7 @@
-package src;
+package Misc;
 
-import src.Exceptions.*;
-import src.Media.*;
-
+import Exceptions.*;
+import Media.*;
 import java.util.HashMap;
 import java.util.ArrayList;
 import java.util.Arrays;

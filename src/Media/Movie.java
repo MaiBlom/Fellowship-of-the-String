@@ -1,4 +1,4 @@
-package src.Media;
+package Media;
 
 import java.awt.image.*;
 

@@ -1,6 +1,6 @@
-package src;
+package Misc;
 
-import src.Media.*;
+import Media.*;
 
 import java.util.ArrayList;
 import java.util.HashMap;

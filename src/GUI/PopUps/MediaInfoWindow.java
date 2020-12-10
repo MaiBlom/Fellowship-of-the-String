@@ -1,8 +1,8 @@
-package src.GUI.PopUps;
+package GUI.PopUps;
 
-import src.*;
-import src.Media.*;
-import src.GUI.*;
+import Media.*;
+import GUI.*;
+import Misc.*;
 
 import javax.swing.*;
 import javax.swing.event.*;
@@ -177,8 +177,8 @@ public class MediaInfoWindow extends JInternalFrame {
         
         try {
 
-            BufferedImage emptyStarImage = ImageIO.read(getClass().getClassLoader().getResourceAsStream("./res/emptyStarRating.png"));
-            BufferedImage starImage = ImageIO.read(getClass().getClassLoader().getResourceAsStream("./res/starRating.png"));
+            BufferedImage emptyStarImage = ImageIO.read(getClass().getClassLoader().getResourceAsStream("emptyStarRating.png"));
+            BufferedImage starImage = ImageIO.read(getClass().getClassLoader().getResourceAsStream("starRating.png"));
 
             JLabel emptyStars = new JLabel();
             emptyStars.setIcon(new ImageIcon(emptyStarImage));

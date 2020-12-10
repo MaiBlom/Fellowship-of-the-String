@@ -1,9 +1,9 @@
-package src.GUI;
+package GUI;
 
-import src.User;
-import src.Comparators.*;
-import src.GUI.PopUps.*;
-import src.Media.*;
+import Comparators.*;
+import GUI.PopUps.*;
+import Media.*;
+import Misc.*;
 
 import javax.swing.*;
 import java.awt.*;
@@ -209,4 +209,4 @@ public class Favorites extends JLayeredPane implements Clickable {
             x.setEnabled(b);
         }
     }
-}   
+}

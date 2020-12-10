@@ -1,9 +1,9 @@
-package src.GUI;
+package GUI;
 
-import src.*;
-import src.Comparators.*;
-import src.Media.*;
-import src.GUI.PopUps.*;
+import Comparators.*;
+import Media.*;
+import GUI.PopUps.*;
+import Misc.*;
 
 import javax.swing.*;
 import java.awt.*;

@@ -1,7 +1,7 @@
-package src.GUI.PopUps;
+package GUI.PopUps;
 
-import src.*;
-import src.GUI.*;
+import GUI.*;
+import Misc.*;
 
 import javax.swing.*;
 import javax.swing.event.*;

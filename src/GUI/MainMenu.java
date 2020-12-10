@@ -1,8 +1,8 @@
-package src.GUI;
+package GUI;
 
-import src.*;
-import src.Media.*;
-import src.GUI.PopUps.*;
+import Media.*;
+import GUI.PopUps.*;
+import Misc.*;
 
 import java.util.ArrayList;
 import java.awt.event.*;
@@ -112,9 +112,9 @@ public class MainMenu extends JLayeredPane implements Clickable {
         ArrayList<JButton> recommended = new ArrayList<>(3);
         try {
             Movie movie1 = new Movie("The Lord of the Rings: The Fellowship of the Ring", 2001, new String[] { "Action", "Adventure", "Drama" },
-            8.8, ImageIO.read(getClass().getClassLoader().getResourceAsStream("./res/redaktionfilm/fellowship of the ring.jpg")));
+            8.8, ImageIO.read(getClass().getClassLoader().getResourceAsStream("redaktionfilm/fellowship of the ring.jpg")));
             Movie movie2 = new Movie("The Lord of the Rings: The Two Towers", 2002, new String[] { "Action", "Adventure", "Drama" },
-            8.7, ImageIO.read(getClass().getClassLoader().getResourceAsStream("./res/redaktionfilm/two towers.jpg")));
+            8.7, ImageIO.read(getClass().getClassLoader().getResourceAsStream("redaktionfilm/two towers.jpg")));
 
             Movie movie3 = (Movie) db.getMovies().get(32);
 
@@ -169,7 +169,7 @@ public class MainMenu extends JLayeredPane implements Clickable {
         JButton leftButton = new JButton();
         ColorTheme.paintArrowButtons(leftButton);
         try {
-            leftButton.setIcon(new ImageIcon(ImageIO.read(getClass().getClassLoader().getResourceAsStream("./res/buttons/buttons_left.png"))));
+            leftButton.setIcon(new ImageIcon(ImageIO.read(getClass().getClassLoader().getResourceAsStream("buttons/buttons_left.png"))));
         } catch (IOException e) {}
         allButtons.add(leftButton);
         leftButton.addActionListener(new ActionListener() {
@@ -191,7 +191,7 @@ public class MainMenu extends JLayeredPane implements Clickable {
         JButton rightButton = new JButton();
         ColorTheme.paintArrowButtons(rightButton);
         try {
-            rightButton.setIcon(new ImageIcon(ImageIO.read(getClass().getClassLoader().getResourceAsStream("./res/buttons/buttons_right.png"))));
+            rightButton.setIcon(new ImageIcon(ImageIO.read(getClass().getClassLoader().getResourceAsStream("buttons/buttons_right.png"))));
         } catch (IOException e) {}
         allButtons.add(rightButton);
         rightButton.addActionListener(new ActionListener() {
@@ -282,7 +282,7 @@ public class MainMenu extends JLayeredPane implements Clickable {
         JButton leftButton = new JButton();
         ColorTheme.paintArrowButtons(leftButton);
         try {
-            leftButton.setIcon(new ImageIcon(ImageIO.read(getClass().getClassLoader().getResourceAsStream("./res/buttons/buttons_left.png"))));
+            leftButton.setIcon(new ImageIcon(ImageIO.read(getClass().getClassLoader().getResourceAsStream("buttons/buttons_left.png"))));
         } catch (IOException e) {}
         allButtons.add(leftButton);
         leftButton.addActionListener(new ActionListener() {
@@ -304,7 +304,7 @@ public class MainMenu extends JLayeredPane implements Clickable {
         JButton rightButton = new JButton();
         ColorTheme.paintArrowButtons(rightButton);
         try {
-            rightButton.setIcon(new ImageIcon(ImageIO.read(getClass().getClassLoader().getResourceAsStream("./res/buttons/buttons_right.png"))));
+            rightButton.setIcon(new ImageIcon(ImageIO.read(getClass().getClassLoader().getResourceAsStream("buttons/buttons_right.png"))));
         } catch (IOException e) {}
         allButtons.add(rightButton);
         rightButton.addActionListener(new ActionListener() {

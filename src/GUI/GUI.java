@@ -1,7 +1,7 @@
-package src.GUI;
+package GUI;
 
-import src.*;
-import src.GUI.PopUps.*;
+import GUI.PopUps.*;
+import Misc.*;
 
 import javax.imageio.ImageIO;
 import javax.swing.*;
@@ -22,6 +22,7 @@ public class GUI extends JFrame implements Clickable {
     private final int WIDTH = 1040, HEIGHT = 900;
 
     public static void main(String[] args) {
+        MediaDB.getInstance();
         new GUI();
     }
 
@@ -31,7 +32,7 @@ public class GUI extends JFrame implements Clickable {
         makeFrame();
     }
 
-    // Initializes the JFrame, and get's the content pane and sets it.
+    // Initializes the JFrame, and gets the content pane and sets it.
     // Adds a ComponentListener
     private void makeFrame() {
         setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
@@ -67,8 +68,10 @@ public class GUI extends JFrame implements Clickable {
 
         JButton homeButton = new JButton("Home");
         try {
-            homeButton.setIcon(new ImageIcon(ImageIO.read(getClass().getClassLoader().getResourceAsStream("./res/buttons/buttons_home.png"))));
-        } catch (IOException e) {}
+            homeButton.setIcon(new ImageIcon(ImageIO.read(getClass().getClassLoader().getResourceAsStream("buttons/buttons_home.png"))));
+        } catch (IOException e) {
+            System.out.println("Something went wrong.");
+        }
         homeButton.setPreferredSize(new Dimension(100, 50));
         homeButton.addActionListener(e -> changeScenario(new MainMenu(currentUser, this)));
         TextSettings.paintButtonFont(homeButton);
@@ -79,8 +82,10 @@ public class GUI extends JFrame implements Clickable {
 
         JButton favoritesButton = new JButton("Favorites");
         try {
-            favoritesButton.setIcon(new ImageIcon(ImageIO.read(getClass().getClassLoader().getResourceAsStream("./res/buttons/buttons_favourites.png"))));
-        } catch (IOException e) {}
+            favoritesButton.setIcon(new ImageIcon(ImageIO.read(getClass().getClassLoader().getResourceAsStream("buttons/buttons_favourites.png"))));
+        } catch (IOException e) {
+            System.out.println("Something went wrong.");
+        }
         favoritesButton.setPreferredSize(new Dimension(100, 50));
         favoritesButton.addActionListener(e -> changeScenario(new Favorites(currentUser, this)));
 
@@ -100,8 +105,10 @@ public class GUI extends JFrame implements Clickable {
 
         JButton searchButton = new JButton("Search");
         try {
-            searchButton.setIcon(new ImageIcon(ImageIO.read(getClass().getClassLoader().getResourceAsStream("./res/buttons/buttons_search.png"))));
-        } catch (IOException e) {}
+            searchButton.setIcon(new ImageIcon(ImageIO.read(getClass().getClassLoader().getResourceAsStream("buttons/buttons_search.png"))));
+        } catch (IOException e) {
+            System.out.println("Something went wrong.");
+        }
         ColorTheme.paintClickableButton(searchButton);
         TextSettings.paintButtonFont(searchButton);
 
@@ -116,14 +123,16 @@ public class GUI extends JFrame implements Clickable {
 
         JButton userButton = new JButton("Logout");
         try {
-            userButton.setIcon(new ImageIcon(ImageIO.read(getClass().getClassLoader().getResourceAsStream("./res/buttons/buttons_logout.png"))));
-        } catch (IOException e) {}
+            userButton.setIcon(new ImageIcon(ImageIO.read(getClass().getClassLoader().getResourceAsStream("buttons/buttons_logout.png"))));
+        } catch (IOException e) {
+            System.out.println("Something went wrong.");
+        }
         ColorTheme.paintClickableButton(userButton);
         TextSettings.paintButtonFont(userButton);
 
         userButton.addActionListener(e -> {
-            currentUser = null;
             changeScenario(new MainMenu(currentUser, this));
+            currentUser = null;
             LoginPopUp loginPopUp = new LoginPopUp(this);
             centerContainer.add(loginPopUp, new Integer(1));
             loginPopUp.setLocation(WIDTH/2-loginPopUp.getWidth()/2, HEIGHT/2-loginPopUp.getWidth()/2);
