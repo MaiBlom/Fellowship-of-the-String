@@ -69,7 +69,6 @@ public class MediaReader {
             String path;
             try {
                 if (isSeries) {
-                    System.out.println(title);
                     if (title.contains("Scener ur ett")) image = ImageIO.read(getClass().getClassLoader().getResourceAsStream("serieforsider/Scener ur ett aktenskap.jpg"));
                     else image = ImageIO.read(getClass().getClassLoader().getResourceAsStream("serieforsider/"+title+".jpg"));
                 } else {

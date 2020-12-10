@@ -61,6 +61,7 @@ public class MainMenu extends JLayeredPane implements Clickable {
         // Middle container
         JPanel contentPane = new JPanel();
         contentPane.setLayout(new GridLayout(3, 1));
+        ColorTheme.paintMainPanel(contentPane);
 
         // Adds the 3 different media containers: (recommended media, movies, and
         // series)

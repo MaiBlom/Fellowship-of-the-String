@@ -39,6 +39,7 @@ public class ColorTheme {
     }
 
     public static void paintAccentPanel(JPanel a) {
+        a.setBorder(null);
         a.setBackground(accentColor);
     }
 

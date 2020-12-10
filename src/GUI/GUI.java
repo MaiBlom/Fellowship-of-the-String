@@ -37,8 +37,10 @@ public class GUI extends JFrame implements Clickable {
     private void makeFrame() {
         setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
         setPreferredSize(new Dimension(WIDTH, HEIGHT));
+        this.setBackground(ColorTheme.mainColor);
 
         contentPane = getContentPane();
+        contentPane.setBackground(ColorTheme.mainColor);
         makeTopMenu();
         makeCenterContainer();
 

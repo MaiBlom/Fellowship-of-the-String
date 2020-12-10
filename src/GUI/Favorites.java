@@ -37,6 +37,7 @@ public class Favorites extends JLayeredPane implements Clickable {
     //Sets up the Favorites window by calling all the makeContainer methods.
     private void setup() {
         contentPane = new JPanel();
+        ColorTheme.paintMainPanel(contentPane);
         contentPane.setLayout(new BorderLayout());
         this.add(contentPane, new Integer(0));
         setPreferredSize(origin.getCenterDimension());
