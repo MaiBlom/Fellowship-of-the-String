@@ -9,7 +9,7 @@ import javax.swing.*;
 import java.awt.*;
 import java.util.*;
 
-public class Favorites extends JLayeredPane implements Clickable{
+public class Favorites extends JLayeredPane implements Clickable {
     private static final long serialVersionUID = 1L;
     private GUI origin;
 

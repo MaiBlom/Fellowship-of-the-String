@@ -20,6 +20,9 @@ public class TextSettings {
     public static void paintMediaButton(JButton b){
         b.setForeground(textColor);
         b.setFont(buttonTitles);
+        b.setVerticalTextPosition(SwingConstants.BOTTOM);
+        b.setHorizontalTextPosition(SwingConstants.CENTER);
+        b.setPreferredSize(new Dimension(150,250));
     }
     public static void paintMediaFont(JButton b) {
         b.setForeground(textColor);

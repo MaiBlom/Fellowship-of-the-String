@@ -1,6 +1,8 @@
 package Misc;
 
-import Media.*;
+import Media.Media;
+import Media.Movie;
+import Media.Series;
 
 import java.util.ArrayList;
 import java.util.HashMap;

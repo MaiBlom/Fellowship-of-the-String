@@ -188,10 +188,7 @@ public class SearchResult extends JLayeredPane implements Clickable {
 
             mediaPoster.setText(m.getTitle());
             TextSettings.paintMediaButton(mediaPoster);
-            mediaPoster.setVerticalTextPosition(SwingConstants.BOTTOM);
-            mediaPoster.setHorizontalTextPosition(SwingConstants.CENTER);
             ColorTheme.paintMediaButton(mediaPoster);
-            mediaPoster.setPreferredSize(new Dimension(150,250));
 
             allButtons.add(mediaPoster);
             mediaPoster.addActionListener(l -> MediaInfoWindow.showMediaInfo(m, origin, currentUser, this));
