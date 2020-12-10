@@ -105,9 +105,8 @@ public class SearchResult extends JLayeredPane implements Clickable {
         String[] sortingOptions = {"Sort by...", "Title (A-Z)", "Title (Z-A)", "Release (newest to oldest)", 
                                    "Release (oldest to newest)", "Rating (highest to lowest)", "Rating (lowest to highest)"};
         JComboBox<String> sortby = new JComboBox<>(sortingOptions);
-        sortby.setBackground(ColorTheme.mainColor);
-        sortby.setForeground(ColorTheme.textColor);
-        sortby.setFont(new Font("Verdana", Font.BOLD, 15));
+        ColorTheme.paintComboBox(sortby);
+        TextSettings.paintComboBoxFont(sortby);
         sortby.addActionListener(e -> sort((String) sortby.getSelectedItem()));
         sortingContainer.add(sortby);
 
@@ -188,7 +187,7 @@ public class SearchResult extends JLayeredPane implements Clickable {
             JButton mediaPoster = new JButton(new ImageIcon(m.getPoster()));
 
             mediaPoster.setText(m.getTitle());
-            TextSettings.paintMediaInfoButtons(mediaPoster);
+            TextSettings.paintMediaButton(mediaPoster);
             mediaPoster.setVerticalTextPosition(SwingConstants.BOTTOM);
             mediaPoster.setHorizontalTextPosition(SwingConstants.CENTER);
             ColorTheme.paintMediaButton(mediaPoster);

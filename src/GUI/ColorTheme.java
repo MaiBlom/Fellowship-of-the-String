@@ -10,11 +10,20 @@ public class ColorTheme {
     public static Color mainColor = new Color(45, 53, 64);
     public static Color accentColor = new Color(37, 43, 52);
     public static Color textColor = new Color(255, 255, 255);
+    public static Color checkBoxColor = new Color(45, 53, 64);
 
 
     public static void paintMediaButton(JButton b) {
         b.setBorder(new LineBorder(new Color(58,77,104),4,true));
         b.setBackground(mainColor);
+    }
+
+    public static void paintCheckBox(JCheckBox c){
+        c.setBackground(checkBoxColor);
+    }
+
+    public static void paintComboBox(JComboBox c){
+        c.setBackground(mainColor);
     }
 
     public static void paintClickableButton(JButton c) { 

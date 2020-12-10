@@ -28,7 +28,7 @@ public class User {
     public ArrayList<Media> getFavorites(){
         return favoritesList;
     }
-
+    
     public boolean isFavorite(Media m){
         return favoritesList.contains(m);
     }

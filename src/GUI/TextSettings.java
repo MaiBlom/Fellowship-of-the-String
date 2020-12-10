@@ -12,10 +12,28 @@ public class TextSettings {
     public static Font loginScreenFont = new Font("Verdana", Font.PLAIN, 13);
     public static Font mediaInfoFont = new Font("Verdana", Font.BOLD, 14);
     public static Font mediaInfoButtonFont = new Font("Verdana", Font.BOLD, 11);
+    public static Font comboBoxFont = new Font("Verdana", Font.BOLD, 15);
+    public static Font checkBoxFont = new Font("Verdana", Font.BOLD, 14);
 
+    public static Font buttonTitles = new Font("Verdana", Font.BOLD, 11);
+
+    public static void paintMediaButton(JButton b){
+        b.setForeground(textColor);
+        b.setFont(buttonTitles);
+    }
     public static void paintMediaFont(JButton b) {
         b.setForeground(textColor);
         b.setFont(mediaFont);
+    }
+
+    public static void paintCheckBoxFont(JCheckBox c){
+        c.setForeground(textColor);
+        c.setFont(checkBoxFont);
+    }
+
+    public static void paintComboBoxFont(JComboBox c){
+        c.setForeground(textColor);
+        c.setFont(comboBoxFont);
     }
 
     public static void paintButtonFont(JButton c) {

@@ -273,12 +273,10 @@ public class MediaInfoWindow extends JInternalFrame {
             else comboboxLabels[i] = "Season " + (i);
         }
         JComboBox<String> seasonList = new JComboBox<>(comboboxLabels);
-        seasonList.setBackground(ColorTheme.mainColor);
-        seasonList.setForeground(ColorTheme.textColor);
-        seasonList.setFont(new Font("Verdana", Font.BOLD, 15));
+        ColorTheme.paintComboBox(seasonList);
+        TextSettings.paintComboBoxFont(seasonList);
         seasonList.addActionListener(e -> showSeasonX((String) seasonList.getSelectedItem(), seasonEpisodes));
         seasonsTopBar.add(seasonList);
-
         seasonsContainer.add(seasonsTopBar, BorderLayout.NORTH);
 
         // The episodes JPanel is initialised empty, but buttons will be added to it in

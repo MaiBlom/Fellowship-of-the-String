@@ -126,7 +126,7 @@ public class MainMenu extends JLayeredPane implements Clickable {
                 JButton icon = new JButton(image);
 
                 icon.setText(m.getTitle());
-                TextSettings.paintMediaFont(icon);
+                TextSettings.paintMediaButton(icon);
                 ColorTheme.paintMediaButton(icon);
 
                 icon.setVerticalTextPosition(SwingConstants.BOTTOM);
@@ -242,7 +242,7 @@ public class MainMenu extends JLayeredPane implements Clickable {
             JButton icon = new JButton();            
 
             icon.setText(db.getMovies().get(i).getTitle());
-            TextSettings.paintMediaFont(icon);
+            TextSettings.paintMediaButton(icon);
             icon.setVerticalTextPosition(SwingConstants.BOTTOM);
             icon.setHorizontalTextPosition(SwingConstants.CENTER);
             ColorTheme.paintMediaButton(icon);
@@ -355,7 +355,7 @@ public class MainMenu extends JLayeredPane implements Clickable {
             JButton icon = new JButton();
 
             icon.setText(db.getSeries().get(i).getTitle());
-            TextSettings.paintMediaFont(icon);
+            TextSettings.paintMediaButton(icon);
             icon.setVerticalTextPosition(SwingConstants.BOTTOM);
             icon.setHorizontalTextPosition(SwingConstants.CENTER);
             ColorTheme.paintMediaButton(icon);
