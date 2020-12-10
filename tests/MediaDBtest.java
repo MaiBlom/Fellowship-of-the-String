@@ -1,16 +1,12 @@
-package tests;
-
 import static org.junit.Assert.*;
 import org.junit.*;
-import src.*;
+import Misc.*;
 
 public class MediaDBtest {
     private MediaDB db;
     @Before
     public void setUp() {
         this.db = MediaDB.getInstance();
-        MediaReader mr = MediaReader.getInstance(db);
-        mr.readAll();
     }
     
     @Test

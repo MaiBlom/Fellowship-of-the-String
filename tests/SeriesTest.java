@@ -1,10 +1,8 @@
-package tests;
-
 import static org.junit.Assert.*;
 
 import java.awt.image.*;
 import org.junit.*;
-import src.Media.Series;
+import Media.*;
 
 public class SeriesTest {
     private Series s;

@@ -1,8 +1,8 @@
-package tests;
 import java.awt.image.*;
 import static org.junit.Assert.*;
 import org.junit.*;
-import src.Media.*;
+import Media.*;
+
 public class MovieTest {
     private Movie m;
     @Before

@@ -1,7 +1,5 @@
-package tests;
-
-import src.*;
-import src.Media.*;
+import Media.*;
+import Misc.*;
 import static org.junit.Assert.*;
 import java.awt.image.*;
 import java.util.ArrayList;
