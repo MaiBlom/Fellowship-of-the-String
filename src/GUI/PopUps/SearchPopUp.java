@@ -2,17 +2,14 @@ package GUI.PopUps;
 
 import GUI.*;
 import Misc.*;
+import GUI.Scenarios.*;
 
 import javax.swing.*;
-import javax.swing.event.*;
 import java.awt.*;
 
-public class SearchPopUp extends JInternalFrame {
+public class SearchPopUp extends PopUp {
     private static final long serialVersionUID = 1L;
-    private GUI origin;
-    private User currentUser;
 
-    private Container contentPane;
     private JPanel searchBarContainer;
     private JPanel centerContainer;
     private JPanel mediatypeContainer;
@@ -30,11 +27,10 @@ public class SearchPopUp extends JInternalFrame {
         // Musical, Western, Music, Talk-show, Documentary, Animation
 
     public SearchPopUp(User currentUser, GUI origin) {
-        super("Search", false, true);
-        this.origin = origin;
-        this.currentUser = currentUser;
+        super(origin, currentUser);
+        this.setPreferredSize(new Dimension(400,400));
+
         setup();
-        setPreferredSize(new Dimension(400,400));
         pack();
         setVisible(true);
     }
@@ -42,38 +38,11 @@ public class SearchPopUp extends JInternalFrame {
     // Setup of the contentpane that consists of three elements, the top bar with a search bar, 
     // the middle with check boxes, and the bottom with a cancel and a search button.
     private void setup() {
-        contentPane = super.getContentPane();
         contentPane.setLayout(new BorderLayout());
 
-        setupWindowListener();
         setupSearchBar();
         setupCenterContainer();
         setupBottomBar();
-    }
-
-    // This looks like shit, but it makes sure, that buttons are disabled when
-    // the window is opened, and enabled when the window is closed.
-    private void setupWindowListener() {
-        this.addInternalFrameListener(new InternalFrameListener() {
-            public void internalFrameClosed(InternalFrameEvent e) {
-                if (origin instanceof Clickable) {
-                    Clickable clickable = (Clickable) origin;
-                    clickable.buttonsSetEnabled(true);
-                }
-            }
-            public void internalFrameOpened(InternalFrameEvent e) {
-                if (origin instanceof Clickable) {
-                    Clickable sr = (Clickable) origin;
-                    sr.buttonsSetEnabled(false);
-                }
-            }    
-            public void internalFrameClosing(InternalFrameEvent e) {}
-            public void internalFrameIconified(InternalFrameEvent e) {}
-            public void internalFrameDeiconified(InternalFrameEvent e) {}
-            public void internalFrameActivated(InternalFrameEvent e) {}
-            public void internalFrameDeactivated(InternalFrameEvent e) {}
-    
-        });
     }
 
     // Setup of the topbar with a free-text searchbar. 
@@ -115,13 +84,12 @@ public class SearchPopUp extends JInternalFrame {
         ColorTheme.paintCheckBox(movieSearch);
         TextSettings.paintCheckBoxFont(movieSearch);
         movieSearch.addItemListener(l -> searchMovies = l.getStateChange()==1 ? true : false);
+        mediatypeContainer.add(movieSearch);
 
         JCheckBox seriesSearch = new JCheckBox("Series  ");
         ColorTheme.paintCheckBox(seriesSearch);
         TextSettings.paintCheckBoxFont(seriesSearch);
         seriesSearch.addItemListener(l -> searchSeries = l.getStateChange()==1 ? true : false);
-
-        mediatypeContainer.add(movieSearch);
         mediatypeContainer.add(seriesSearch);
     }
 
@@ -150,10 +118,12 @@ public class SearchPopUp extends JInternalFrame {
         ColorTheme.paintMainPanel(leftGenres);
         leftGenres.setLayout(new BoxLayout(leftGenres, BoxLayout.Y_AXIS));
         allGenres.add(leftGenres);
+
         JPanel centerGenres = new JPanel();
         ColorTheme.paintMainPanel(centerGenres);
         centerGenres.setLayout(new BoxLayout(centerGenres, BoxLayout.Y_AXIS));
         allGenres.add(centerGenres);
+
         JPanel rightGenres = new JPanel();
         ColorTheme.paintMainPanel(rightGenres);
         rightGenres.setLayout(new BoxLayout(rightGenres, BoxLayout.Y_AXIS));
@@ -163,6 +133,7 @@ public class SearchPopUp extends JInternalFrame {
         selectableGenres = new String[] {"Crime", "Drama", "Biography", "Sport", "History", "Romance", "War", "Mystery", "Adventure", 
                                          "Family", "Fantasy", "Thriller", "Horror", "Film-Noir", "Action", "Sci-fi", "Comedy",
                                          "Musical", "Western", "Music", "Talk-show", "Documentary", "Animation"};
+
         for (int i = 0; i<23; i++) {
             JCheckBox genreBox = new JCheckBox(selectableGenres[i]);
             genreBox.setBackground(new Color(45, 53, 64));
@@ -206,17 +177,7 @@ public class SearchPopUp extends JInternalFrame {
         JButton search = new JButton("Search");
         ColorTheme.paintClickableButton(search);
         TextSettings.paintButtonFont(search);
-        search.addActionListener(e -> clickSearch());
+        search.addActionListener(e -> clickOK(new SearchResult(origin, currentUser, searchBar.getText(), searchMovies, searchSeries, searchGenres)));
         bottomBar.add(search);
-    }
-
-    private void clickSearch() {
-        origin.changeScenario(new SearchResult(searchBar.getText(), searchMovies, searchSeries, searchGenres, currentUser, origin));
-        dispose();
-
-        // should refresh the page with and show all media that fits the given parameters. Parameters are stored in:
-        // text search: searchCriteria
-        // type search: searchMovies & searchSeries
-        // genre search: searchGenres[]
     }
 }

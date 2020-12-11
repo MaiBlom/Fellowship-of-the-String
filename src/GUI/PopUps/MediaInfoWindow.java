@@ -3,21 +3,18 @@ package GUI.PopUps;
 import Media.*;
 import GUI.*;
 import Misc.*;
+import GUI.Scenarios.*;
 
 import javax.swing.*;
-import javax.swing.event.*;
 import java.awt.*;
 import java.awt.image.*;
 import javax.imageio.ImageIO;
 import java.io.IOException;
 
-public class MediaInfoWindow extends JInternalFrame {
+public class MediaInfoWindow extends PopUp {
     private static final long serialVersionUID = 1L;
     private Media media;
-    private GUI origin;
-    private User currentUser;
 
-    private Container contentPane;
     private JPanel westContainer;
     private JPanel centerContainer;
     private JPanel mediaInfo;
@@ -25,82 +22,52 @@ public class MediaInfoWindow extends JInternalFrame {
     private JPanel episodesContainer;
 
     public MediaInfoWindow(Media media, GUI origin, User currentUser) {
-        super(media.getTitle(), false, true);
-        //setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
+        super(origin, currentUser);
         this.media = media;
-        this.origin = origin;
-        this.currentUser = currentUser;
+        this.setPreferredSize(new Dimension(600,400));
         
         setup();
-        setPreferredSize(new Dimension(600,400));
         pack();
         setVisible(true);
     }
 
-    // Setup of the main window of the pop-up.
-    // The contentpane is split up in two columns. The westContainer holds image 
-    // and the centerContainer holds the information.
+    // Setup of the main window of the pop-up. The contentpane is split up in two columns. The
+    // westContainer holds image and the centerContainer holds the information.
     private void setup() {
-        contentPane = super.getContentPane();
         contentPane.setLayout(new BorderLayout());
-
-        setupWindowListener();
         setupWestContainer();
         setupCenterContainer();
     }
 
-    // This looks like shit, but it makes sure, that buttons are disabled when
-    // the window is opened, and enabled when the window is closed.
-    private void setupWindowListener() {
-        this.addInternalFrameListener(new InternalFrameListener() {
-            public void internalFrameClosed(InternalFrameEvent e) {
-                if (origin instanceof Clickable) {
-                    Clickable clickable = (Clickable) origin;
-                    clickable.buttonsSetEnabled(true);
-                }
-            }
-            public void internalFrameOpened(InternalFrameEvent e) {
-                if (origin instanceof Clickable) {
-                    Clickable sr = (Clickable) origin;
-                    sr.buttonsSetEnabled(false);
-                }
-            }    
-            public void internalFrameClosing(InternalFrameEvent e) {}
-            public void internalFrameIconified(InternalFrameEvent e) {}
-            public void internalFrameDeiconified(InternalFrameEvent e) {}
-            public void internalFrameActivated(InternalFrameEvent e) {}
-            public void internalFrameDeactivated(InternalFrameEvent e) {}
-    
-        });
-    }
-
-    // Setup of the westContainer which holds the image of the media 
-    // (and soon also a "play" button).
+    // Setup of the westContainer which holds the image of the media, the play-button and the
+    // favorite-button.
     private void setupWestContainer() {
         westContainer = new JPanel();
         ColorTheme.paintAccentPanel(westContainer);
         westContainer.setLayout(new BorderLayout(2,2));
+        contentPane.add(westContainer, BorderLayout.WEST);
 
-        // Is there a better way of inserting images?
-        ImageIcon image = new ImageIcon();
-        image.setImage(media.getPoster());
-        JLabel mediaPosterLabel = new JLabel();
-        mediaPosterLabel.setIcon(image);
+        // Adding the media poster to a container with FlowLayout to get the picture to sit in
+        // the middle of the westContainer.
         JPanel mediaPosterContainer = new JPanel();
         mediaPosterContainer.setLayout(new FlowLayout());
         ColorTheme.paintAccentPanel(mediaPosterContainer);
-        mediaPosterContainer.add(mediaPosterLabel);
         westContainer.add(mediaPosterContainer, BorderLayout.NORTH);
 
-        setupLeftButtons();
+        JLabel mediaPosterLabel = new JLabel();
+        mediaPosterLabel.setIcon(new ImageIcon(media.getPoster()));
+        mediaPosterContainer.add(mediaPosterLabel);
 
-        contentPane.add(westContainer, BorderLayout.WEST);
+        setupLeftButtons();
     }
 
+    // Create the two buttons. A bit of extra code for the favorites-button, since it has to
+    // change button-text depending on whether the media is already in the current user's favorites.
     private void setupLeftButtons() {
         JPanel leftButtonsOuter = new JPanel();
         ColorTheme.paintAccentPanel(leftButtonsOuter);
         leftButtonsOuter.setLayout(new FlowLayout());
+        westContainer.add(leftButtonsOuter, BorderLayout.CENTER);
 
         JPanel leftButtons = new JPanel();
         ColorTheme.paintAccentPanel(leftButtons);
@@ -112,7 +79,7 @@ public class MediaInfoWindow extends JInternalFrame {
         TextSettings.paintButtonFont(playButton);
         if (media instanceof Movie) playButton.setText("Play movie");
         else playButton.setText("Play");
-        playButton.addActionListener(l -> clickPlay());
+        playButton.addActionListener(l -> clickOK(new PlayMediaPage(origin, currentUser, media)));
         leftButtons.add(playButton);
 
         JButton favorite = new JButton();
@@ -131,14 +98,11 @@ public class MediaInfoWindow extends JInternalFrame {
             }
         });
         leftButtons.add(favorite);
-
-        westContainer.add(leftButtonsOuter, BorderLayout.CENTER);
     }
 
-    // Setup of the center JPanel which holds the information about the media.
-    // The JPanel is split into two parts. The top is the information about the media
-    // (in the mediaInfo Container), and the bottom is only for series, which is the
-    // information about the seasons.
+    // Setup of the center JPanel which holds the information about the media. The JPanel is split
+    // into two parts. The top is the information about the media (in the mediaInfo Container), and
+    // the bottom is only for series, which is the information about the seasons.
     private void setupCenterContainer() {
         centerContainer = new JPanel();
         centerContainer.setLayout(new BorderLayout());
@@ -261,7 +225,7 @@ public class MediaInfoWindow extends JInternalFrame {
 
         // I convert the Media object to a Series object. Then I get the 
         // int[] with the number of episodes in each season. The length og this array
-        // is the nuumber of seasons in the series, so this number is used to create the 
+        // is the number of seasons in the series, so this number is used to create the
         // String[] comboboxLabels, which is filled with "Season 1", "Season 2" ...
         // The combobox is created with the given labels, and an ActionListener is added.
         // The ActionListener needs the seasonEpisodes array to create buttons.
@@ -306,7 +270,7 @@ public class MediaInfoWindow extends JInternalFrame {
                 JButton button = new JButton("Episode " + (i+1));
                 ColorTheme.paintMediaInfoButtons(button);
                 TextSettings.paintMediaInfoButtons(button);
-                button.addActionListener(e -> clickPlay());
+                button.addActionListener(e -> clickOK(new PlayMediaPage(origin, currentUser, media)));
                 episodesContainer.add(button);
             } 
         } 
@@ -317,12 +281,6 @@ public class MediaInfoWindow extends JInternalFrame {
 
         setPreferredSize(new Dimension(600,400));
         pack();
-    }
-
-    private void clickPlay() {
-        origin.changeScenario(new PlayMediaPage(media, origin));
-        dispose();
-        // vinduet skal lukkes, main frame skal opdatere til video
     }
 
     // Make a MediaInfoWindow popup with the given media.

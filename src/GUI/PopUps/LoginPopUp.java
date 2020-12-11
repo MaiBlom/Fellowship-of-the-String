@@ -1,17 +1,16 @@
 package GUI.PopUps;
 
 import GUI.*;
-import javax.swing.*;
-import javax.swing.event.*;
-import java.awt.*;
+import GUI.Scenarios.*;
 import Misc.*;
 
-public class LoginPopUp extends JInternalFrame {
+import javax.swing.*;
+import java.awt.*;
+
+public class LoginPopUp extends PopUp {
     private static final long serialVersionUID = 1L;
-    private GUI origin;
     private UserDB db;
-    
-    private Container contentPane;
+
     private JPanel loginContainerPanel;
     private JLabel loginWelcome;
     private JLabel loginInfo;
@@ -26,17 +25,14 @@ public class LoginPopUp extends JInternalFrame {
     private JTextField newUsernameField;
     private JPasswordField newPasswordField;
 
-    private final boolean EDITABLE = false;
-
     // Create a login popUp with the main GUI as the origin.
     public LoginPopUp(GUI origin) {
-        this.origin = origin;
+        super(origin, null);
         this.db = UserDB.getInstance();
-        this.setClosable(EDITABLE);
-        this.setResizable(EDITABLE);
+        this.setClosable(false);
+        this. setPreferredSize(new Dimension(600,400));
 
         setup();
-        setPreferredSize(new Dimension(600,400));
         pack();
         setVisible(true);
     }
@@ -44,8 +40,6 @@ public class LoginPopUp extends JInternalFrame {
     // Setup of the contentPane. There are two states of the window. Either it is in login-mode, 
     // or else it's in create user-mode. 
     private void setup() {
-        contentPane = this.getContentPane();
-
         loginContainerPanel = new JPanel();
         loginContainerPanel.setBounds(0,0,600,400);
         loginContainerPanel.setBorder(BorderFactory.createEmptyBorder(5, 5, 5, 5));
@@ -59,7 +53,6 @@ public class LoginPopUp extends JInternalFrame {
         ColorTheme.paintMainPanel(createUserContainerPanel);
         createUserContainerPanel.setLayout(new BorderLayout());
 
-        setupWindowListener();
         setupLoginInfoMessage();
         setupLoginFields();
         setupLoginButton();
@@ -68,45 +61,20 @@ public class LoginPopUp extends JInternalFrame {
         setupCreateButton();
     }
 
-    // This looks like shit, but it makes sure, that buttons are disabled when
-    // the window is opened, and enabled when the window is closed.
-    private void setupWindowListener() {
-        this.addInternalFrameListener(new InternalFrameListener() {
-            public void internalFrameClosed(InternalFrameEvent e) {
-                if (origin instanceof Clickable) {
-                    Clickable sr = (Clickable) origin;
-                    sr.buttonsSetEnabled(true);
-                }
-            } 
-            public void internalFrameOpened(InternalFrameEvent e) {
-                if (origin instanceof Clickable) {
-                    Clickable sr = (Clickable) origin;
-                    sr.buttonsSetEnabled(false);
-                }
-            } 
-            public void internalFrameClosing(InternalFrameEvent e) {}
-            public void internalFrameIconified(InternalFrameEvent e) {}
-            public void internalFrameDeiconified(InternalFrameEvent e) {}
-            public void internalFrameActivated(InternalFrameEvent e) {}
-            public void internalFrameDeactivated(InternalFrameEvent e) {}
-    
-        });
-    }
-
     // Setup of the login info message. It tells you if there are eny errors in the input you give.
     private void setupLoginInfoMessage() {
         JPanel infoContainer = new JPanel();
         ColorTheme.paintMainPanel(infoContainer);
         infoContainer.setLayout(new GridLayout(2,1));
-        loginWelcome = new JLabel("Welcome to Shire Streaming - hobbits only.");
-        loginInfo = new JLabel("Login to access the streaming service.");
-        TextSettings.paintLoginScreenFont(loginWelcome);
-        TextSettings.paintLoginScreenFont(loginInfo);
-
-
-        infoContainer.add(loginWelcome);
-        infoContainer.add(loginInfo);
         loginContainerPanel.add(infoContainer, BorderLayout.NORTH);
+
+        loginWelcome = new JLabel("Welcome to Shire Streaming - hobbits only.");
+        TextSettings.paintLoginScreenFont(loginWelcome);
+        infoContainer.add(loginWelcome);
+
+        loginInfo = new JLabel("Login to access the streaming service.");
+        TextSettings.paintLoginScreenFont(loginInfo);
+        infoContainer.add(loginInfo);
     }
 
     // Setup of the login fields, which are in the center of the window.
@@ -114,10 +82,10 @@ public class LoginPopUp extends JInternalFrame {
         JPanel loginFieldsOuter = new JPanel();
         ColorTheme.paintMainPanel(loginFieldsOuter);
         loginFieldsOuter.setLayout(new FlowLayout());
+        loginContainerPanel.add(loginFieldsOuter, BorderLayout.CENTER);
 
         loginFields = new JPanel();
         ColorTheme.paintMainPanel(loginFields);
-
         loginFields.setLayout(new GridLayout(2,2));
         loginFields.setPreferredSize(new Dimension(500,100));
         loginFieldsOuter.add(loginFields);
@@ -137,8 +105,6 @@ public class LoginPopUp extends JInternalFrame {
         JLabel help = new JLabel("Login with test / test to access the streaming service or create your own user.");
         TextSettings.paintLoginScreenFont(help);
         loginFieldsOuter.add(help);
-
-        loginContainerPanel.add(loginFieldsOuter, BorderLayout.CENTER);
     }
 
     // Setup of the login-buttons. The createUser button takes you to the create-user-mode. The Login button
@@ -148,6 +114,7 @@ public class LoginPopUp extends JInternalFrame {
         JPanel buttons = new JPanel();
         ColorTheme.paintMainPanel(buttons);
         buttons.setLayout(new GridLayout(1,2,2,2));
+        loginContainerPanel.add(buttons, BorderLayout.SOUTH);
 
         JButton createUser = new JButton("Create new user");
         ColorTheme.paintClickableButton(createUser);
@@ -168,16 +135,13 @@ public class LoginPopUp extends JInternalFrame {
             try {
                 if (db.login(username, password)) {
                     origin.setCurrentUser(db.getUser(username));
-                    origin.changeScenario(new MainMenu(db.getUser(username), origin));
-                    dispose();
+                    clickOK(new MainMenu(origin, db.getUser(username)));
                 }
             } catch (Exception e) {
                 loginInfo.setText(e.getMessage());
             }
         });
         buttons.add(login);
-
-        loginContainerPanel.add(buttons, BorderLayout.SOUTH);
     }
 
     // Setup of the create user info message. It tells you if there are eny errors in the input you give.
@@ -185,13 +149,15 @@ public class LoginPopUp extends JInternalFrame {
         JPanel infoContainer = new JPanel();
         ColorTheme.paintMainPanel(infoContainer);
         infoContainer.setLayout(new GridLayout(2,1));
+        createUserContainerPanel.add(infoContainer, BorderLayout.NORTH);
+
         createWelcome = new JLabel("Create a new user.");
         TextSettings.paintLoginScreenFont(createWelcome);
+        infoContainer.add(createWelcome);
+
         createInfo = new JLabel(" ");
         TextSettings.paintLoginScreenFont(createInfo);
-        infoContainer.add(createWelcome);
         infoContainer.add(createInfo);
-        createUserContainerPanel.add(infoContainer, BorderLayout.NORTH);
     }
 
     // Setup of the login fields, which are in the center of the window.
@@ -199,6 +165,7 @@ public class LoginPopUp extends JInternalFrame {
         JPanel userFieldsOuter = new JPanel();
         ColorTheme.paintMainPanel(userFieldsOuter);
         userFieldsOuter.setLayout(new FlowLayout());
+        createUserContainerPanel.add(userFieldsOuter, BorderLayout.CENTER);
 
         userFields = new JPanel();
         ColorTheme.paintMainPanel(userFields);
@@ -217,8 +184,6 @@ public class LoginPopUp extends JInternalFrame {
         userFields.add(newUsernameField);
         userFields.add(passwordLabel);
         userFields.add(newPasswordField);
-
-        createUserContainerPanel.add(userFieldsOuter, BorderLayout.CENTER);
     }
 
     // Setup of the create-buttons. The createUser button creates the user if the given username isn't already
@@ -227,6 +192,7 @@ public class LoginPopUp extends JInternalFrame {
         JPanel buttons = new JPanel();
         ColorTheme.paintMainPanel(buttons);
         buttons.setLayout(new GridLayout(1,2,2,2));
+        createUserContainerPanel.add(buttons, BorderLayout.SOUTH);
 
         JButton cancel = new JButton("Return");
         ColorTheme.paintClickableButton(cancel);
@@ -252,7 +218,5 @@ public class LoginPopUp extends JInternalFrame {
             }
         });
         buttons.add(create);
-
-        createUserContainerPanel.add(buttons, BorderLayout.SOUTH);
     }
 }

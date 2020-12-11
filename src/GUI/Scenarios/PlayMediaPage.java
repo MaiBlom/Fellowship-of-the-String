@@ -1,33 +1,27 @@
-package GUI;
+package GUI.Scenarios;
 
+import GUI.*;
 import Media.*;
+import Misc.*;
 
 import javax.swing.*;
 import java.awt.*;
 
-public class PlayMediaPage extends JLayeredPane {
+public class PlayMediaPage extends Scenario {
     private static final long serialVersionUID = 1L;
-    private GUI origin;
     private Media media;
-    private JPanel contentPane;
 
     // private final int WIDTH = 1000, HEIGHT = 720;
 
-    public PlayMediaPage(Media media, GUI origin) {
+    public PlayMediaPage(GUI origin, User currentUser, Media media) {
+        super(origin, currentUser);
         this.media = media;
-        this.origin = origin;
+
         setup();
     }
 
     private void setup() {
-        setPreferredSize(origin.getCenterDimension());
-
-        contentPane = new JPanel();
-        ColorTheme.paintMainPanel(contentPane);
         contentPane.setLayout(new FlowLayout());
-        contentPane.setBounds(origin.getCenterBounds());
-        this.add(contentPane, new Integer(0));
-
 
         JLabel info = new JLabel(
             "<html> <br>You've selected the " + (media instanceof Movie? "movie " : "series ") + media.getTitle() + ". <br>" +
