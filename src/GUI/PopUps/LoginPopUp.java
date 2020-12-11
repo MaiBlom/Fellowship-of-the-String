@@ -44,13 +44,13 @@ public class LoginPopUp extends PopUp {
         loginContainerPanel.setBounds(0,0,600,400);
         loginContainerPanel.setBorder(BorderFactory.createEmptyBorder(5, 5, 5, 5));
         loginContainerPanel.setLayout(new BorderLayout());
-        ColorTheme.paintMainPanel(loginContainerPanel);
+        AssetDesigner.paintMainPanel(loginContainerPanel);
         contentPane.add(loginContainerPanel);
 
         createUserContainerPanel = new JPanel();
         createUserContainerPanel.setBounds(0,0,600,400);
         createUserContainerPanel.setBorder(BorderFactory.createEmptyBorder(5, 5, 5, 5));
-        ColorTheme.paintMainPanel(createUserContainerPanel);
+        AssetDesigner.paintMainPanel(createUserContainerPanel);
         createUserContainerPanel.setLayout(new BorderLayout());
 
         setupLoginInfoMessage();
@@ -64,37 +64,37 @@ public class LoginPopUp extends PopUp {
     // Setup of the login info message. It tells you if there are eny errors in the input you give.
     private void setupLoginInfoMessage() {
         JPanel infoContainer = new JPanel();
-        ColorTheme.paintMainPanel(infoContainer);
+        AssetDesigner.paintMainPanel(infoContainer);
         infoContainer.setLayout(new GridLayout(2,1));
         loginContainerPanel.add(infoContainer, BorderLayout.NORTH);
 
         loginWelcome = new JLabel("Welcome to Shire Streaming - hobbits only.");
-        TextSettings.paintLoginScreenFont(loginWelcome);
+        AssetDesigner.paintLoginScreenFont(loginWelcome);
         infoContainer.add(loginWelcome);
 
         loginInfo = new JLabel("Login to access the streaming service.");
-        TextSettings.paintLoginScreenFont(loginInfo);
+        AssetDesigner.paintLoginScreenFont(loginInfo);
         infoContainer.add(loginInfo);
     }
 
     // Setup of the login fields, which are in the center of the window.
     private void setupLoginFields() {
         JPanel loginFieldsOuter = new JPanel();
-        ColorTheme.paintMainPanel(loginFieldsOuter);
+        AssetDesigner.paintMainPanel(loginFieldsOuter);
         loginFieldsOuter.setLayout(new FlowLayout());
         loginContainerPanel.add(loginFieldsOuter, BorderLayout.CENTER);
 
         loginFields = new JPanel();
-        ColorTheme.paintMainPanel(loginFields);
+        AssetDesigner.paintMainPanel(loginFields);
         loginFields.setLayout(new GridLayout(2,2));
         loginFields.setPreferredSize(new Dimension(500,100));
         loginFieldsOuter.add(loginFields);
 
         JLabel usernameLabel = new JLabel("Username: ");
-        TextSettings.paintLoginScreenFont(usernameLabel);
+        AssetDesigner.paintLoginScreenFont(usernameLabel);
         usernameField = new JTextField();
         JLabel passwordLabel = new JLabel("Password: ");
-        TextSettings.paintLoginScreenFont(passwordLabel);
+        AssetDesigner.paintLoginScreenFont(passwordLabel);
         passwordField = new JPasswordField();
 
         loginFields.add(usernameLabel);
@@ -103,7 +103,7 @@ public class LoginPopUp extends PopUp {
         loginFields.add(passwordField);
 
         JLabel help = new JLabel("Login with test / test to access the streaming service or create your own user.");
-        TextSettings.paintLoginScreenFont(help);
+        AssetDesigner.paintLoginScreenFont(help);
         loginFieldsOuter.add(help);
     }
 
@@ -112,13 +112,13 @@ public class LoginPopUp extends PopUp {
     // they are.
     private void setupLoginButton() {
         JPanel buttons = new JPanel();
-        ColorTheme.paintMainPanel(buttons);
+        AssetDesigner.paintMainPanel(buttons);
         buttons.setLayout(new GridLayout(1,2,2,2));
         loginContainerPanel.add(buttons, BorderLayout.SOUTH);
 
         JButton createUser = new JButton("Create new user");
         ColorTheme.paintClickableButton(createUser);
-        TextSettings.paintButtonFont(createUser);
+        AssetDesigner.paintButtonFont(createUser);
         createUser.addActionListener(l -> {
             contentPane.removeAll();
             contentPane.add(createUserContainerPanel);
@@ -128,7 +128,7 @@ public class LoginPopUp extends PopUp {
         
         JButton login = new JButton("Login");
         ColorTheme.paintClickableButton(login);
-        TextSettings.paintButtonFont(login);
+        AssetDesigner.paintButtonFont(login);
         login.addActionListener(l -> {
             String username = usernameField.getText();
             char[] password = passwordField.getPassword();
@@ -147,37 +147,37 @@ public class LoginPopUp extends PopUp {
     // Setup of the create user info message. It tells you if there are eny errors in the input you give.
     private void setupCreateInfoMessage() {
         JPanel infoContainer = new JPanel();
-        ColorTheme.paintMainPanel(infoContainer);
+        AssetDesigner.paintMainPanel(infoContainer);
         infoContainer.setLayout(new GridLayout(2,1));
         createUserContainerPanel.add(infoContainer, BorderLayout.NORTH);
 
         createWelcome = new JLabel("Create a new user.");
-        TextSettings.paintLoginScreenFont(createWelcome);
+        AssetDesigner.paintLoginScreenFont(createWelcome);
         infoContainer.add(createWelcome);
 
         createInfo = new JLabel(" ");
-        TextSettings.paintLoginScreenFont(createInfo);
+        AssetDesigner.paintLoginScreenFont(createInfo);
         infoContainer.add(createInfo);
     }
 
     // Setup of the login fields, which are in the center of the window.
     private void setupCreateFields() {
         JPanel userFieldsOuter = new JPanel();
-        ColorTheme.paintMainPanel(userFieldsOuter);
+        AssetDesigner.paintMainPanel(userFieldsOuter);
         userFieldsOuter.setLayout(new FlowLayout());
         createUserContainerPanel.add(userFieldsOuter, BorderLayout.CENTER);
 
         userFields = new JPanel();
-        ColorTheme.paintMainPanel(userFields);
+        AssetDesigner.paintMainPanel(userFields);
         userFields.setLayout(new GridLayout(2,2));
         userFields.setPreferredSize(new Dimension(500,100));
         userFieldsOuter.add(userFields);
 
         JLabel usernameLabel = new JLabel("Username: ");
-        TextSettings.paintLoginScreenFont(usernameLabel);
+        AssetDesigner.paintLoginScreenFont(usernameLabel);
         newUsernameField = new JTextField();
         JLabel passwordLabel = new JLabel("Password: ");
-        TextSettings.paintLoginScreenFont(passwordLabel);
+        AssetDesigner.paintLoginScreenFont(passwordLabel);
         newPasswordField = new JPasswordField();
 
         userFields.add(usernameLabel);
@@ -190,13 +190,13 @@ public class LoginPopUp extends PopUp {
     // taken. The cancel button takes you back to the login-screen.
     private void setupCreateButton() {
         JPanel buttons = new JPanel();
-        ColorTheme.paintMainPanel(buttons);
+        AssetDesigner.paintMainPanel(buttons);
         buttons.setLayout(new GridLayout(1,2,2,2));
         createUserContainerPanel.add(buttons, BorderLayout.SOUTH);
 
         JButton cancel = new JButton("Return");
         ColorTheme.paintClickableButton(cancel);
-        TextSettings.paintButtonFont(cancel);
+        AssetDesigner.paintButtonFont(cancel);
         cancel.addActionListener(l -> {
             contentPane.removeAll();
             contentPane.add(loginContainerPanel);
@@ -206,7 +206,7 @@ public class LoginPopUp extends PopUp {
         
         JButton create = new JButton("Create user");
         ColorTheme.paintClickableButton(create);
-        TextSettings.paintButtonFont(create);
+        AssetDesigner.paintButtonFont(create);
         create.addActionListener(l -> {
             String username = newUsernameField.getText();
             char[] password = newPasswordField.getPassword();

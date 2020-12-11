@@ -9,7 +9,6 @@ public class ColorTheme {
     public static Color buttonColor = new Color(17, 19, 21);
     public static Color mainColor = new Color(45, 53, 64);
     public static Color accentColor = new Color(37, 43, 52);
-    public static Color textColor = new Color(255, 255, 255);
     public static Color checkBoxColor = new Color(45, 53, 64);
 
 
@@ -18,9 +17,6 @@ public class ColorTheme {
         b.setBackground(mainColor);
     }
 
-    public static void paintCheckBox(JCheckBox c){
-        c.setBackground(checkBoxColor);
-    }
 
     public static void paintComboBox(JComboBox c){
         c.setBackground(mainColor);
@@ -40,11 +36,6 @@ public class ColorTheme {
     public static void paintArrowButtons(JButton d) {
         d.setBorderPainted(false);
         d.setBackground(mainColor);
-    }
-
-    public static void paintMainPanel(JPanel p) {
-        p.setBackground(mainColor);
-        p.setBorder(null);
     }
 
     public static void paintAccentPanel(JPanel a) {

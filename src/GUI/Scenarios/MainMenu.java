@@ -59,7 +59,7 @@ public class MainMenu extends Scenario {
         // NORTH section and the media in the CENTER section.
         JPanel mediaContainer = new JPanel();
         mediaContainer.setLayout(new BorderLayout());
-        ColorTheme.paintMainPanel(mediaContainer);
+        AssetDesigner.paintMainPanel(mediaContainer);
 
         // Set the title of the section and add it to the NORTH part of the main container.
         String mediaType;
@@ -67,13 +67,13 @@ public class MainMenu extends Scenario {
         else if (row == 2) mediaType = "Movies: ";
         else mediaType = "Series: ";
         JLabel headerLabel = new JLabel(mediaType);
-        TextSettings.paintHeader(headerLabel);
+        AssetDesigner.paintHeader(headerLabel);
         mediaContainer.add(headerLabel, BorderLayout.NORTH);
 
         // The panel with the media in and left/right buttons.
         JPanel mediaSelectorContainer = new JPanel();
         mediaSelectorContainer.setLayout(new BorderLayout());
-        ColorTheme.paintMainPanel(mediaSelectorContainer);
+        AssetDesigner.paintMainPanel(mediaSelectorContainer);
         mediaContainer.add(mediaSelectorContainer, BorderLayout.CENTER);
 
         // If this isn't the recommended-container, add left/right buttons.
@@ -84,7 +84,7 @@ public class MainMenu extends Scenario {
 
         // Add media to the center of the mediaSelectorContainer.
         JPanel mediaPosterIcons = new JPanel();
-        ColorTheme.paintMainPanel(mediaPosterIcons);
+        AssetDesigner.paintMainPanel(mediaPosterIcons);
         mediaPosterIcons.setLayout(new FlowLayout(FlowLayout.CENTER));
         mediaSelectorContainer.add(mediaPosterIcons, BorderLayout.CENTER);
         if (row == 1) {
@@ -153,8 +153,7 @@ public class MainMenu extends Scenario {
             allButtons.add(icon);
 
             icon.setText(m.getTitle());
-            TextSettings.paintMediaButton(icon);
-            ColorTheme.paintMediaButton(icon);
+            AssetDesigner.paintMediaButton(icon);
 
             icon.addActionListener(l -> MediaInfoWindow.showMediaInfo(m, origin, currentUser, this));
             container.add(icon);

@@ -45,7 +45,7 @@ public class SearchResult extends Scenario {
 
     private void makeTopMenu() {
         topMenu = new JPanel();
-        ColorTheme.paintMainPanel(topMenu);
+        AssetDesigner.paintMainPanel(topMenu);
         topMenu.setLayout(new GridLayout());
         contentPane.add(topMenu, BorderLayout.NORTH);
 
@@ -77,7 +77,7 @@ public class SearchResult extends Scenario {
         sb.append("<br>Results: ");
         sb.append(searchResults.size());
         JLabel yourSearch = new JLabel(sb.toString());
-        TextSettings.paintHeader(yourSearch);
+        AssetDesigner.paintHeader(yourSearch);
         topMenu.add(yourSearch);
     }
 

@@ -31,7 +31,7 @@ public abstract class Scenario extends JLayeredPane implements Clickable {
     private void setupContentPane() {
         this.setPreferredSize(origin.getCenterDimension());
         this.add(contentPane, new Integer(0));
-        ColorTheme.paintMainPanel(contentPane);
+        AssetDesigner.paintMainPanel(contentPane);
         contentPane.setBounds(origin.getCenterBounds());
     }
 
@@ -46,7 +46,7 @@ public abstract class Scenario extends JLayeredPane implements Clickable {
     // which each call the showMediaInfo() method.
     protected void makeMediaContainer(ArrayList<Media> results){
         mediaPanel = new JPanel();
-        ColorTheme.paintMainPanel(mediaPanel);
+        AssetDesigner.paintMainPanel(mediaPanel);
         mediaPanel.setLayout(new FlowLayout(FlowLayout.LEFT,15,0));
 
         createButtons(results);
@@ -58,14 +58,14 @@ public abstract class Scenario extends JLayeredPane implements Clickable {
 
     protected void makeSorting(ArrayList<Media> results) {
         sortingContainer = new JPanel();
-        ColorTheme.paintMainPanel(sortingContainer);
+        AssetDesigner.paintMainPanel(sortingContainer);
         sortingContainer.setLayout(new FlowLayout(FlowLayout.RIGHT));
 
         String[] sortingOptions = {"Sort by...", "Title (A-Z)", "Title (Z-A)", "Release (newest to oldest)",
                                    "Release (oldest to newest)", "Rating (highest to lowest)", "Rating (lowest to highest)"};
         JComboBox<String> sortby = new JComboBox<>(sortingOptions);
         ColorTheme.paintComboBox(sortby);
-        TextSettings.paintComboBoxFont(sortby);
+        AssetDesigner.paintComboBox(sortby);
         sortby.addActionListener(e -> sort((String) sortby.getSelectedItem(), results));
         sortingContainer.add(sortby);
     }
@@ -98,8 +98,8 @@ public abstract class Scenario extends JLayeredPane implements Clickable {
             allButtons.add(mediaPoster);
 
             mediaPoster.setText(m.getTitle());
-            TextSettings.paintMediaButton(mediaPoster);
-            ColorTheme.paintMediaButton(mediaPoster);
+            AssetDesigner.paintMediaButton(mediaPoster);
+            AssetDesigner.paintMediaButton(mediaPoster);
 
             mediaPoster.addActionListener(l -> MediaInfoWindow.showMediaInfo(m, origin, currentUser, this));
             mediaPanel.add(mediaPoster);

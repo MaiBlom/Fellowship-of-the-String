@@ -98,7 +98,7 @@ public class GUI extends JFrame implements Clickable {
         }
         homeButton.setPreferredSize(new Dimension(100, 50));
         homeButton.addActionListener(e -> changeScenario(new MainMenu(this, currentUser)));
-        TextSettings.paintButtonFont(homeButton);
+        AssetDesigner.paintButtonFont(homeButton);
 
         ColorTheme.paintClickableButton(homeButton);
         allButtons.add(homeButton);
@@ -115,7 +115,7 @@ public class GUI extends JFrame implements Clickable {
         favoritesButton.setPreferredSize(new Dimension(100, 50));
         favoritesButton.addActionListener(e -> changeScenario(new Favorites(currentUser, this)));
 
-        TextSettings.paintButtonFont(favoritesButton);
+        AssetDesigner.paintButtonFont(favoritesButton);
         ColorTheme.paintClickableButton(favoritesButton);
 
         allButtons.add(favoritesButton);
@@ -130,7 +130,7 @@ public class GUI extends JFrame implements Clickable {
             System.out.println("Something went wrong.");
         }
         ColorTheme.paintClickableButton(searchButton);
-        TextSettings.paintButtonFont(searchButton);
+        AssetDesigner.paintButtonFont(searchButton);
 
         searchButton.addActionListener(l -> {
             SearchPopUp popup = new SearchPopUp(currentUser, this);
@@ -151,7 +151,7 @@ public class GUI extends JFrame implements Clickable {
             System.out.println("Something went wrong.");
         }
         ColorTheme.paintClickableButton(userButton);
-        TextSettings.paintButtonFont(userButton);
+        AssetDesigner.paintButtonFont(userButton);
 
         userButton.addActionListener(e -> {
             changeScenario(new MainMenu(this, currentUser));

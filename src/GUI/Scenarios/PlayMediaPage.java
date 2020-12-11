@@ -27,7 +27,7 @@ public class PlayMediaPage extends Scenario {
             "<html> <br>You've selected the " + (media instanceof Movie? "movie " : "series ") + media.getTitle() + ". <br>" +
             "Unfortunately, this " + (media instanceof Movie? "movie " : "series ") + "has been removed due to copyright regulations.<br> </html>"
         );
-        TextSettings.paintMediaInfoFont(info);
+        AssetDesigner.paintMediaInfoFont(info);
         contentPane.add(info);
     }
 }
