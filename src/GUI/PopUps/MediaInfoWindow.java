@@ -13,12 +13,10 @@ import java.io.IOException;
 
 public class MediaInfoWindow extends PopUp {
     private static final long serialVersionUID = 1L;
-    private Media media;
+    private final Media media;
 
     private JPanel westContainer;
     private JPanel centerContainer;
-    private JPanel mediaInfo;
-    private JPanel seasonsContainer;
     private JPanel episodesContainer;
 
     public MediaInfoWindow(Media media, GUI origin, User currentUser) {
@@ -116,7 +114,7 @@ public class MediaInfoWindow extends PopUp {
     // Setup of the mediaInfo container. The JPanel is split in four rows, each with an
     // information element about the media. 
     private void setupMediaInfo() {
-        mediaInfo = new JPanel();
+        JPanel mediaInfo = new JPanel();
         ColorTheme.paintMainPanel(mediaInfo);
         mediaInfo.setLayout(new GridLayout(4,1));
 
@@ -208,7 +206,7 @@ public class MediaInfoWindow extends PopUp {
     private void setupSeasons() {
         if (media instanceof Movie) return;
 
-        seasonsContainer = new JPanel();
+        JPanel seasonsContainer = new JPanel();
         ColorTheme.paintMainPanel(seasonsContainer);
         seasonsContainer.setLayout(new BorderLayout());
         centerContainer.add(seasonsContainer, BorderLayout.CENTER);

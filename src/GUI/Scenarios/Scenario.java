@@ -9,7 +9,7 @@ import Media.*;
 import javax.swing.*;
 import java.awt.*;
 import java.util.ArrayList;
-import java.util.Collections;
+import java.util.List;
 
 public abstract class Scenario extends JLayeredPane implements Clickable {
     protected GUI origin;
@@ -72,17 +72,17 @@ public abstract class Scenario extends JLayeredPane implements Clickable {
 
     private void sort(String s, ArrayList<Media> results) {
         if (s.equals("Title (A-Z)")) {
-            Collections.sort(results, new TitleCompAZ());
+            results.sort(new TitleCompAZ());
         } else if (s.equals("Title (Z-A)")) {
-            Collections.sort(results, new TitleCompZA());
+            results.sort(new TitleCompZA());
         } else if (s.equals("Release (newest to oldest)")) {
-            Collections.sort(results, new ReleaseCompDecreasing());
+            results.sort(new ReleaseCompDecreasing());
         } else if (s.equals("Release (oldest to newest)")) {
-            Collections.sort(results, new ReleaseCompIncreasing());
+            results.sort(new ReleaseCompIncreasing());
         } else if (s.equals("Rating (highest to lowest)")) {
-            Collections.sort(results, new RatingCompDecreasing());
+            results.sort(new RatingCompDecreasing());
         } else if (s.equals("Rating (lowest to highest)")) {
-            Collections.sort(results, new RatingCompIncreasing());
+            results.sort(new RatingCompIncreasing());
         }
         mediaPanel.removeAll();
         allButtons.clear();

@@ -15,7 +15,7 @@ import javax.swing.*;
 
 public class MainMenu extends Scenario {
     private static final long serialVersionUID = 1L;
-    private MediaDB db;
+    private final MediaDB db;
 
     private JPanel recommendedIcons;
     private JPanel movieIcons;
@@ -25,7 +25,7 @@ public class MainMenu extends Scenario {
     private int movieIndex, seriesIndex;
 
     // Integer that determines how many media icons to load
-    private int mediaPerRow = 5;
+    private final int mediaPerRow = 5;
 
     // The constructor setting both index's to 0, and initializing the database.
     public MainMenu(GUI origin, User currentUser) {
@@ -53,7 +53,7 @@ public class MainMenu extends Scenario {
 
     private JPanel makeScrollPanel(int row) {
         if (row < 1 || row > 3) return null;
-        boolean isSeries = (row == 2)? false : true;
+        boolean isSeries = (row != 2);
 
         // Main panel for the container with a BorderLayout that has a title in the
         // NORTH section and the media in the CENTER section.

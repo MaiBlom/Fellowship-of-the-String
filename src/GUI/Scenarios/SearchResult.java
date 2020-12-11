@@ -1,9 +1,7 @@
 package GUI.Scenarios;
 
-import Comparators.*;
 import GUI.*;
 import Media.*;
-import GUI.PopUps.*;
 import Misc.*;
 
 import javax.swing.*;
@@ -12,10 +10,9 @@ import java.util.*;
 
 public class SearchResult extends Scenario {
     private static final long serialVersionUID = 1L;
-    private MediaDB db;
+    private final MediaDB db;
 
     private JPanel topMenu;
-    private JLabel yourSearch;
     // search criteria
     private final String textSearch;
     private final boolean searchMovies;
@@ -66,8 +63,8 @@ public class SearchResult extends Scenario {
         boolean anyGenres = false;
         boolean firstGenre = true;
         for (int i = 0; i<selectableGenres.length; i++) {
-            if (searchGenres[i] == true) {
-                if (anyGenres == false) {
+            if (searchGenres[i]) {
+                if (anyGenres) {
                     sb.append("<br>Genres: ");
                     anyGenres = true;
                 }
@@ -79,7 +76,7 @@ public class SearchResult extends Scenario {
 
         sb.append("<br>Results: ");
         sb.append(searchResults.size());
-        yourSearch = new JLabel(sb.toString());
+        JLabel yourSearch = new JLabel(sb.toString());
         TextSettings.paintHeader(yourSearch);
         topMenu.add(yourSearch);
     }
@@ -91,24 +88,24 @@ public class SearchResult extends Scenario {
     // The results will only include media that fit all search criteria.
     private void findResults() {
         searchResults = new ArrayList<>();
-        ArrayList<Media> temp = new ArrayList<>();
+        ArrayList<Media> temp;
         if ((searchMovies && searchSeries) || (!searchMovies && !searchSeries)) temp = db.getAllMedia();
         else if (searchMovies) temp = db.getMovies();
         else temp = db.getSeries();
 
-        Iterator<Media> it = temp.iterator();
-        while (it.hasNext()) {
-            Media m = it.next();                                                    // Next media-object in the iterator is initialized.
-            boolean include = true;                                                 // We're using the intersection-method of the search. To switch to the union-method, negate the boolean statements. 
+        // Next media-object in the iterator is initialized.
+        for (Media m : temp) {
+            boolean include = true;                                                 // We're using the intersection-method of the search. To switch to the union-method, negate the boolean statements.
             if (m.getTitle().toLowerCase().contains(textSearch.toLowerCase())) {    // Start out by checking if the title of the media contains the search string (casing doesn't matter).
                 String genres = Arrays.toString(m.getGenres());                     // Convert the genre-array of the media to a string so that we can call contains() on it.
-                for (int i = 0; i<searchGenres.length; i++) {                       // Go through all values in the searchGenres array to find which genres we're searching for
+                for (int i = 0; i < searchGenres.length; i++) {                     // Go through all values in the searchGenres array to find which genres we're searching for
                     if (searchGenres[i]) {                                          // If the value is true, check whether or not the genre-string contains the corresponding genre-title.
-                        if (!genres.contains(selectableGenres[i])) include = false; // If it doesn't, then don't include it. To switch to the union-method, change it to:x
+                        if (!genres.contains(selectableGenres[i]))
+                            include = false;                                        // If it doesn't, then don't include it. To switch to the union-method, change it to:x
                     }                                                               // if (genres.contains(selectableGenres[i])) include = true
                 }
             } else include = false;
-            
+
             if (include) searchResults.add(m);
         }
     }
