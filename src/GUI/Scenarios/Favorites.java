@@ -13,9 +13,8 @@ public class Favorites extends Scenario {
     private JPanel topMenu;
     private ArrayList<Media> favorites;
 
-    public Favorites(User currentUser, GUI origin) {
-        super(origin, currentUser);
-        this.favorites = currentUser.getFavorites();
+    public Favorites() {
+        this.favorites = origin.getCurrentUser().getFavorites();
         setup();
     }
 

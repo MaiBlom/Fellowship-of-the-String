@@ -15,11 +15,11 @@ import javax.swing.*;
 
 public class MainMenu extends Scenario {
     private static final long serialVersionUID = 1L;
-    private final MediaDB db;
 
     private JPanel recommendedIcons;
     private JPanel movieIcons;
     private JPanel seriesIcons;
+    private static MainMenu instance;
 
     // Integers to keep track of what movies to be displaying in the media lists.
     private int movieIndex, seriesIndex;
@@ -28,14 +28,18 @@ public class MainMenu extends Scenario {
     private final int mediaPerRow = 5;
 
     // The constructor setting both index's to 0, and initializing the database.
-    public MainMenu(GUI origin, User currentUser) {
-        super(origin, currentUser);
-        this.db = MediaDB.getInstance();
+    private MainMenu() {
         this.movieIndex = 0;
         this.seriesIndex = 0;
 
         setup();
     }
+
+    public static MainMenu getInstance() {
+        if(instance == null) instance = new MainMenu();
+        return instance;
+    }
+
 
     // This method creates the containers for showing our ArrayList of JLabels that
     // hold the movie / series posters as their ImageIcons
@@ -155,7 +159,7 @@ public class MainMenu extends Scenario {
             icon.setText(m.getTitle());
             AssetDesigner.paintMediaButton(icon);
 
-            icon.addActionListener(l -> MediaInfoWindow.showMediaInfo(m, origin, currentUser, this));
+            icon.addActionListener(l -> MediaInfoWindow.showMediaInfo(m, this));
             container.add(icon);
         }
     }

@@ -13,6 +13,7 @@ import java.util.ArrayList;
 public class GUI extends JFrame implements Clickable {
     private static final long serialVersionUID = 1L;
     private User currentUser;
+    private static GUI instance;
 
     private Container contentPane;
     private JPanel nContainer;
@@ -27,10 +28,14 @@ public class GUI extends JFrame implements Clickable {
 
     public static void main(String[] args) {
         MediaDB.getInstance();
-        new GUI();
+        instance = new GUI();
     }
 
-    public GUI() {
+    public static GUI getInstance() {
+        return instance;
+    }
+
+    private GUI() {
         super("Shire Streaming");
         allButtons = new ArrayList<>();
         
@@ -49,7 +54,7 @@ public class GUI extends JFrame implements Clickable {
         makeTopMenu();
         makeCenterContainer();
 
-        LoginPopUp loginOnStart = new LoginPopUp(this);
+        LoginPopUp loginOnStart = new LoginPopUp();
         currentScenario.add(loginOnStart, new Integer(1));
         loginOnStart.setLocation(WIDTH/2-loginOnStart.getWidth()/2, HEIGHT/2-loginOnStart.getWidth()/2);
         loginOnStart.setVisible(true);
@@ -97,7 +102,7 @@ public class GUI extends JFrame implements Clickable {
             System.out.println("Something went wrong.");
         }
         homeButton.setPreferredSize(new Dimension(100, 50));
-        homeButton.addActionListener(e -> changeScenario(new MainMenu(this, currentUser)));
+        homeButton.addActionListener(e -> changeScenario(Scenario.getMainMenu()));
         AssetDesigner.paintButtonFont(homeButton);
 
         ColorTheme.paintClickableButton(homeButton);
@@ -113,7 +118,7 @@ public class GUI extends JFrame implements Clickable {
             System.out.println("Something went wrong.");
         }
         favoritesButton.setPreferredSize(new Dimension(100, 50));
-        favoritesButton.addActionListener(e -> changeScenario(new Favorites(currentUser, this)));
+        favoritesButton.addActionListener(e -> changeScenario(new Favorites()));
 
         AssetDesigner.paintButtonFont(favoritesButton);
         ColorTheme.paintClickableButton(favoritesButton);
@@ -133,7 +138,7 @@ public class GUI extends JFrame implements Clickable {
         AssetDesigner.paintButtonFont(searchButton);
 
         searchButton.addActionListener(l -> {
-            SearchPopUp popup = new SearchPopUp(currentUser, this);
+            SearchPopUp popup = new SearchPopUp();
             currentScenario.add(popup, new Integer(1));
             popup.setLocation(WIDTH/2-popup.getWidth()/2, 100);
             popup.setVisible(true);
@@ -154,9 +159,9 @@ public class GUI extends JFrame implements Clickable {
         AssetDesigner.paintButtonFont(userButton);
 
         userButton.addActionListener(e -> {
-            changeScenario(new MainMenu(this, currentUser));
+            changeScenario(Scenario.getMainMenu());
             currentUser = null;
-            LoginPopUp loginPopUp = new LoginPopUp(this);
+            LoginPopUp loginPopUp = new LoginPopUp();
             currentScenario.add(loginPopUp, new Integer(1));
             loginPopUp.setLocation(WIDTH/2-loginPopUp.getWidth()/2, HEIGHT/2-loginPopUp.getWidth()/2);
             loginPopUp.setVisible(true);
@@ -167,7 +172,7 @@ public class GUI extends JFrame implements Clickable {
     }
 
     private void makeCenterContainer() {
-        currentScenario = new MainMenu(this, currentUser);
+        currentScenario = Scenario.getMainMenu();
         contentPane.add(currentScenario,BorderLayout.CENTER);
     }
 
@@ -189,6 +194,9 @@ public class GUI extends JFrame implements Clickable {
 
     public void setCurrentUser(User user) {
         currentUser = user;
+    }
+    public User getCurrentUser() {
+        return currentUser;
     }
 
     public Dimension getCenterDimension() { return new Dimension(WIDTH-15,HEIGHT-78); }

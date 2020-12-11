@@ -5,7 +5,7 @@ import java.util.ArrayList;
 
 public class MediaDB {
     private ArrayList<Media> allMedia;
-    private static MediaDB instance = new MediaDB();
+    private static MediaDB instance;
 
     // This class is a singleton, because we will never need more than a single MediaDB.
     private MediaDB() {

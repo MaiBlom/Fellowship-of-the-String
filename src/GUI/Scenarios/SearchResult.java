@@ -10,7 +10,6 @@ import java.util.*;
 
 public class SearchResult extends Scenario {
     private static final long serialVersionUID = 1L;
-    private final MediaDB db;
 
     private JPanel topMenu;
     // search criteria
@@ -22,13 +21,11 @@ public class SearchResult extends Scenario {
     private ArrayList<Media> searchResults;
     
     // The search results object will be called from the SearchPopUp class with the given parameters.
-    public SearchResult(GUI origin, User currentUser, String ts, boolean sm, boolean ss, boolean[] sg) {
-        super(origin, currentUser);
+    public SearchResult(String ts, boolean sm, boolean ss, boolean[] sg) {
         this.textSearch = ts;
         this.searchMovies = sm;
         this.searchSeries = ss;
         this.searchGenres = sg;
-        this.db = MediaDB.getInstance();
 
         setup();
     }

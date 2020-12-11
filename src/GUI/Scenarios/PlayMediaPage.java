@@ -13,10 +13,8 @@ public class PlayMediaPage extends Scenario {
 
     // private final int WIDTH = 1000, HEIGHT = 720;
 
-    public PlayMediaPage(GUI origin, User currentUser, Media media) {
-        super(origin, currentUser);
+    public PlayMediaPage(Media media) {
         this.media = media;
-
         setup();
     }
 

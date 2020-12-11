@@ -19,8 +19,7 @@ public class MediaInfoWindow extends PopUp {
     private JPanel centerContainer;
     private JPanel episodesContainer;
 
-    public MediaInfoWindow(Media media, GUI origin, User currentUser) {
-        super(origin, currentUser);
+    public MediaInfoWindow(Media media) {
         this.media = media;
         this.setPreferredSize(new Dimension(600,400));
         
@@ -77,21 +76,21 @@ public class MediaInfoWindow extends PopUp {
         AssetDesigner.paintButtonFont(playButton);
         if (media instanceof Movie) playButton.setText("Play movie");
         else playButton.setText("Play");
-        playButton.addActionListener(l -> clickOK(new PlayMediaPage(origin, currentUser, media)));
+        playButton.addActionListener(l -> clickOK(new PlayMediaPage(media)));
         leftButtons.add(playButton);
 
         JButton favorite = new JButton();
         ColorTheme.paintClickableButton(favorite);
         AssetDesigner.paintButtonFont(favorite);
-        if (currentUser.isFavorite(media)) favorite.setText("Unfavorite");
+        if (origin.getCurrentUser().isFavorite(media)) favorite.setText("Unfavorite");
         else favorite.setText("Favorite");
         favorite.addActionListener(l -> {
-            if (currentUser.isFavorite(media)) {
-                currentUser.unfavorite(media);
+            if (origin.getCurrentUser().isFavorite(media)) {
+                origin.getCurrentUser().unfavorite(media);
                 favorite.setText("Favorite");
             } 
             else {
-                currentUser.favorite(media);
+                origin.getCurrentUser().favorite(media);
                 favorite.setText("Unfavorite");
             }
         });
@@ -267,7 +266,7 @@ public class MediaInfoWindow extends PopUp {
                 JButton button = new JButton("Episode " + (i+1));
                 ColorTheme.paintMediaInfoButtons(button);
                 AssetDesigner.paintMediaInfoButtons(button);
-                button.addActionListener(e -> clickOK(new PlayMediaPage(origin, currentUser, media)));
+                button.addActionListener(e -> clickOK(new PlayMediaPage(media)));
                 episodesContainer.add(button);
             } 
         } 
@@ -281,8 +280,8 @@ public class MediaInfoWindow extends PopUp {
     }
 
     // Make a MediaInfoWindow popup with the given media.
-    public static void showMediaInfo(Media m, GUI origin, User currentUser, JLayeredPane pane) {
-        MediaInfoWindow info = new MediaInfoWindow(m, origin, currentUser);
+    public static void showMediaInfo(Media m, JLayeredPane pane) {
+        MediaInfoWindow info = new MediaInfoWindow(m);
         pane.add(info, new Integer(1));
         info.setLocation(214, 209);
         info.setVisible(true);

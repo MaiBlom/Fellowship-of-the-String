@@ -13,19 +13,24 @@ import java.util.List;
 
 public abstract class Scenario extends JLayeredPane implements Clickable {
     protected GUI origin;
-    protected User currentUser;
     protected ArrayList<JButton> allButtons;
     protected JPanel contentPane;
+    protected final MediaDB db;
+    protected static MainMenu mainMenu = MainMenu.getInstance();
     protected JPanel sortingContainer;
     protected JScrollPane mediaScrollPane;
     protected JPanel mediaPanel;
 
-    public Scenario(GUI origin, User currentUser) {
-        this.origin = origin;
-        this.currentUser = currentUser;
+    public Scenario() {
+        this.origin = GUI.getInstance();
         this.allButtons = new ArrayList<>();
         this.contentPane = new JPanel();
+        this.db = MediaDB.getInstance();
         setupContentPane();
+    }
+
+    public static MainMenu getMainMenu() {
+        return mainMenu;
     }
 
     private void setupContentPane() {
@@ -101,7 +106,7 @@ public abstract class Scenario extends JLayeredPane implements Clickable {
             AssetDesigner.paintMediaButton(mediaPoster);
             AssetDesigner.paintMediaButton(mediaPoster);
 
-            mediaPoster.addActionListener(l -> MediaInfoWindow.showMediaInfo(m, origin, currentUser, this));
+            mediaPoster.addActionListener(l -> MediaInfoWindow.showMediaInfo(m, this));
             mediaPanel.add(mediaPoster);
         }
 

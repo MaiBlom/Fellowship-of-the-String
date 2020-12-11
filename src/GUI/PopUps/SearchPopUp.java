@@ -26,8 +26,7 @@ public class SearchPopUp extends PopUp {
         // Family, Fantasy, Thriller, Horror, Film-Noir, Action, Sci-fi, Comedy
         // Musical, Western, Music, Talk-show, Documentary, Animation
 
-    public SearchPopUp(User currentUser, GUI origin) {
-        super(origin, currentUser);
+    public SearchPopUp() {
         this.setPreferredSize(new Dimension(400,400));
 
         setup();
@@ -175,7 +174,7 @@ public class SearchPopUp extends PopUp {
         JButton search = new JButton("Search");
         ColorTheme.paintClickableButton(search);
         AssetDesigner.paintButtonFont(search);
-        search.addActionListener(e -> clickOK(new SearchResult(origin, currentUser, searchBar.getText(), searchMovies, searchSeries, searchGenres)));
+        search.addActionListener(e -> clickOK(new SearchResult(searchBar.getText(), searchMovies, searchSeries, searchGenres)));
         bottomBar.add(search);
     }
 }

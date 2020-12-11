@@ -8,14 +8,19 @@
   <component name="ChangeListManager">
     <list default="true" id="e7c21751-4094-4da6-82b5-e0b5d1c86306" name="Default Changelist" comment="TextSettings paint Media button method updated">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/GUI/GUI.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/GUI/GUI.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/GUI/PopUps/LoginPopUp.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/GUI/PopUps/LoginPopUp.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/GUI/PopUps/MediaInfoWindow.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/GUI/PopUps/MediaInfoWindow.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/GUI/PopUps/PopUp.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/GUI/PopUps/PopUp.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/GUI/PopUps/SearchPopUp.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/GUI/PopUps/SearchPopUp.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/GUI/Scenarios/Favorites.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/GUI/Scenarios/Favorites.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/GUI/Scenarios/MainMenu.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/GUI/Scenarios/MainMenu.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/GUI/Scenarios/PlayMediaPage.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/GUI/Scenarios/PlayMediaPage.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/GUI/Scenarios/Scenario.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/GUI/Scenarios/Scenario.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/GUI/Scenarios/SearchResult.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/GUI/Scenarios/SearchResult.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Misc/MediaDB.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Misc/MediaDB.java" afterDir="false" />
     </list>
-    <list id="bdc79de0-b3d7-4566-80ec-1be454a997ac" name="NeverChange" comment="">
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-    </list>
+    <list id="bdc79de0-b3d7-4566-80ec-1be454a997ac" name="NeverChange" comment="" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -30,20 +35,6 @@
   </component>
   <component name="Git.Settings">
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
-  </component>
-  <component name="LineStatusTrackerManager">
-    <file path="$PROJECT_DIR$/.idea/workspace.xml">
-      <ranges>
-        <range start1="10" end1="12" start2="10" end2="17" changelist="e7c21751-4094-4da6-82b5-e0b5d1c86306" />
-        <range start1="17" end1="17" start2="22" end2="29" changelist="e7c21751-4094-4da6-82b5-e0b5d1c86306" />
-        <range start1="20" end1="20" start2="32" end2="46" changelist="e7c21751-4094-4da6-82b5-e0b5d1c86306" />
-        <range start1="40" end1="41" start2="66" end2="67" changelist="bdc79de0-b3d7-4566-80ec-1be454a997ac" />
-        <range start1="47" end1="47" start2="73" end2="76" changelist="bdc79de0-b3d7-4566-80ec-1be454a997ac" />
-        <range start1="65" end1="66" start2="94" end2="96" changelist="bdc79de0-b3d7-4566-80ec-1be454a997ac" />
-        <range start1="85" end1="86" start2="115" end2="130" changelist="e7c21751-4094-4da6-82b5-e0b5d1c86306" />
-        <range start1="103" end1="104" start2="147" end2="150" changelist="e7c21751-4094-4da6-82b5-e0b5d1c86306" />
-      </ranges>
-    </file>
   </component>
   <component name="ProjectId" id="1lRHjCinfUM7OmuTLBEj66V7dbB" />
   <component name="ProjectLevelVcsManager" settingsEditedManually="true">
@@ -127,7 +118,14 @@
       <option name="project" value="LOCAL" />
       <updated>1607705798188</updated>
     </task>
-    <option name="localTasksCounter" value="5" />
+    <task id="LOCAL-00005" summary="Warning clean up">
+      <created>1607706820336</created>
+      <option name="number" value="00005" />
+      <option name="presentableId" value="LOCAL-00005" />
+      <option name="project" value="LOCAL" />
+      <updated>1607706820336</updated>
+    </task>
+    <option name="localTasksCounter" value="6" />
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
@@ -147,7 +145,8 @@
     <MESSAGE value="fixed testclasses" />
     <MESSAGE value="We have a name! Shire Streaming" />
     <MESSAGE value="Giant redundancy clean up" />
-    <option name="LAST_COMMIT_MESSAGE" value="Giant redundancy clean up" />
+    <MESSAGE value="Warning clean up" />
+    <option name="LAST_COMMIT_MESSAGE" value="Warning clean up" />
   </component>
   <component name="com.intellij.coverage.CoverageDataManagerImpl">
     <SUITE FILE_PATH="coverage/1_Projekt$Unnamed.ic" NAME="Unnamed Coverage Results" MODIFIED="1607559916169" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="idea" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" />

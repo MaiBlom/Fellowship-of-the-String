@@ -11,13 +11,11 @@ import java.awt.*;
 
 public abstract class PopUp extends JInternalFrame {
     protected GUI origin;
-    protected User currentUser;
     protected Container contentPane;
 
-    public PopUp(GUI origin, User currentUser) {
+    public PopUp() {
         super("", false, true);
-        this.origin = origin;
-        this.currentUser = currentUser;
+        this.origin = GUI.getInstance();
         this.contentPane = this.getContentPane();
         setupWindowListener();
     }
@@ -26,18 +24,8 @@ public abstract class PopUp extends JInternalFrame {
     // the window is opened, and enabled when the window is closed.
     private void setupWindowListener() {
         this.addInternalFrameListener(new InternalFrameListener() {
-            public void internalFrameClosed(InternalFrameEvent e) {
-                if (origin instanceof Clickable) {
-                    Clickable clickable = (Clickable) origin;
-                    clickable.buttonsSetEnabled(true);
-                }
-            }
-            public void internalFrameOpened(InternalFrameEvent e) {
-                if (origin instanceof Clickable) {
-                    Clickable sr = (Clickable) origin;
-                    sr.buttonsSetEnabled(false);
-                }
-            }
+            public void internalFrameClosed(InternalFrameEvent e) { origin.buttonsSetEnabled(true); }
+            public void internalFrameOpened(InternalFrameEvent e) { origin.buttonsSetEnabled(false); }
             public void internalFrameClosing(InternalFrameEvent e) {}
             public void internalFrameIconified(InternalFrameEvent e) {}
             public void internalFrameDeiconified(InternalFrameEvent e) {}

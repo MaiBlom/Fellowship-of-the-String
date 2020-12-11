@@ -26,11 +26,10 @@ public class LoginPopUp extends PopUp {
     private JPasswordField newPasswordField;
 
     // Create a login popUp with the main GUI as the origin.
-    public LoginPopUp(GUI origin) {
-        super(origin, null);
+    public LoginPopUp() {
         this.db = UserDB.getInstance();
         this.setClosable(false);
-        this. setPreferredSize(new Dimension(600,400));
+        this.setPreferredSize(new Dimension(600,400));
 
         setup();
         pack();
@@ -135,7 +134,7 @@ public class LoginPopUp extends PopUp {
             try {
                 if (db.login(username, password)) {
                     origin.setCurrentUser(db.getUser(username));
-                    clickOK(new MainMenu(origin, db.getUser(username)));
+                    clickOK(Scenario.getMainMenu());
                 }
             } catch (Exception e) {
                 loginInfo.setText(e.getMessage());
