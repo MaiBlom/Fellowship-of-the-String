@@ -25,7 +25,9 @@ public class UserDB {
     }
 
     public void createUser(String username, char[] password) throws UsernameTakenException {
-        if (users.containsKey(username)) throw new UsernameTakenException(username);
+        if (username.length() == 0) throw new IllegalArgumentException("Username must be of at least length 1.");
+        else if (password.length == 0) throw new IllegalArgumentException("Password must be of at least length 1.");
+        else if (users.containsKey(username)) throw new UsernameTakenException(username);
         else users.put(username, new User(username, encryptPassword(password)));
     }
 
