@@ -116,8 +116,7 @@ public class LoginPopUp extends PopUp {
         loginContainerPanel.add(buttons, BorderLayout.SOUTH);
 
         JButton createUser = new JButton("Create new user");
-        ColorTheme.paintClickableButton(createUser);
-        AssetDesigner.paintButtonFont(createUser);
+        AssetDesigner.paintClickableButton(createUser);
         createUser.addActionListener(l -> {
             contentPane.removeAll();
             contentPane.add(createUserContainerPanel);
@@ -126,8 +125,7 @@ public class LoginPopUp extends PopUp {
         buttons.add(createUser);
         
         JButton login = new JButton("Login");
-        ColorTheme.paintClickableButton(login);
-        AssetDesigner.paintButtonFont(login);
+        AssetDesigner.paintClickableButton(login);
         login.addActionListener(l -> {
             String username = usernameField.getText();
             char[] password = passwordField.getPassword();
@@ -194,8 +192,7 @@ public class LoginPopUp extends PopUp {
         createUserContainerPanel.add(buttons, BorderLayout.SOUTH);
 
         JButton cancel = new JButton("Return");
-        ColorTheme.paintClickableButton(cancel);
-        AssetDesigner.paintButtonFont(cancel);
+        AssetDesigner.paintClickableButton(cancel);
         cancel.addActionListener(l -> {
             contentPane.removeAll();
             contentPane.add(loginContainerPanel);
@@ -204,8 +201,7 @@ public class LoginPopUp extends PopUp {
         buttons.add(cancel);
         
         JButton create = new JButton("Create user");
-        ColorTheme.paintClickableButton(create);
-        AssetDesigner.paintButtonFont(create);
+        AssetDesigner.paintClickableButton(create);
         create.addActionListener(l -> {
             String username = newUsernameField.getText();
             char[] password = newPasswordField.getPassword();

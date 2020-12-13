@@ -8,10 +8,14 @@
   <component name="ChangeListManager">
     <list default="true" id="e7c21751-4094-4da6-82b5-e0b5d1c86306" name="Default Changelist" comment="TextSettings paint Media button method updated">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/GUI/AssetDesigner.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/GUI/AssetDesigner.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/GUI/ColorTheme.java" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/src/GUI/GUI.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/GUI/GUI.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/GUI/PopUps/LoginPopUp.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/GUI/PopUps/LoginPopUp.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/GUI/PopUps/MediaInfoWindow.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/GUI/PopUps/MediaInfoWindow.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/GUI/PopUps/SearchPopUp.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/GUI/PopUps/SearchPopUp.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/GUI/Scenarios/MainMenu.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/GUI/Scenarios/MainMenu.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/GUI/Scenarios/Scenario.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/GUI/Scenarios/Scenario.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Misc/MediaDB.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Misc/MediaDB.java" afterDir="false" />
     </list>
     <list id="bdc79de0-b3d7-4566-80ec-1be454a997ac" name="NeverChange" comment="" />
     <option name="SHOW_DIALOG" value="false" />

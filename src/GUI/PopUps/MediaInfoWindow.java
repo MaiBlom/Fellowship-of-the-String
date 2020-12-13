@@ -40,7 +40,7 @@ public class MediaInfoWindow extends PopUp {
     // favorite-button.
     private void setupWestContainer() {
         westContainer = new JPanel();
-        ColorTheme.paintAccentPanel(westContainer);
+        AssetDesigner.paintAccentPanel(westContainer);
         westContainer.setLayout(new BorderLayout(2,2));
         contentPane.add(westContainer, BorderLayout.WEST);
 
@@ -48,7 +48,7 @@ public class MediaInfoWindow extends PopUp {
         // the middle of the westContainer.
         JPanel mediaPosterContainer = new JPanel();
         mediaPosterContainer.setLayout(new FlowLayout());
-        ColorTheme.paintAccentPanel(mediaPosterContainer);
+        AssetDesigner.paintAccentPanel(mediaPosterContainer);
         westContainer.add(mediaPosterContainer, BorderLayout.NORTH);
 
         JLabel mediaPosterLabel = new JLabel();
@@ -62,26 +62,24 @@ public class MediaInfoWindow extends PopUp {
     // change button-text depending on whether the media is already in the current user's favorites.
     private void setupLeftButtons() {
         JPanel leftButtonsOuter = new JPanel();
-        ColorTheme.paintAccentPanel(leftButtonsOuter);
+        AssetDesigner.paintAccentPanel(leftButtonsOuter);
         leftButtonsOuter.setLayout(new FlowLayout());
         westContainer.add(leftButtonsOuter, BorderLayout.CENTER);
 
         JPanel leftButtons = new JPanel();
-        ColorTheme.paintAccentPanel(leftButtons);
+        AssetDesigner.paintAccentPanel(leftButtons);
         leftButtons.setLayout(new GridLayout(2,1));
         leftButtonsOuter.add(leftButtons);
         
         JButton playButton = new JButton();
-        ColorTheme.paintClickableButton(playButton);
-        AssetDesigner.paintButtonFont(playButton);
+        AssetDesigner.paintClickableButton(playButton);
         if (media instanceof Movie) playButton.setText("Play movie");
         else playButton.setText("Play");
         playButton.addActionListener(l -> clickOK(new PlayMediaPage(media)));
         leftButtons.add(playButton);
 
         JButton favorite = new JButton();
-        ColorTheme.paintClickableButton(favorite);
-        AssetDesigner.paintButtonFont(favorite);
+        AssetDesigner.paintClickableButton(favorite);
         if (origin.getCurrentUser().isFavorite(media)) favorite.setText("Unfavorite");
         else favorite.setText("Favorite");
         favorite.addActionListener(l -> {
@@ -250,7 +248,7 @@ public class MediaInfoWindow extends PopUp {
         episodesFlowContainer.add(episodesContainer);
 
         JScrollPane episodesScroll = new JScrollPane(episodesFlowContainer);
-        ColorTheme.paintScrollBar(episodesScroll);
+        AssetDesigner.paintScrollBar(episodesScroll);
         seasonsContainer.add(episodesScroll, BorderLayout.CENTER);
     }
 
@@ -264,8 +262,7 @@ public class MediaInfoWindow extends PopUp {
             numberOfEpisodes = seasonEpisodes[seasonNumber-1];
             for (int i = 0; i<numberOfEpisodes; i++) {
                 JButton button = new JButton("Episode " + (i+1));
-                ColorTheme.paintMediaInfoButtons(button);
-                AssetDesigner.paintMediaInfoButtons(button);
+                AssetDesigner.paintEpisodeButtons(button);
                 button.addActionListener(e -> clickOK(new PlayMediaPage(media)));
                 episodesContainer.add(button);
             } 

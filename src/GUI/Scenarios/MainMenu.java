@@ -144,7 +144,7 @@ public class MainMenu extends Scenario {
 
     private JButton makeLeftButton(boolean isSeries) {
         JButton leftButton = new JButton();
-        ColorTheme.paintArrowButtons(leftButton);
+        AssetDesigner.paintArrowButtons(leftButton);
         try {
             leftButton.setIcon(new ImageIcon(ImageIO.read(getClass().getClassLoader().getResourceAsStream("buttons/buttons_left.png"))));
         } catch (IOException e) {
@@ -193,7 +193,7 @@ public class MainMenu extends Scenario {
 
     private JButton makeRightButton(boolean isSeries) {
         JButton rightButton = new JButton();
-        ColorTheme.paintArrowButtons(rightButton);
+        AssetDesigner.paintArrowButtons(rightButton);
         try {
             rightButton.setIcon(new ImageIcon(ImageIO.read(getClass().getClassLoader().getResourceAsStream("buttons/buttons_right.png"))));
         } catch (IOException e) {

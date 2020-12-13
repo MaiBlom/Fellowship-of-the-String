@@ -3,6 +3,7 @@ package GUI;
 import java.awt.*;
 import javax.swing.*;
 import javax.swing.border.LineBorder;
+import javax.swing.plaf.basic.BasicScrollBarUI;
 
 public class AssetDesigner {
     public static Color textColor = new Color(255,255,255);
@@ -36,6 +37,11 @@ public class AssetDesigner {
         p.setBorder(null);
     }
 
+    public static void paintAccentPanel(JPanel a) {
+        a.setBorder(null);
+        a.setBackground(accentColor);
+    }
+
     public static void paintCheckBox(JCheckBox c){
         c.setForeground(textColor);
         c.setFont(checkBoxFont);
@@ -48,9 +54,12 @@ public class AssetDesigner {
         c.setBackground(mainColor);
     }
 
-    public static void paintButtonFont(JButton c) {
+    public static void paintClickableButton(JButton c) {
         c.setForeground(textColor);
         c.setFont(clickableButtonFont);
+        c.setPreferredSize(new Dimension(150, 40));
+        c.setBackground(buttonColor);
+        c.setBorder(new LineBorder(new Color(44, 60, 77), 1));
     }
     
     public static void paintHeader(JLabel l) {
@@ -68,8 +77,41 @@ public class AssetDesigner {
         n.setFont(mediaInfoFont);
     }
 
-    public static void paintMediaInfoButtons(JButton o) {
+    public static void paintEpisodeButtons(JButton o) {
         o.setForeground(textColor);
-       //o.setFont(mediaInfoButtonFont);
+        o.setBackground(buttonColor);
+        o.setBorderPainted(false);
+       //o.setFont(mediaInfoButtonFont); seems to break the episode buttons
     }
+
+    public static void paintArrowButtons(JButton d) {
+        d.setBorderPainted(false);
+        d.setBackground(mainColor);
+    }
+
+    public static void paintScrollBar(JScrollPane sp) {
+        sp.setBorder(null);
+        sp.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_AS_NEEDED);
+        sp.setHorizontalScrollBarPolicy(JScrollPane.HORIZONTAL_SCROLLBAR_NEVER);
+
+        sp.getVerticalScrollBar().setUI(new BasicScrollBarUI() {
+            protected void configureScrollBarColors() {
+                thumbHighlightColor = AssetDesigner.accentColor;
+                thumbLightShadowColor = AssetDesigner.accentColor;
+                thumbDarkShadowColor = AssetDesigner.accentColor;
+                thumbColor = AssetDesigner.accentColor;
+                trackColor = AssetDesigner.mainColor;
+                trackHighlightColor = AssetDesigner.mainColor;
+            }
+            protected JButton createDecreaseButton(int orientation) { return createZeroButton(); }
+            protected JButton createIncreaseButton(int orientation) { return createZeroButton(); }
+            private JButton createZeroButton() {
+                JButton jbutton = new JButton();
+                jbutton.setPreferredSize(new Dimension(0, 0));
+                jbutton.setMinimumSize(new Dimension(0, 0));
+                jbutton.setMaximumSize(new Dimension(0, 0));
+                return jbutton;
+            }
+        });
+}
 }

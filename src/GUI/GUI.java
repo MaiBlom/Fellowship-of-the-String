@@ -46,10 +46,10 @@ public class GUI extends JFrame implements Clickable {
     private void makeFrame() {
         setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
         setPreferredSize(new Dimension(WIDTH, HEIGHT));
-        this.setBackground(ColorTheme.mainColor);
+        this.setBackground(AssetDesigner.mainColor);
 
         contentPane = getContentPane();
-        contentPane.setBackground(ColorTheme.mainColor);
+        contentPane.setBackground(AssetDesigner.mainColor);
         makeTopMenu();
         makeCenterContainer();
 
@@ -70,7 +70,7 @@ public class GUI extends JFrame implements Clickable {
         // Containers used for the top menu.
         nContainer = new JPanel();
         nContainer.setLayout(new BorderLayout());
-        ColorTheme.paintAccentPanel(nContainer);
+        AssetDesigner.paintAccentPanel(nContainer);
         contentPane.add(nContainer, BorderLayout.NORTH);
 
         // Buttons used for the top menu
@@ -85,7 +85,7 @@ public class GUI extends JFrame implements Clickable {
         // Search and User button added to the east menu JPanel 'eMenuContainer'
         eMenuContainer = new JPanel();
         eMenuContainer.setLayout(new GridLayout(1,2));
-        ColorTheme.paintAccentPanel(eMenuContainer);
+        AssetDesigner.paintAccentPanel(eMenuContainer);
         nContainer.add(eMenuContainer, BorderLayout.EAST);
 
         makeSearchButton();
@@ -100,11 +100,9 @@ public class GUI extends JFrame implements Clickable {
         } catch (IOException e) {
             System.out.println("Something went wrong.");
         }
-        homeButton.setPreferredSize(new Dimension(100, 50));
         homeButton.addActionListener(e -> changeScenario(Scenario.getMainMenu()));
-        AssetDesigner.paintButtonFont(homeButton);
+        AssetDesigner.paintClickableButton(homeButton);
 
-        ColorTheme.paintClickableButton(homeButton);
         allButtons.add(homeButton);
         wMenuContainer.add(homeButton);
     }
@@ -116,11 +114,9 @@ public class GUI extends JFrame implements Clickable {
         } catch (IOException e) {
             System.out.println("Something went wrong.");
         }
-        favoritesButton.setPreferredSize(new Dimension(100, 50));
         favoritesButton.addActionListener(e -> changeScenario(new Favorites()));
 
-        AssetDesigner.paintButtonFont(favoritesButton);
-        ColorTheme.paintClickableButton(favoritesButton);
+        AssetDesigner.paintClickableButton(favoritesButton);
 
         allButtons.add(favoritesButton);
         wMenuContainer.add(favoritesButton);
@@ -133,8 +129,7 @@ public class GUI extends JFrame implements Clickable {
         } catch (IOException e) {
             System.out.println("Something went wrong.");
         }
-        ColorTheme.paintClickableButton(searchButton);
-        AssetDesigner.paintButtonFont(searchButton);
+        AssetDesigner.paintClickableButton(searchButton);
 
         searchButton.addActionListener(l -> {
             SearchPopUp popup = new SearchPopUp();
@@ -154,8 +149,7 @@ public class GUI extends JFrame implements Clickable {
         } catch (IOException e) {
             System.out.println("Something went wrong.");
         }
-        ColorTheme.paintClickableButton(userButton);
-        AssetDesigner.paintButtonFont(userButton);
+        AssetDesigner.paintClickableButton(userButton);
 
         userButton.addActionListener(e -> {
             changeScenario(Scenario.getMainMenu());

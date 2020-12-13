@@ -56,7 +56,7 @@ public abstract class Scenario extends JLayeredPane implements Clickable {
         createButtons(results);
 
         mediaScrollPane = new JScrollPane(mediaPanel);
-        ColorTheme.paintScrollBar(mediaScrollPane);
+        AssetDesigner.paintScrollBar(mediaScrollPane);
         contentPane.add(mediaScrollPane,BorderLayout.CENTER);
     }
 
@@ -68,7 +68,6 @@ public abstract class Scenario extends JLayeredPane implements Clickable {
         String[] sortingOptions = {"Sort by...", "Title (A-Z)", "Title (Z-A)", "Release (newest to oldest)",
                                    "Release (oldest to newest)", "Rating (highest to lowest)", "Rating (lowest to highest)"};
         JComboBox<String> sortby = new JComboBox<>(sortingOptions);
-        ColorTheme.paintComboBox(sortby);
         AssetDesigner.paintComboBox(sortby);
         sortby.addActionListener(e -> sort((String) sortby.getSelectedItem(), results));
         sortingContainer.add(sortby);

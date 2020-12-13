@@ -166,14 +166,12 @@ public class SearchPopUp extends PopUp {
         contentPane.add(bottomBar, BorderLayout.SOUTH);
         
         JButton cancel = new JButton("Cancel");
-        ColorTheme.paintClickableButton(cancel);
-        AssetDesigner.paintButtonFont(cancel);
+        AssetDesigner.paintClickableButton(cancel);
         cancel.addActionListener(e -> dispose());
         bottomBar.add(cancel);
 
         JButton search = new JButton("Search");
-        ColorTheme.paintClickableButton(search);
-        AssetDesigner.paintButtonFont(search);
+        AssetDesigner.paintClickableButton(search);
         search.addActionListener(e -> clickOK(new SearchResult(searchBar.getText(), searchMovies, searchSeries, searchGenres)));
         bottomBar.add(search);
     }
