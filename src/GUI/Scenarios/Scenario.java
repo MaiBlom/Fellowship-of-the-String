@@ -16,13 +16,12 @@ public abstract class Scenario extends JLayeredPane implements Clickable {
     protected ArrayList<JButton> allButtons;
     protected JPanel contentPane;
     protected final MediaDB db;
-    protected static MainMenu mainMenu = MainMenu.getInstance();
     protected JPanel sortingContainer;
     protected JScrollPane mediaScrollPane;
     protected JPanel mediaPanel;
 
     public Scenario() {
-        this.origin = GUI.getInstance();
+        this.origin = origin.getInstance();
         this.allButtons = new ArrayList<>();
         this.contentPane = new JPanel();
         this.db = MediaDB.getInstance();
@@ -30,11 +29,11 @@ public abstract class Scenario extends JLayeredPane implements Clickable {
     }
 
     public static MainMenu getMainMenu() {
-        return mainMenu;
+        return new MainMenu();
     }
 
     private void setupContentPane() {
-        this.setPreferredSize(origin.getCenterDimension());
+        this.setPreferredSize(GUI.getCenterDimension());
         this.add(contentPane, new Integer(0));
         AssetDesigner.paintMainPanel(contentPane);
         contentPane.setBounds(origin.getCenterBounds());

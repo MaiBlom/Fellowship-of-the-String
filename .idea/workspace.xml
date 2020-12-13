@@ -9,15 +9,8 @@
     <list default="true" id="e7c21751-4094-4da6-82b5-e0b5d1c86306" name="Default Changelist" comment="TextSettings paint Media button method updated">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/GUI/GUI.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/GUI/GUI.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/GUI/PopUps/LoginPopUp.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/GUI/PopUps/LoginPopUp.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/GUI/PopUps/MediaInfoWindow.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/GUI/PopUps/MediaInfoWindow.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/GUI/PopUps/PopUp.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/GUI/PopUps/PopUp.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/GUI/PopUps/SearchPopUp.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/GUI/PopUps/SearchPopUp.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/GUI/Scenarios/Favorites.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/GUI/Scenarios/Favorites.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/GUI/Scenarios/MainMenu.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/GUI/Scenarios/MainMenu.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/GUI/Scenarios/PlayMediaPage.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/GUI/Scenarios/PlayMediaPage.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/GUI/Scenarios/Scenario.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/GUI/Scenarios/Scenario.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/GUI/Scenarios/SearchResult.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/GUI/Scenarios/SearchResult.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/Misc/MediaDB.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Misc/MediaDB.java" afterDir="false" />
     </list>
     <list id="bdc79de0-b3d7-4566-80ec-1be454a997ac" name="NeverChange" comment="" />
@@ -125,7 +118,14 @@
       <option name="project" value="LOCAL" />
       <updated>1607706820336</updated>
     </task>
-    <option name="localTasksCounter" value="6" />
+    <task id="LOCAL-00006" summary="Changes to get a lower coupling">
+      <created>1607716367601</created>
+      <option name="number" value="00006" />
+      <option name="presentableId" value="LOCAL-00006" />
+      <option name="project" value="LOCAL" />
+      <updated>1607716367601</updated>
+    </task>
+    <option name="localTasksCounter" value="7" />
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
@@ -146,7 +146,8 @@
     <MESSAGE value="We have a name! Shire Streaming" />
     <MESSAGE value="Giant redundancy clean up" />
     <MESSAGE value="Warning clean up" />
-    <option name="LAST_COMMIT_MESSAGE" value="Warning clean up" />
+    <MESSAGE value="Changes to get a lower coupling" />
+    <option name="LAST_COMMIT_MESSAGE" value="Changes to get a lower coupling" />
   </component>
   <component name="com.intellij.coverage.CoverageDataManagerImpl">
     <SUITE FILE_PATH="coverage/1_Projekt$Unnamed.ic" NAME="Unnamed Coverage Results" MODIFIED="1607559916169" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="idea" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" />

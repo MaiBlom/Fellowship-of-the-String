@@ -24,11 +24,12 @@ public class GUI extends JFrame implements Clickable {
 
     private ArrayList<JButton> allButtons;
 
-    private final int WIDTH = 1040, HEIGHT = 900;
+    private static final int WIDTH = 1040, HEIGHT = 900;
 
     public static void main(String[] args) {
         MediaDB.getInstance();
         instance = new GUI();
+        instance.makeFrame();
     }
 
     public static GUI getInstance() {
@@ -38,8 +39,6 @@ public class GUI extends JFrame implements Clickable {
     private GUI() {
         super("Shire Streaming");
         allButtons = new ArrayList<>();
-        
-        makeFrame();
     }
 
     // Initializes the JFrame, and gets the content pane and sets it.
@@ -199,6 +198,6 @@ public class GUI extends JFrame implements Clickable {
         return currentUser;
     }
 
-    public Dimension getCenterDimension() { return new Dimension(WIDTH-15,HEIGHT-78); }
-    public Rectangle getCenterBounds() { return new Rectangle(0,0,WIDTH-15,HEIGHT-78); }
+    public static Dimension getCenterDimension() { return new Dimension(WIDTH-15,HEIGHT-78); }
+    public static Rectangle getCenterBounds() { return new Rectangle(0,0,WIDTH-15,HEIGHT-78); }
 }

@@ -19,7 +19,6 @@ public class MainMenu extends Scenario {
     private JPanel recommendedIcons;
     private JPanel movieIcons;
     private JPanel seriesIcons;
-    private static MainMenu instance;
 
     // Integers to keep track of what movies to be displaying in the media lists.
     private int movieIndex, seriesIndex;
@@ -28,18 +27,12 @@ public class MainMenu extends Scenario {
     private final int mediaPerRow = 5;
 
     // The constructor setting both index's to 0, and initializing the database.
-    private MainMenu() {
+    public MainMenu() {
         this.movieIndex = 0;
         this.seriesIndex = 0;
 
         setup();
     }
-
-    public static MainMenu getInstance() {
-        if(instance == null) instance = new MainMenu();
-        return instance;
-    }
-
 
     // This method creates the containers for showing our ArrayList of JLabels that
     // hold the movie / series posters as their ImageIcons
@@ -110,23 +103,8 @@ public class MainMenu extends Scenario {
     // This method loads the 3 recommended movies chosen by 'redaktionen',
     // and returns them as a JButton ArrayList.
     private void loadRecommended() {
-        ArrayList<Media> lotrMovies = new ArrayList<>();
-        try {
-            Movie fellowship = new Movie("The Lord of the Rings: The Fellowship of the Ring", 2001, new String[] { "Action", "Adventure", "Drama" },
-                    8.8, ImageIO.read(getClass().getClassLoader().getResourceAsStream("redaktionfilm/fellowship of the ring.jpg")));
-            Movie twoTowers = new Movie("The Lord of the Rings: The Two Towers", 2002, new String[] { "Action", "Adventure", "Drama" },
-                    8.7, ImageIO.read(getClass().getClassLoader().getResourceAsStream("redaktionfilm/two towers.jpg")));
-            Movie returnKing = (Movie) db.getMovies().get(32);
-
-            lotrMovies.add(fellowship);
-            lotrMovies.add(twoTowers);
-            lotrMovies.add(returnKing);
-        } catch (IllegalArgumentException e) {
-            System.out.println(e.getMessage());
-        } catch (IOException e) {
-            System.out.println(e.getMessage());
-        }
-        addMedia(lotrMovies, recommendedIcons);
+        ArrayList<Media> recommended = db.getRecommended();
+        addMedia(recommended, recommendedIcons);
     }
 
     // This method loads the (field) mediaPerRow currently viewing movies based on movieIndex,
