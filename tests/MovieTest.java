@@ -1,7 +1,7 @@
 import java.awt.image.*;
 import static org.junit.Assert.*;
 import org.junit.*;
-import Media.*;
+import Model.*;
 
 public class MovieTest {
     private Movie m;

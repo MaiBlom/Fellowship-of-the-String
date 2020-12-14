@@ -1,6 +1,5 @@
-package Misc;
+package Model;
 
-import Media.*;
 import java.util.Locale;
 import java.util.Scanner;
 import javax.imageio.ImageIO;

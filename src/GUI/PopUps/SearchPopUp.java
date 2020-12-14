@@ -1,7 +1,6 @@
 package GUI.PopUps;
 
 import GUI.*;
-import Misc.*;
 import GUI.Scenarios.*;
 
 import javax.swing.*;
@@ -22,9 +21,6 @@ public class SearchPopUp extends PopUp {
     private boolean searchSeries;
     private boolean[] searchGenres;
     private String[] selectableGenres;
-        // Crime, Drama, Biography, Sport, History, Romance, War, Mystery, Adventure
-        // Family, Fantasy, Thriller, Horror, Film-Noir, Action, Sci-fi, Comedy
-        // Musical, Western, Music, Talk-show, Documentary, Animation
 
     public SearchPopUp() {
         this.setPreferredSize(new Dimension(400,400));
@@ -127,9 +123,7 @@ public class SearchPopUp extends PopUp {
         allGenres.add(rightGenres);
 
         searchGenres = new boolean[23];
-        selectableGenres = new String[] {"Crime", "Drama", "Biography", "Sport", "History", "Romance", "War", "Mystery", "Adventure", 
-                                         "Family", "Fantasy", "Thriller", "Horror", "Film-Noir", "Action", "Sci-fi", "Comedy",
-                                         "Musical", "Western", "Music", "Talk-show", "Documentary", "Animation"};
+        selectableGenres = controller.getSelectableGenres();
 
         for (int i = 0; i<23; i++) {
             JCheckBox genreBox = new JCheckBox(selectableGenres[i]);

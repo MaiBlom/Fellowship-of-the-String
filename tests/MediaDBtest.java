@@ -1,6 +1,7 @@
 import static org.junit.Assert.*;
+
+import Model.MediaDB;
 import org.junit.*;
-import Misc.*;
 
 public class MediaDBtest {
     private MediaDB db;

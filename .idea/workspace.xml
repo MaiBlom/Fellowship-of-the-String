@@ -7,15 +7,36 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="e7c21751-4094-4da6-82b5-e0b5d1c86306" name="Default Changelist" comment="TextSettings paint Media button method updated">
+      <change afterPath="$PROJECT_DIR$/src/Controller/Main.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/Controller/MediaController.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/GUI/AssetDesigner.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/GUI/AssetDesigner.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/GUI/ColorTheme.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Comparators/RatingCompDecreasing.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Comparators/RatingCompDecreasing.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Comparators/RatingCompIncreasing.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Comparators/RatingCompIncreasing.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Comparators/ReleaseCompDecreasing.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Comparators/ReleaseCompDecreasing.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Comparators/ReleaseCompIncreasing.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Comparators/ReleaseCompIncreasing.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Comparators/TitleCompAZ.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Comparators/TitleCompAZ.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Comparators/TitleCompZA.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Comparators/TitleCompZA.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/GUI/GUI.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/GUI/GUI.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/GUI/PopUps/LoginPopUp.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/GUI/PopUps/LoginPopUp.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/GUI/PopUps/MediaInfoWindow.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/GUI/PopUps/MediaInfoWindow.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/GUI/PopUps/PopUp.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/GUI/PopUps/PopUp.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/GUI/PopUps/SearchPopUp.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/GUI/PopUps/SearchPopUp.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/GUI/Scenarios/Favorites.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/GUI/Scenarios/Favorites.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/GUI/Scenarios/MainMenu.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/GUI/Scenarios/MainMenu.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/GUI/Scenarios/PlayMediaPage.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/GUI/Scenarios/PlayMediaPage.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/GUI/Scenarios/Scenario.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/GUI/Scenarios/Scenario.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/GUI/Scenarios/SearchResult.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/GUI/Scenarios/SearchResult.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Media/Media.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Model/Media.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Media/Movie.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Model/Movie.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Media/Series.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Model/Series.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Misc/MediaDB.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Model/MediaDB.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Misc/MediaReader.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Model/MediaReader.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Misc/User.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Model/User.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Misc/UserDB.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Model/UserDB.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/tests/MediaDBtest.java" beforeDir="false" afterPath="$PROJECT_DIR$/tests/MediaDBtest.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/tests/MovieTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/tests/MovieTest.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/tests/SeriesTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/tests/SeriesTest.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/tests/UserTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/tests/UserTest.java" afterDir="false" />
     </list>
     <list id="bdc79de0-b3d7-4566-80ec-1be454a997ac" name="NeverChange" comment="" />
     <option name="SHOW_DIALOG" value="false" />
@@ -69,8 +90,8 @@
     </key>
   </component>
   <component name="RunManager">
-    <configuration name="Unnamed" type="Application" factoryName="Application" nameIsGenerated="true">
-      <option name="MAIN_CLASS_NAME" value="GUI.GUI" />
+    <configuration name="Main" type="Application" factoryName="Application" nameIsGenerated="true">
+      <option name="MAIN_CLASS_NAME" value="Controller.Main" />
       <module name="1_Projekt" />
       <method v="2">
         <option name="Make" enabled="true" />
@@ -129,7 +150,21 @@
       <option name="project" value="LOCAL" />
       <updated>1607716367601</updated>
     </task>
-    <option name="localTasksCounter" value="7" />
+    <task id="LOCAL-00007" summary="MainMenu no longer singleton">
+      <created>1607868205322</created>
+      <option name="number" value="00007" />
+      <option name="presentableId" value="LOCAL-00007" />
+      <option name="project" value="LOCAL" />
+      <updated>1607868205322</updated>
+    </task>
+    <task id="LOCAL-00008" summary="Added exceptions in UserDB such that length of username and password must be at least 1.">
+      <created>1607882091783</created>
+      <option name="number" value="00008" />
+      <option name="presentableId" value="LOCAL-00008" />
+      <option name="project" value="LOCAL" />
+      <updated>1607882091783</updated>
+    </task>
+    <option name="localTasksCounter" value="9" />
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
@@ -151,7 +186,9 @@
     <MESSAGE value="Giant redundancy clean up" />
     <MESSAGE value="Warning clean up" />
     <MESSAGE value="Changes to get a lower coupling" />
-    <option name="LAST_COMMIT_MESSAGE" value="Changes to get a lower coupling" />
+    <MESSAGE value="MainMenu no longer singleton" />
+    <MESSAGE value="Added exceptions in UserDB such that length of username and password must be at least 1." />
+    <option name="LAST_COMMIT_MESSAGE" value="Added exceptions in UserDB such that length of username and password must be at least 1." />
   </component>
   <component name="com.intellij.coverage.CoverageDataManagerImpl">
     <SUITE FILE_PATH="coverage/1_Projekt$Unnamed.ic" NAME="Unnamed Coverage Results" MODIFIED="1607559916169" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="idea" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" />

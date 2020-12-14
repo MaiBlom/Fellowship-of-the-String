@@ -1,7 +1,7 @@
 package Comparators;
 
 import java.util.Comparator;
-import Media.*;
+import Model.*;
 
 /* 
  * This class is used for comparing to Media objects

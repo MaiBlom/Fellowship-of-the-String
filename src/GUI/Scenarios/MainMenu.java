@@ -1,9 +1,8 @@
 package GUI.Scenarios;
 
 import GUI.*;
-import Media.*;
+import Model.*;
 import GUI.PopUps.*;
-import Misc.*;
 
 import java.util.ArrayList;
 import java.awt.event.*;
@@ -103,7 +102,7 @@ public class MainMenu extends Scenario {
     // This method loads the 3 recommended movies chosen by 'redaktionen',
     // and returns them as a JButton ArrayList.
     private void loadRecommended() {
-        ArrayList<Media> recommended = db.getRecommended();
+        ArrayList<Media> recommended = controller.getRecommended();
         addMedia(recommended, recommendedIcons);
     }
 
@@ -113,7 +112,7 @@ public class MainMenu extends Scenario {
         ArrayList<Media> showThisTime = new ArrayList<>();
 
         // Loops through the movie database and loads (field) mediaPerRow of them as JButton.
-        for(int i = movieIndex; i < movieIndex + mediaPerRow; i++) showThisTime.add(db.getMovies().get(i));
+        for(int i = movieIndex; i < movieIndex + mediaPerRow; i++) showThisTime.add(controller.getMovies().get(i));
 
         addMedia(showThisTime, movieIcons);
     }
@@ -124,7 +123,7 @@ public class MainMenu extends Scenario {
         ArrayList<Media> showThisTime = new ArrayList<>();
 
         // Loops through the movie database and loads (field) mediaPerRow of them as JButton.
-        for(int i = seriesIndex; i < seriesIndex + mediaPerRow; i++) showThisTime.add(db.getSeries().get(i));
+        for(int i = seriesIndex; i < seriesIndex + mediaPerRow; i++) showThisTime.add(controller.getSeries().get(i));
 
         addMedia(showThisTime, seriesIcons);
     }
@@ -173,7 +172,7 @@ public class MainMenu extends Scenario {
         } else {
             leftButton.addActionListener(new ActionListener() {
                 @Override public void actionPerformed(ActionEvent e) {
-                    if(movieIndex >= mediaPerRow && movieIndex <= db.getMovies().size() - mediaPerRow) {
+                    if(movieIndex >= mediaPerRow && movieIndex <= controller.getMovies().size() - mediaPerRow) {
                         movieIndex -= mediaPerRow;
                         movieIcons.removeAll();
                         loadMovies();
@@ -204,12 +203,12 @@ public class MainMenu extends Scenario {
         if (isSeries) {
             rightButton.addActionListener(new ActionListener() {
                 @Override public void actionPerformed(ActionEvent e) {
-                    if(seriesIndex >= 0 && seriesIndex < db.getMovies().size() - mediaPerRow) {
+                    if(seriesIndex >= 0 && seriesIndex < controller.getMovies().size() - mediaPerRow) {
                         seriesIndex += mediaPerRow;
                         seriesIcons.removeAll();
                         loadSeries();
                         origin.pack();
-                    } else if(seriesIndex >= db.getMovies().size() - mediaPerRow) {
+                    } else if(seriesIndex >= controller.getMovies().size() - mediaPerRow) {
                         seriesIndex = 0;
                         seriesIcons.removeAll();
                         loadSeries();
@@ -220,7 +219,7 @@ public class MainMenu extends Scenario {
         } else {
             rightButton.addActionListener(new ActionListener() {
                 @Override public void actionPerformed(ActionEvent e) {
-                    if(movieIndex >= 0 && movieIndex < db.getMovies().size() - mediaPerRow) {
+                    if(movieIndex >= 0 && movieIndex < controller.getMovies().size() - mediaPerRow) {
                         movieIndex += mediaPerRow;
                         movieIcons.removeAll();
                         loadMovies();

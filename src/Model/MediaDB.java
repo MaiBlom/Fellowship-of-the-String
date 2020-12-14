@@ -1,6 +1,4 @@
-package Misc;
-
-import Media.*;
+package Model;
 
 import javax.imageio.ImageIO;
 import java.io.IOException;

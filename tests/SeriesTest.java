@@ -2,7 +2,7 @@ import static org.junit.Assert.*;
 
 import java.awt.image.*;
 import org.junit.*;
-import Media.*;
+import Model.*;
 
 public class SeriesTest {
     private Series s;

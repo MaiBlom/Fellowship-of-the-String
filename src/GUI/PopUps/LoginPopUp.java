@@ -2,14 +2,13 @@ package GUI.PopUps;
 
 import GUI.*;
 import GUI.Scenarios.*;
-import Misc.*;
+import Model.UserDB;
 
 import javax.swing.*;
 import java.awt.*;
 
 public class LoginPopUp extends PopUp {
     private static final long serialVersionUID = 1L;
-    private UserDB db;
 
     private JPanel loginContainerPanel;
     private JLabel loginWelcome;
@@ -27,7 +26,6 @@ public class LoginPopUp extends PopUp {
 
     // Create a login popUp with the main GUI as the origin.
     public LoginPopUp() {
-        this.db = UserDB.getInstance();
         this.setClosable(false);
         this.setPreferredSize(new Dimension(600,400));
 
@@ -130,8 +128,8 @@ public class LoginPopUp extends PopUp {
             String username = usernameField.getText();
             char[] password = passwordField.getPassword();
             try {
-                if (db.login(username, password)) {
-                    origin.setCurrentUser(db.getUser(username));
+                if (controller.login(username, password)) {
+                    controller.setCurrentUser(controller.getUser(username));
                     clickOK(Scenario.getMainMenu());
                 }
             } catch (Exception e) {
@@ -206,7 +204,7 @@ public class LoginPopUp extends PopUp {
             String username = newUsernameField.getText();
             char[] password = newPasswordField.getPassword();
             try {
-                db.createUser(username, password);
+                controller.createUser(username, password);
                 createInfo.setText("User created. Return to the login-screen to login.");
             } catch (Exception e) {
                 createInfo.setText(e.getMessage());

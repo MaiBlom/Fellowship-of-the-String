@@ -1,5 +1,5 @@
-import Media.*;
-import Misc.*;
+import Model.*;
+
 import static org.junit.Assert.*;
 import java.awt.image.*;
 import java.util.ArrayList;

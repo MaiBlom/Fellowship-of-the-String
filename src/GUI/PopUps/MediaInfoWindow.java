@@ -1,8 +1,7 @@
 package GUI.PopUps;
 
-import Media.*;
+import Model.*;
 import GUI.*;
-import Misc.*;
 import GUI.Scenarios.*;
 
 import javax.swing.*;
@@ -80,15 +79,15 @@ public class MediaInfoWindow extends PopUp {
 
         JButton favorite = new JButton();
         AssetDesigner.paintClickableButton(favorite);
-        if (origin.getCurrentUser().isFavorite(media)) favorite.setText("Unfavorite");
+        if (controller.getCurrentUser().isFavorite(media)) favorite.setText("Unfavorite");
         else favorite.setText("Favorite");
         favorite.addActionListener(l -> {
-            if (origin.getCurrentUser().isFavorite(media)) {
-                origin.getCurrentUser().unfavorite(media);
+            if (controller.getCurrentUser().isFavorite(media)) {
+                controller.getCurrentUser().unfavorite(media);
                 favorite.setText("Favorite");
             } 
             else {
-                origin.getCurrentUser().favorite(media);
+                controller.getCurrentUser().favorite(media);
                 favorite.setText("Unfavorite");
             }
         });

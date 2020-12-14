@@ -1,8 +1,7 @@
 package GUI.Scenarios;
 
 import GUI.*;
-import Media.*;
-import Misc.*;
+import Model.*;
 
 import javax.swing.*;
 import java.awt.*;

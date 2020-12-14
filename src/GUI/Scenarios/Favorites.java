@@ -1,8 +1,7 @@
 package GUI.Scenarios;
 
 import GUI.*;
-import Media.*;
-import Misc.*;
+import Model.*;
 
 import javax.swing.*;
 import java.awt.*;
@@ -14,7 +13,7 @@ public class Favorites extends Scenario {
     private ArrayList<Media> favorites;
 
     public Favorites() {
-        this.favorites = origin.getCurrentUser().getFavorites();
+        this.favorites = controller.getCurrentUser().getFavorites();
         setup();
     }
 

@@ -1,10 +1,10 @@
 package GUI.Scenarios;
 
 import Comparators.*;
+import Controller.MediaController;
 import GUI.*;
 import GUI.PopUps.MediaInfoWindow;
-import Misc.*;
-import Media.*;
+import Model.*;
 
 import javax.swing.*;
 import java.awt.*;
@@ -12,9 +12,9 @@ import java.util.ArrayList;
 
 public abstract class Scenario extends JLayeredPane implements Clickable {
     protected GUI origin;
+    protected MediaController controller;
     protected ArrayList<JButton> allButtons;
     protected JPanel contentPane;
-    protected final MediaDB db;
     protected JPanel sortingContainer;
     protected JScrollPane mediaScrollPane;
     protected JPanel mediaPanel;
@@ -23,7 +23,7 @@ public abstract class Scenario extends JLayeredPane implements Clickable {
         this.origin = origin.getInstance();
         this.allButtons = new ArrayList<>();
         this.contentPane = new JPanel();
-        this.db = MediaDB.getInstance();
+        this.controller = MediaController.getInstance();
         setupContentPane();
     }
 
@@ -32,7 +32,7 @@ public abstract class Scenario extends JLayeredPane implements Clickable {
     }
 
     private void setupContentPane() {
-        this.setPreferredSize(GUI.getCenterDimension());
+        this.setPreferredSize(origin.getCenterDimension());
         this.add(contentPane, new Integer(0));
         AssetDesigner.paintMainPanel(contentPane);
         contentPane.setBounds(origin.getCenterBounds());
@@ -64,8 +64,7 @@ public abstract class Scenario extends JLayeredPane implements Clickable {
         AssetDesigner.paintMainPanel(sortingContainer);
         sortingContainer.setLayout(new FlowLayout(FlowLayout.RIGHT));
 
-        String[] sortingOptions = {"Sort by...", "Title (A-Z)", "Title (Z-A)", "Release (newest to oldest)",
-                                   "Release (oldest to newest)", "Rating (highest to lowest)", "Rating (lowest to highest)"};
+        String[] sortingOptions = controller.getSortingOptions();
         JComboBox<String> sortby = new JComboBox<>(sortingOptions);
         AssetDesigner.paintComboBox(sortby);
         sortby.addActionListener(e -> sort((String) sortby.getSelectedItem(), results));
@@ -73,19 +72,7 @@ public abstract class Scenario extends JLayeredPane implements Clickable {
     }
 
     private void sort(String s, ArrayList<Media> results) {
-        if (s.equals("Title (A-Z)")) {
-            results.sort(new TitleCompAZ());
-        } else if (s.equals("Title (Z-A)")) {
-            results.sort(new TitleCompZA());
-        } else if (s.equals("Release (newest to oldest)")) {
-            results.sort(new ReleaseCompDecreasing());
-        } else if (s.equals("Release (oldest to newest)")) {
-            results.sort(new ReleaseCompIncreasing());
-        } else if (s.equals("Rating (highest to lowest)")) {
-            results.sort(new RatingCompDecreasing());
-        } else if (s.equals("Rating (lowest to highest)")) {
-            results.sort(new RatingCompIncreasing());
-        }
+        results = controller.sort(s, results);
         mediaPanel.removeAll();
         allButtons.clear();
         createButtons(results);

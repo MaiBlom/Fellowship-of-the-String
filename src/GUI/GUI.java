@@ -1,8 +1,10 @@
 package GUI;
 
+import Controller.MediaController;
 import GUI.PopUps.*;
 import GUI.Scenarios.*;
-import Misc.*;
+import Model.MediaDB;
+import Model.User;
 
 import javax.imageio.ImageIO;
 import javax.swing.*;
@@ -12,8 +14,8 @@ import java.util.ArrayList;
 
 public class GUI extends JFrame implements Clickable {
     private static final long serialVersionUID = 1L;
-    private User currentUser;
     private static GUI instance;
+    private MediaController controller;
 
     private Container contentPane;
     private JPanel nContainer;
@@ -26,13 +28,12 @@ public class GUI extends JFrame implements Clickable {
 
     private static final int WIDTH = 1040, HEIGHT = 900;
 
-    public static void main(String[] args) {
-        MediaDB.getInstance();
-        instance = new GUI();
-        instance.makeFrame();
-    }
-
     public static GUI getInstance() {
+        if (instance == null) {
+            instance = new GUI();
+            instance.controller = MediaController.getInstance();
+            instance.makeFrame();
+        }
         return instance;
     }
 
@@ -153,7 +154,7 @@ public class GUI extends JFrame implements Clickable {
 
         userButton.addActionListener(e -> {
             changeScenario(Scenario.getMainMenu());
-            currentUser = null;
+            controller.setCurrentUser(null);
             LoginPopUp loginPopUp = new LoginPopUp();
             currentScenario.add(loginPopUp, new Integer(1));
             loginPopUp.setLocation(WIDTH/2-loginPopUp.getWidth()/2, HEIGHT/2-loginPopUp.getWidth()/2);
@@ -185,13 +186,6 @@ public class GUI extends JFrame implements Clickable {
         currentScenario.buttonsSetEnabled(b);
     }
 
-    public void setCurrentUser(User user) {
-        currentUser = user;
-    }
-    public User getCurrentUser() {
-        return currentUser;
-    }
-
-    public static Dimension getCenterDimension() { return new Dimension(WIDTH-15,HEIGHT-78); }
-    public static Rectangle getCenterBounds() { return new Rectangle(0,0,WIDTH-15,HEIGHT-78); }
+    public Dimension getCenterDimension() { return new Dimension(WIDTH-15,HEIGHT-78); }
+    public Rectangle getCenterBounds() { return new Rectangle(0,0,WIDTH-15,HEIGHT-78); }
 }
