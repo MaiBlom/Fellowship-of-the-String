@@ -7,18 +7,9 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="e7c21751-4094-4da6-82b5-e0b5d1c86306" name="Default Changelist" comment="TextSettings paint Media button method updated">
+      <change beforePath="$PROJECT_DIR$/.idea/artifacts/1_Projekt_jar.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/artifacts/1_Projekt_jar.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Controller/Main.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Controller/Main.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Controller/MediaController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Controller/MediaController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/GUI/GUI.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/GUI/GUI.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/GUI/PopUps/LoginPopUp.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/GUI/PopUps/LoginPopUp.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/GUI/PopUps/MediaInfoWindow.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/GUI/PopUps/MediaInfoWindow.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/GUI/PopUps/PopUp.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/GUI/PopUps/PopUp.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/GUI/PopUps/SearchPopUp.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/GUI/PopUps/SearchPopUp.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/GUI/Scenarios/Favorites.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/GUI/Scenarios/Favorites.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/GUI/Scenarios/MainMenu.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/GUI/Scenarios/MainMenu.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/GUI/Scenarios/Scenario.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/GUI/Scenarios/Scenario.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/GUI/Scenarios/SearchResult.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/GUI/Scenarios/SearchResult.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/META-INF/MANIFEST.MF" beforeDir="false" afterPath="$PROJECT_DIR$/src/META-INF/MANIFEST.MF" afterDir="false" />
     </list>
     <list id="bdc79de0-b3d7-4566-80ec-1be454a997ac" name="NeverChange" comment="" />
     <option name="SHOW_DIALOG" value="false" />
@@ -55,7 +46,7 @@
     <property name="Repository.Attach.Sources" value="false" />
     <property name="RunOnceActivity.OpenProjectViewOnStart" value="true" />
     <property name="RunOnceActivity.ShowReadmeOnStart" value="true" />
-    <property name="last_opened_file_path" value="$PROJECT_DIR$/.idea" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$" />
     <property name="project.structure.last.edited" value="Artifacts" />
     <property name="project.structure.proportion" value="0.15" />
     <property name="project.structure.side.proportion" value="0.2" />
@@ -153,7 +144,14 @@
       <option name="project" value="LOCAL" />
       <updated>1607940410489</updated>
     </task>
-    <option name="localTasksCounter" value="10" />
+    <task id="LOCAL-00010" summary="More coupling, cohesion, blueJ fixing">
+      <created>1607945784657</created>
+      <option name="number" value="00010" />
+      <option name="presentableId" value="LOCAL-00010" />
+      <option name="project" value="LOCAL" />
+      <updated>1607945784659</updated>
+    </task>
+    <option name="localTasksCounter" value="11" />
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
@@ -178,7 +176,8 @@
     <MESSAGE value="MainMenu no longer singleton" />
     <MESSAGE value="Added exceptions in UserDB such that length of username and password must be at least 1." />
     <MESSAGE value="Main and MediaController classes added (remember to configure project for new main method)" />
-    <option name="LAST_COMMIT_MESSAGE" value="Main and MediaController classes added (remember to configure project for new main method)" />
+    <MESSAGE value="More coupling, cohesion, blueJ fixing" />
+    <option name="LAST_COMMIT_MESSAGE" value="More coupling, cohesion, blueJ fixing" />
   </component>
   <component name="com.intellij.coverage.CoverageDataManagerImpl">
     <SUITE FILE_PATH="coverage/1_Projekt$Unnamed.ic" NAME="Unnamed Coverage Results" MODIFIED="1607559916169" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="idea" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" />
