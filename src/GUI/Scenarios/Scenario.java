@@ -1,7 +1,5 @@
 package GUI.Scenarios;
 
-import Comparators.*;
-import Controller.MediaController;
 import GUI.*;
 import GUI.PopUps.MediaInfoWindow;
 import Model.*;
@@ -12,7 +10,6 @@ import java.util.ArrayList;
 
 public abstract class Scenario extends JLayeredPane implements Clickable {
     protected GUI origin;
-    protected MediaController controller;
     protected ArrayList<JButton> allButtons;
     protected JPanel contentPane;
     protected JPanel sortingContainer;
@@ -23,7 +20,6 @@ public abstract class Scenario extends JLayeredPane implements Clickable {
         this.origin = origin.getInstance();
         this.allButtons = new ArrayList<>();
         this.contentPane = new JPanel();
-        this.controller = MediaController.getInstance();
         setupContentPane();
     }
 
@@ -64,7 +60,7 @@ public abstract class Scenario extends JLayeredPane implements Clickable {
         AssetDesigner.paintMainPanel(sortingContainer);
         sortingContainer.setLayout(new FlowLayout(FlowLayout.RIGHT));
 
-        String[] sortingOptions = controller.getSortingOptions();
+        String[] sortingOptions = origin.getController().getSortingOptions();
         JComboBox<String> sortby = new JComboBox<>(sortingOptions);
         AssetDesigner.paintComboBox(sortby);
         sortby.addActionListener(e -> sort((String) sortby.getSelectedItem(), results));
@@ -72,7 +68,7 @@ public abstract class Scenario extends JLayeredPane implements Clickable {
     }
 
     private void sort(String s, ArrayList<Media> results) {
-        results = controller.sort(s, results);
+        results = origin.getController().sort(s, results);
         mediaPanel.removeAll();
         allButtons.clear();
         createButtons(results);

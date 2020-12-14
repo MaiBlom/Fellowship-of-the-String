@@ -123,7 +123,7 @@ public class SearchPopUp extends PopUp {
         allGenres.add(rightGenres);
 
         searchGenres = new boolean[23];
-        selectableGenres = controller.getSelectableGenres();
+        selectableGenres = origin.getController().getSelectableGenres();
 
         for (int i = 0; i<23; i++) {
             JCheckBox genreBox = new JCheckBox(selectableGenres[i]);

@@ -4,7 +4,6 @@ import Comparators.*;
 import Exceptions.InvalidPasswordException;
 import Exceptions.InvalidUsernameException;
 import Exceptions.UsernameTakenException;
-import GUI.*;
 import Model.*;
 
 import java.util.ArrayList;
@@ -15,11 +14,11 @@ public class MediaController {
     private static MediaController instance;
     private MediaDB mDB;
     private UserDB uDB;
-    private GUI gui;
 
     private MediaController() {
-        this.mDB = Main.getmDB();
-        this.uDB = Main.getuDB();
+        mDB = MediaDB.getInstance();
+        uDB = UserDB.getInstance();
+        this.setupStartingUsers();
     }
 
     public static MediaController getInstance() {
@@ -139,5 +138,17 @@ public class MediaController {
         return users.get(username);
     }
 
+    private void setupStartingUsers() {
+        ArrayList<Media> movies = mDB.getMovies();
+        ArrayList<Media> series = mDB.getSeries();
 
+        createUser("test", new char[] {'t','e','s','t'});
+        User test = getUser("test");
+        test.favorite(movies.get(1));
+        test.favorite(movies.get(9));
+        test.favorite(movies.get(63));
+        test.favorite(series.get(24));
+        test.favorite(series.get(55));
+        test.favorite(series.get(73));
+    }
 }

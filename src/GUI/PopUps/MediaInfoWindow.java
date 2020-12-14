@@ -79,15 +79,15 @@ public class MediaInfoWindow extends PopUp {
 
         JButton favorite = new JButton();
         AssetDesigner.paintClickableButton(favorite);
-        if (controller.getCurrentUser().isFavorite(media)) favorite.setText("Unfavorite");
+        if (origin.getController().getCurrentUser().isFavorite(media)) favorite.setText("Unfavorite");
         else favorite.setText("Favorite");
         favorite.addActionListener(l -> {
-            if (controller.getCurrentUser().isFavorite(media)) {
-                controller.getCurrentUser().unfavorite(media);
+            if (origin.getController().getCurrentUser().isFavorite(media)) {
+                origin.getController().getCurrentUser().unfavorite(media);
                 favorite.setText("Favorite");
             } 
             else {
-                controller.getCurrentUser().favorite(media);
+                origin.getController().getCurrentUser().favorite(media);
                 favorite.setText("Unfavorite");
             }
         });

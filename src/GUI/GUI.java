@@ -186,6 +186,7 @@ public class GUI extends JFrame implements Clickable {
         currentScenario.buttonsSetEnabled(b);
     }
 
+    public MediaController getController() { return controller; }
     public Dimension getCenterDimension() { return new Dimension(WIDTH-15,HEIGHT-78); }
     public Rectangle getCenterBounds() { return new Rectangle(0,0,WIDTH-15,HEIGHT-78); }
 }

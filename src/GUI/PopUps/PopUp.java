@@ -1,6 +1,5 @@
 package GUI.PopUps;
 
-import Controller.MediaController;
 import GUI.*;
 import GUI.Scenarios.*;
 
@@ -11,13 +10,11 @@ import java.awt.*;
 
 public abstract class PopUp extends JInternalFrame {
     protected GUI origin;
-    protected MediaController controller;
     protected Container contentPane;
 
     public PopUp() {
         super("", false, true);
         this.origin = GUI.getInstance();
-        this.controller = MediaController.getInstance();
         this.contentPane = this.getContentPane();
         setupWindowListener();
     }

@@ -1,6 +1,5 @@
 package GUI.Scenarios;
 
-import Controller.*;
 import GUI.*;
 import Model.*;
 
@@ -25,7 +24,7 @@ public class SearchResult extends Scenario {
         this.searchMovies = sm;
         this.searchSeries = ss;
         this.searchGenres = sg;
-        this.searchResults = controller.search(textSearch,searchMovies,searchSeries,searchGenres);
+        this.searchResults = origin.getController().search(textSearch,searchMovies,searchSeries,searchGenres);
 
         setup();
     }
@@ -52,7 +51,7 @@ public class SearchResult extends Scenario {
 
     // The search criteria are shown at the top of the window with this JLabel
     private void makeSearchLabel() {
-        JLabel yourSearch = new JLabel(controller.getCurSearchLabel());
+        JLabel yourSearch = new JLabel(origin.getController().getCurSearchLabel());
         AssetDesigner.paintHeader(yourSearch);
         topMenu.add(yourSearch);
     }

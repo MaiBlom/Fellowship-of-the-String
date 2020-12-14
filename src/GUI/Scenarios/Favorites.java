@@ -13,7 +13,7 @@ public class Favorites extends Scenario {
     private ArrayList<Media> favorites;
 
     public Favorites() {
-        this.favorites = controller.getCurrentUser().getFavorites();
+        this.favorites = origin.getController().getCurrentUser().getFavorites();
         setup();
     }
 

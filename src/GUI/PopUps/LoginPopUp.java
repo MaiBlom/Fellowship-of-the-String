@@ -128,8 +128,8 @@ public class LoginPopUp extends PopUp {
             String username = usernameField.getText();
             char[] password = passwordField.getPassword();
             try {
-                if (controller.login(username, password)) {
-                    controller.setCurrentUser(controller.getUser(username));
+                if (origin.getController().login(username, password)) {
+                    origin.getController().setCurrentUser(origin.getController().getUser(username));
                     clickOK(Scenario.getMainMenu());
                 }
             } catch (Exception e) {
@@ -204,7 +204,7 @@ public class LoginPopUp extends PopUp {
             String username = newUsernameField.getText();
             char[] password = newPasswordField.getPassword();
             try {
-                controller.createUser(username, password);
+                origin.getController().createUser(username, password);
                 createInfo.setText("User created. Return to the login-screen to login.");
             } catch (Exception e) {
                 createInfo.setText(e.getMessage());
