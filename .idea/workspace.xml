@@ -7,9 +7,7 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="e7c21751-4094-4da6-82b5-e0b5d1c86306" name="Default Changelist" comment="TextSettings paint Media button method updated">
-      <change beforePath="$PROJECT_DIR$/.idea/artifacts/1_Projekt_jar.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/artifacts/1_Projekt_jar.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/META-INF/MANIFEST.MF" beforeDir="false" afterPath="$PROJECT_DIR$/src/META-INF/MANIFEST.MF" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/GUI/AssetDesigner.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/GUI/AssetDesigner.java" afterDir="false" />
     </list>
     <list id="bdc79de0-b3d7-4566-80ec-1be454a997ac" name="NeverChange" comment="" />
     <option name="SHOW_DIALOG" value="false" />

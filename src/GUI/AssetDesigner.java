@@ -94,6 +94,8 @@ public class AssetDesigner {
         sp.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_AS_NEEDED);
         sp.setHorizontalScrollBarPolicy(JScrollPane.HORIZONTAL_SCROLLBAR_NEVER);
 
+        sp.getVerticalScrollBar().setUnitIncrement(30);
+
         sp.getVerticalScrollBar().setUI(new BasicScrollBarUI() {
             protected void configureScrollBarColors() {
                 thumbHighlightColor = AssetDesigner.accentColor;
