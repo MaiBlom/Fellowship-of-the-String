@@ -48,7 +48,7 @@ public class AssetDesigner {
         c.setBackground(mainColor);
     }
 
-    public static void paintComboBox(JComboBox c){
+    public static void paintComboBox(JComboBox<String> c){
         c.setForeground(textColor);
         c.setFont(comboBoxFont);
         c.setBackground(mainColor);

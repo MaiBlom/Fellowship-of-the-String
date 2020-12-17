@@ -2,7 +2,6 @@ package GUI.PopUps;
 
 import GUI.*;
 import GUI.Scenarios.*;
-import Model.UserDB;
 
 import javax.swing.*;
 import java.awt.*;
@@ -11,16 +10,12 @@ public class LoginPopUp extends PopUp {
     private static final long serialVersionUID = 1L;
 
     private JPanel loginContainerPanel;
-    private JLabel loginWelcome;
     private JLabel loginInfo;
-    private JPanel loginFields;
     private JTextField usernameField;
     private JPasswordField passwordField;
 
     private JPanel createUserContainerPanel;
-    private JLabel createWelcome;
     private JLabel createInfo;
-    private JPanel userFields;
     private JTextField newUsernameField;
     private JPasswordField newPasswordField;
 
@@ -65,7 +60,7 @@ public class LoginPopUp extends PopUp {
         infoContainer.setLayout(new GridLayout(2,1));
         loginContainerPanel.add(infoContainer, BorderLayout.NORTH);
 
-        loginWelcome = new JLabel("Welcome to Shire Streaming - hobbits only.");
+        JLabel loginWelcome = new JLabel("Welcome to Shire Streaming - hobbits only.");
         AssetDesigner.paintLoginScreenFont(loginWelcome);
         infoContainer.add(loginWelcome);
 
@@ -81,7 +76,7 @@ public class LoginPopUp extends PopUp {
         loginFieldsOuter.setLayout(new FlowLayout());
         loginContainerPanel.add(loginFieldsOuter, BorderLayout.CENTER);
 
-        loginFields = new JPanel();
+        JPanel loginFields = new JPanel();
         AssetDesigner.paintMainPanel(loginFields);
         loginFields.setLayout(new GridLayout(2,2));
         loginFields.setPreferredSize(new Dimension(500,100));
@@ -146,7 +141,7 @@ public class LoginPopUp extends PopUp {
         infoContainer.setLayout(new GridLayout(2,1));
         createUserContainerPanel.add(infoContainer, BorderLayout.NORTH);
 
-        createWelcome = new JLabel("Create a new user.");
+        JLabel createWelcome = new JLabel("Create a new user.");
         AssetDesigner.paintLoginScreenFont(createWelcome);
         infoContainer.add(createWelcome);
 
@@ -162,7 +157,7 @@ public class LoginPopUp extends PopUp {
         userFieldsOuter.setLayout(new FlowLayout());
         createUserContainerPanel.add(userFieldsOuter, BorderLayout.CENTER);
 
-        userFields = new JPanel();
+        JPanel userFields = new JPanel();
         AssetDesigner.paintMainPanel(userFields);
         userFields.setLayout(new GridLayout(2,2));
         userFields.setPreferredSize(new Dimension(500,100));

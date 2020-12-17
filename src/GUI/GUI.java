@@ -3,8 +3,6 @@ package GUI;
 import Controller.MediaController;
 import GUI.PopUps.*;
 import GUI.Scenarios.*;
-import Model.MediaDB;
-import Model.User;
 
 import javax.imageio.ImageIO;
 import javax.swing.*;
@@ -24,7 +22,7 @@ public class GUI extends JFrame implements Clickable {
 
     private Scenario currentScenario;
 
-    private ArrayList<JButton> allButtons;
+    private final ArrayList<JButton> allButtons;
 
     private static final int WIDTH = 1040, HEIGHT = 900;
 

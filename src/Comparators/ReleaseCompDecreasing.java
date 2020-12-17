@@ -11,8 +11,6 @@ import Model.*;
 
 public class ReleaseCompDecreasing implements Comparator<Media> {
     public int compare(Media a, Media b) {
-        if (a.getRelease()-b.getRelease() < 0) return 1;
-        else if (a.getRelease()-b.getRelease() > 0) return -1;
-        else return 0;
+        return b.getRelease()-a.getRelease();
     }
 }

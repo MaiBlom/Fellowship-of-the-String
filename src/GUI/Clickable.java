@@ -1,5 +1,5 @@
 package GUI;
 
 public interface Clickable {
-    public void buttonsSetEnabled(boolean b);
+    void buttonsSetEnabled(boolean b);
 }

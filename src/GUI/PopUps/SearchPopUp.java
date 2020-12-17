@@ -5,6 +5,7 @@ import GUI.Scenarios.*;
 
 import javax.swing.*;
 import java.awt.*;
+import java.awt.event.ItemEvent;
 
 public class SearchPopUp extends PopUp {
     private static final long serialVersionUID = 1L;
@@ -73,12 +74,12 @@ public class SearchPopUp extends PopUp {
         
         JCheckBox movieSearch = new JCheckBox("Movies  ");
         AssetDesigner.paintCheckBox(movieSearch);
-        movieSearch.addItemListener(l -> searchMovies = l.getStateChange()==1);
+        movieSearch.addItemListener(l -> searchMovies = (l.getStateChange() == ItemEvent.SELECTED));
         mediatypeContainer.add(movieSearch);
 
         JCheckBox seriesSearch = new JCheckBox("Series  ");
         AssetDesigner.paintCheckBox(seriesSearch);
-        seriesSearch.addItemListener(l -> searchSeries = l.getStateChange()==1 );
+        seriesSearch.addItemListener(l -> searchSeries = (l.getStateChange() == ItemEvent.SELECTED));
         mediatypeContainer.add(seriesSearch);
     }
 
@@ -124,7 +125,7 @@ public class SearchPopUp extends PopUp {
         for (int i = 0; i<23; i++) {
             JCheckBox genreBox = new JCheckBox(selectableGenres[i]);
             AssetDesigner.paintCheckBox(genreBox);
-            genreBox.addItemListener(l -> updateGenreSearchCriteria(genreBox.getText(), l.getStateChange()==1));
+            genreBox.addItemListener(l -> updateGenreSearchCriteria(genreBox.getText(), l.getStateChange() == ItemEvent.SELECTED));
             if (i<8) leftGenres.add(genreBox);
             else if (i<16) centerGenres.add(genreBox);
             else rightGenres.add(genreBox);

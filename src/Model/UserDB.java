@@ -3,7 +3,7 @@ package Model;
 import java.util.HashMap;
 
 public class UserDB {
-    private HashMap<String, User> users;
+    private final HashMap<String, User> users;
     private static UserDB instance = new UserDB();
 
     // This class is a singleton, because we will never need more than a single UserDB.

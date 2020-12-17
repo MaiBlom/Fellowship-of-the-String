@@ -17,7 +17,7 @@ public abstract class Scenario extends JLayeredPane implements Clickable {
     protected JPanel mediaPanel;
 
     public Scenario() {
-        this.origin = origin.getInstance();
+        this.origin = GUI.getInstance();
         this.allButtons = new ArrayList<>();
         this.contentPane = new JPanel();
         setupContentPane();
@@ -61,14 +61,14 @@ public abstract class Scenario extends JLayeredPane implements Clickable {
         sortingContainer.setLayout(new FlowLayout(FlowLayout.RIGHT));
 
         String[] sortingOptions = origin.getController().getSortingOptions();
-        JComboBox<String> sortby = new JComboBox<>(sortingOptions);
-        AssetDesigner.paintComboBox(sortby);
-        sortby.addActionListener(e -> sort((String) sortby.getSelectedItem(), results));
-        sortingContainer.add(sortby);
+        JComboBox<String> sortBy = new JComboBox<>(sortingOptions);
+        AssetDesigner.paintComboBox(sortBy);
+        sortBy.addActionListener(e -> sort((String) sortBy.getSelectedItem(), results));
+        sortingContainer.add(sortBy);
     }
 
-    private void sort(String s, ArrayList<Media> results) {
-        results = origin.getController().sort(s, results);
+    private void sort(String sortBy, ArrayList<Media> results) {
+        results = origin.getController().sort(sortBy, results);
         mediaPanel.removeAll();
         allButtons.clear();
         createButtons(results);
@@ -83,7 +83,6 @@ public abstract class Scenario extends JLayeredPane implements Clickable {
             allButtons.add(mediaPoster);
 
             mediaPoster.setText(m.getTitle());
-            AssetDesigner.paintMediaButton(mediaPoster);
             AssetDesigner.paintMediaButton(mediaPoster);
 
             mediaPoster.addActionListener(l -> MediaInfoWindow.showMediaInfo(m, this));

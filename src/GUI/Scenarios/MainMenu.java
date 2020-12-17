@@ -5,7 +5,6 @@ import Model.*;
 import GUI.PopUps.*;
 
 import java.util.ArrayList;
-import java.awt.event.*;
 import java.io.IOException;
 import java.awt.BorderLayout;
 import java.awt.*;
@@ -122,7 +121,7 @@ public class MainMenu extends Scenario {
     private void loadSeries() {
         ArrayList<Media> showThisTime = new ArrayList<>();
 
-        // Loops through the movie database and loads (field) mediaPerRow of them as JButton.
+        // Loops through the series database and loads (field) mediaPerRow of them as JButton.
         for(int i = seriesIndex; i < seriesIndex + mediaPerRow; i++) showThisTime.add(origin.getController().getSeries().get(i));
 
         addMedia(showThisTime, seriesIcons);
@@ -153,36 +152,31 @@ public class MainMenu extends Scenario {
         allButtons.add(leftButton);
 
         if (isSeries) {
-            leftButton.addActionListener(new ActionListener() {
-                @Override public void actionPerformed(ActionEvent e) {
-                    if(seriesIndex >= mediaPerRow && seriesIndex <= 99) {
-                        seriesIndex -= mediaPerRow;
-                        seriesIcons.removeAll();
-                        loadSeries();
-                        origin.pack();
-                    } else if(seriesIndex < mediaPerRow) {
-                        seriesIndex = 95;
-                        seriesIcons.removeAll();
-                        loadSeries();
-                        origin.pack();
-                    }
+            leftButton.addActionListener(l -> {
+                if(seriesIndex >= mediaPerRow && seriesIndex <= 99) {
+                    seriesIndex -= mediaPerRow;
+                    seriesIcons.removeAll();
+                    loadSeries();
+                    origin.pack();
+                } else if(seriesIndex < mediaPerRow) {
+                    seriesIndex = 95;
+                    seriesIcons.removeAll();
+                    loadSeries();
+                    origin.pack();
                 }
-
             });
         } else {
-            leftButton.addActionListener(new ActionListener() {
-                @Override public void actionPerformed(ActionEvent e) {
-                    if(movieIndex >= mediaPerRow && movieIndex <= origin.getController().getMovies().size() - mediaPerRow) {
-                        movieIndex -= mediaPerRow;
-                        movieIcons.removeAll();
-                        loadMovies();
-                        origin.pack();
-                    } else if(movieIndex < mediaPerRow) {
-                        movieIndex = 95;
-                        movieIcons.removeAll();
-                        loadMovies();
-                        origin.pack();
-                    }
+            leftButton.addActionListener(l -> {
+                if(movieIndex >= mediaPerRow && movieIndex <= origin.getController().getMovies().size() - mediaPerRow) {
+                    movieIndex -= mediaPerRow;
+                    movieIcons.removeAll();
+                    loadMovies();
+                    origin.pack();
+                } else if(movieIndex < mediaPerRow) {
+                    movieIndex = 95;
+                    movieIcons.removeAll();
+                    loadMovies();
+                    origin.pack();
                 }
             });
         }
@@ -201,35 +195,31 @@ public class MainMenu extends Scenario {
 
         allButtons.add(rightButton);
         if (isSeries) {
-            rightButton.addActionListener(new ActionListener() {
-                @Override public void actionPerformed(ActionEvent e) {
-                    if(seriesIndex >= 0 && seriesIndex < origin.getController().getMovies().size() - mediaPerRow) {
-                        seriesIndex += mediaPerRow;
-                        seriesIcons.removeAll();
-                        loadSeries();
-                        origin.pack();
-                    } else if(seriesIndex >= origin.getController().getMovies().size() - mediaPerRow) {
-                        seriesIndex = 0;
-                        seriesIcons.removeAll();
-                        loadSeries();
-                        origin.pack();
-                    }
+            rightButton.addActionListener(l -> {
+                if(seriesIndex >= 0 && seriesIndex < origin.getController().getMovies().size() - mediaPerRow) {
+                    seriesIndex += mediaPerRow;
+                    seriesIcons.removeAll();
+                    loadSeries();
+                    origin.pack();
+                } else if(seriesIndex >= origin.getController().getMovies().size() - mediaPerRow) {
+                    seriesIndex = 0;
+                    seriesIcons.removeAll();
+                    loadSeries();
+                    origin.pack();
                 }
             });
         } else {
-            rightButton.addActionListener(new ActionListener() {
-                @Override public void actionPerformed(ActionEvent e) {
-                    if(movieIndex >= 0 && movieIndex < origin.getController().getMovies().size() - mediaPerRow) {
-                        movieIndex += mediaPerRow;
-                        movieIcons.removeAll();
-                        loadMovies();
-                        origin.pack();
-                    } else if(movieIndex >= 95) {
-                        movieIndex = 0;
-                        movieIcons.removeAll();
-                        loadMovies();
-                        origin.pack();
-                    }
+            rightButton.addActionListener(l -> {
+                if(movieIndex >= 0 && movieIndex < origin.getController().getMovies().size() - mediaPerRow) {
+                    movieIndex += mediaPerRow;
+                    movieIcons.removeAll();
+                    loadMovies();
+                    origin.pack();
+                } else if(movieIndex >= 95) {
+                    movieIndex = 0;
+                    movieIcons.removeAll();
+                    loadMovies();
+                    origin.pack();
                 }
             });
         }

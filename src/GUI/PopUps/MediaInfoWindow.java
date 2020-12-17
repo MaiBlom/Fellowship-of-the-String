@@ -152,11 +152,6 @@ public class MediaInfoWindow extends PopUp {
             emptyStars.setBounds(0,0,emptyStarImage.getWidth(), emptyStarImage.getHeight()); 
             filledStars.setBounds(0,0,emptyStarImage.getWidth(), emptyStarImage.getHeight());
 
-        } catch (IllegalArgumentException e) {
-
-            System.out.println(e.getMessage());
-            bothStarImages.setLayer(new JLabel("<Noget gik galt med indlæsningen af stjerner.>  "), 0);
-
         } catch (IOException e) {
 
             System.out.println(e.getMessage());

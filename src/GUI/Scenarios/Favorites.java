@@ -9,8 +9,7 @@ import java.util.*;
 
 public class Favorites extends Scenario {
     private static final long serialVersionUID = 1L;
-    private JPanel topMenu;
-    private ArrayList<Media> favorites;
+    private final ArrayList<Media> favorites;
 
     public Favorites() {
         this.favorites = origin.getController().getCurrentUser().getFavorites();
@@ -25,7 +24,7 @@ public class Favorites extends Scenario {
 
     }
     private void makeTopMenu() {
-        topMenu = new JPanel();
+        JPanel topMenu = new JPanel();
         AssetDesigner.paintMainPanel(topMenu);
         topMenu.setLayout(new GridLayout(1,3));
         contentPane.add(topMenu,BorderLayout.NORTH);

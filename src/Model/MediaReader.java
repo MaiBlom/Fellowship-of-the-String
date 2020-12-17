@@ -7,7 +7,7 @@ import java.io.IOException;
 import java.awt.image.*;
 
 public class MediaReader {
-    private MediaDB db;
+    private final MediaDB db;
     private static MediaReader instance;
 
     // This class is a singleton, because we will never need more than a single MediaReader.

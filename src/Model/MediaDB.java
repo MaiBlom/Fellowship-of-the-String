@@ -5,8 +5,8 @@ import java.io.IOException;
 import java.util.ArrayList;
 
 public class MediaDB {
-    private ArrayList<Media> allMedia;
-    private ArrayList<Media> recommended;
+    private final ArrayList<Media> allMedia;
+    private final ArrayList<Media> recommended;
     private static MediaDB instance;
 
     // This class is a singleton, because we will never need more than a single MediaDB.
@@ -32,8 +32,6 @@ public class MediaDB {
             recommended.add(fellowship);
             recommended.add(twoTowers);
             recommended.add(returnKing);
-        } catch (IllegalArgumentException e) {
-            System.out.println(e.getMessage());
         } catch (IOException e) {
             System.out.println(e.getMessage());
         }

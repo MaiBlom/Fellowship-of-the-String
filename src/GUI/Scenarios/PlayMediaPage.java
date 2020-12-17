@@ -8,7 +8,7 @@ import java.awt.*;
 
 public class PlayMediaPage extends Scenario {
     private static final long serialVersionUID = 1L;
-    private Media media;
+    private final Media media;
 
     // private final int WIDTH = 1000, HEIGHT = 720;
 
