@@ -31,7 +31,12 @@ public class MediaController {
     // The media is taken from the media database and stored in a temporary arraylist. This arraylist is then iterated
     // over and all media that fit the search criteria is put into the results-arraylist.
     // The results will only include media that fit all search criteria.
-    private static String[] selectableGenres = new String[] {"Crime", "Drama", "Biography", "Sport", "History", "Romance", "War", "Mystery", "Adventure", "Family", "Fantasy", "Thriller", "Horror", "Film-Noir", "Action", "Sci-fi", "Comedy", "Musical", "Western", "Music", "Talk-show", "Documentary", "Animation"};
+    private static String[] selectableGenres = new String[] {
+            "Crime", "Drama", "Biography", "Sport", "History",
+            "Romance", "War", "Mystery", "Adventure", "Family",
+            "Fantasy", "Thriller", "Horror", "Film-Noir", "Action",
+            "Sci-fi", "Comedy", "Musical", "Western", "Music", "Talk-show",
+            "Documentary", "Animation"};
     public String[] getSelectableGenres() { return selectableGenres; }
     public ArrayList<Media> search(String textSearch, boolean searchMovies, boolean searchSeries, boolean[] searchGenres) {
         ArrayList<Media> searchResults = new ArrayList<>();
