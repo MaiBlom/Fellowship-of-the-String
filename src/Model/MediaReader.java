@@ -16,7 +16,7 @@ public class MediaReader {
         read(false);
         read(true);
     }
-    //Ændret til ikke bare at overskrive instance. (Singleton)
+
     public static MediaReader getInstance(MediaDB db) {
         if (instance == null) instance = new MediaReader(db);
         return instance;
@@ -61,9 +61,6 @@ public class MediaReader {
 
             // Finds the .jpg file with the title of the movie or series and create BufferedImage with that file.
             //File file;
-            //Er det bedre ikke at læse dem ind her, men at have billederne med i projektet, også bare referere til dem i GUI i stedet?
-            //Sammensætningen af medie objekt og billedet skal ske i controlleren
-            //BufferedInputStream er en mulighed??
             BufferedImage image;
             String path;
             try {
