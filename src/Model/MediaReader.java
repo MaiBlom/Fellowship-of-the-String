@@ -62,7 +62,6 @@ public class MediaReader {
             // Finds the .jpg file with the title of the movie or series and create BufferedImage with that file.
             //File file;
             BufferedImage image;
-            String path;
             try {
                 if (isSeries) {
                     if (title.contains("Scener ur ett")) image = ImageIO.read(getClass().getClassLoader().getResourceAsStream("serieforsider/Scener ur ett aktenskap.jpg"));
