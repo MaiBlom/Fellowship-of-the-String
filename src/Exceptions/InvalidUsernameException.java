@@ -1,6 +1,6 @@
 package Exceptions;
 
-public class InvalidUsernameException extends RuntimeException {
+public class InvalidUsernameException extends Exception {
     private static final long serialVersionUID = 1L;
 
     public InvalidUsernameException(String username) {

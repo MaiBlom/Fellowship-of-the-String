@@ -7,9 +7,10 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="e7c21751-4094-4da6-82b5-e0b5d1c86306" name="Default Changelist" comment="TextSettings paint Media button method updated">
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/Controller/MediaController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Controller/MediaController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Model/UserDB.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Model/UserDB.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Exceptions/InvalidPasswordException.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Exceptions/InvalidPasswordException.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Exceptions/InvalidUsernameException.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Exceptions/InvalidUsernameException.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Exceptions/UsernameTakenException.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Exceptions/UsernameTakenException.java" afterDir="false" />
     </list>
     <list id="bdc79de0-b3d7-4566-80ec-1be454a997ac" name="NeverChange" comment="" />
     <option name="SHOW_DIALOG" value="false" />
@@ -165,7 +166,14 @@
       <option name="project" value="LOCAL" />
       <updated>1608211812366</updated>
     </task>
-    <option name="localTasksCounter" value="13" />
+    <task id="LOCAL-00013" summary="Encryption of passwords moved to the controller">
+      <created>1608222665380</created>
+      <option name="number" value="00013" />
+      <option name="presentableId" value="LOCAL-00013" />
+      <option name="project" value="LOCAL" />
+      <updated>1608222665380</updated>
+    </task>
+    <option name="localTasksCounter" value="14" />
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
@@ -194,7 +202,8 @@
     <MESSAGE value="New Jar file after new main file" />
     <MESSAGE value="Smaller layout changes." />
     <MESSAGE value="Warnings are no more *crabrave*" />
-    <option name="LAST_COMMIT_MESSAGE" value="Warnings are no more *crabrave*" />
+    <MESSAGE value="Encryption of passwords moved to the controller" />
+    <option name="LAST_COMMIT_MESSAGE" value="Encryption of passwords moved to the controller" />
   </component>
   <component name="com.intellij.coverage.CoverageDataManagerImpl">
     <SUITE FILE_PATH="coverage/1_Projekt$Unnamed.ic" NAME="Unnamed Coverage Results" MODIFIED="1607559916169" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="idea" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" />

@@ -157,7 +157,11 @@ public class MediaController {
         ArrayList<Media> movies = mDB.getMovies();
         ArrayList<Media> series = mDB.getSeries();
 
-        createUser("test", new char[] {'t','e','s','t'});
+        try {
+            createUser("test", new char[] {'t','e','s','t'});
+        } catch (UsernameTakenException e) {
+            System.out.println("Error during creating the test-user.");
+        }
         User test = getUser("test");
         test.favorite(movies.get(1));
         test.favorite(movies.get(9));
