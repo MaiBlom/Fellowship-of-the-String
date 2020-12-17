@@ -15,14 +15,6 @@ public class UserDB {
         return instance;
     }
 
-    public char[] encryptPassword(char[] password) {
-        for (int i = 0; i<password.length; i++) {
-            int charVal = (int) password[i] + 5;
-            password[i] = ((char) charVal);
-        }
-        return password;
-    }
-
     public HashMap<String, User> getUsers() {
         return users;
     }

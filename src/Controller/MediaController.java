@@ -128,7 +128,7 @@ public class MediaController {
     public boolean login(String username, char[] password) throws InvalidUsernameException, InvalidPasswordException {
         HashMap<String, User> users = uDB.getUsers();
         if (!users.containsKey(username)) throw new InvalidUsernameException(username);
-        else if (!Arrays.equals(users.get(username).getEncryptedPassword(), uDB.encryptPassword(password))) throw new InvalidPasswordException();
+        else if (!Arrays.equals(users.get(username).getEncryptedPassword(), encryptPassword(password))) throw new InvalidPasswordException();
         else return true;
     }
     public void createUser(String username, char[] password) throws UsernameTakenException {
@@ -136,11 +136,21 @@ public class MediaController {
         if (username.length() == 0) throw new IllegalArgumentException("Username must be of at least length 1.");
         else if (password.length == 0) throw new IllegalArgumentException("Password must be of at least length 1.");
         else if (users.containsKey(username)) throw new UsernameTakenException(username);
-        else users.put(username, new User(username, uDB.encryptPassword(password)));
+        else users.put(username, new User(username, encryptPassword(password)));
     }
     public User getUser(String username) {
         HashMap<String, User> users = uDB.getUsers();
         return users.get(username);
+    }
+    // The "encryption" of the password is just shifting every character by 5, but if we
+    // were serious about this, we could encrypt it better. It's just to make sure we don't
+    // store the passwords exactly as they are in our UserDB.
+    public char[] encryptPassword(char[] password) {
+        for (int i = 0; i<password.length; i++) {
+            int charVal = (int) password[i] + 5;
+            password[i] = ((char) charVal);
+        }
+        return password;
     }
 
     private void setupStartingUsers() {
