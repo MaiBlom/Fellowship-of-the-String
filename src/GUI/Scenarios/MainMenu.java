@@ -59,9 +59,9 @@ public class MainMenu extends Scenario {
 
         // Set the title of the section and add it to the NORTH part of the main container.
         String mediaType;
-        if (row == 1) mediaType = "Recommended: ";
-        else if (row == 2) mediaType = "Movies: ";
-        else mediaType = "Series: ";
+        if (row == 1) mediaType = " Recommended: ";
+        else if (row == 2) mediaType = " Movies: ";
+        else mediaType = " Series: ";
         JLabel headerLabel = new JLabel(mediaType);
         AssetDesigner.paintHeader(headerLabel);
         mediaContainer.add(headerLabel, BorderLayout.NORTH);

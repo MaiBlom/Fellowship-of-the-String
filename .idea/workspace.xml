@@ -7,7 +7,11 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="e7c21751-4094-4da6-82b5-e0b5d1c86306" name="Default Changelist" comment="TextSettings paint Media button method updated">
-      <change beforePath="$PROJECT_DIR$/src/GUI/AssetDesigner.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/GUI/AssetDesigner.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/1_Projekt.jar" beforeDir="false" afterPath="$PROJECT_DIR$/1_Projekt.jar" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/GUI/PopUps/MediaInfoWindow.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/GUI/PopUps/MediaInfoWindow.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/GUI/PopUps/SearchPopUp.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/GUI/PopUps/SearchPopUp.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/GUI/Scenarios/MainMenu.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/GUI/Scenarios/MainMenu.java" afterDir="false" />
     </list>
     <list id="bdc79de0-b3d7-4566-80ec-1be454a997ac" name="NeverChange" comment="" />
     <option name="SHOW_DIALOG" value="false" />
@@ -175,7 +179,8 @@
     <MESSAGE value="Added exceptions in UserDB such that length of username and password must be at least 1." />
     <MESSAGE value="Main and MediaController classes added (remember to configure project for new main method)" />
     <MESSAGE value="More coupling, cohesion, blueJ fixing" />
-    <option name="LAST_COMMIT_MESSAGE" value="More coupling, cohesion, blueJ fixing" />
+    <MESSAGE value="New Jar file after new main file" />
+    <option name="LAST_COMMIT_MESSAGE" value="New Jar file after new main file" />
   </component>
   <component name="com.intellij.coverage.CoverageDataManagerImpl">
     <SUITE FILE_PATH="coverage/1_Projekt$Unnamed.ic" NAME="Unnamed Coverage Results" MODIFIED="1607559916169" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="idea" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" />

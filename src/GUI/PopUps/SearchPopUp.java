@@ -9,12 +9,8 @@ import java.awt.*;
 public class SearchPopUp extends PopUp {
     private static final long serialVersionUID = 1L;
 
-    private JPanel searchBarContainer;
     private JPanel centerContainer;
-    private JPanel mediatypeContainer;
     private JPanel genresContainer;
-    private JPanel bottomBar;
-    private JPanel allGenres;
     // search criteria fields
     private JTextField searchBar;
     private boolean searchMovies;
@@ -42,7 +38,7 @@ public class SearchPopUp extends PopUp {
 
     // Setup of the topbar with a free-text searchbar. 
     private void setupSearchBar() {
-        searchBarContainer = new JPanel();
+        JPanel searchBarContainer = new JPanel();
         AssetDesigner.paintMainPanel(searchBarContainer);
         searchBarContainer.setLayout(new GridLayout(2,1));
         contentPane.add(searchBarContainer, BorderLayout.NORTH);
@@ -70,19 +66,19 @@ public class SearchPopUp extends PopUp {
     // Setup of the media type checkboxes. Toggling the checkboxes will change the value of the two booleans
     // searchMovies and searchSeries which are used as search criteria.
     private void setupMediatypeContainer() {
-        mediatypeContainer = new JPanel();
+        JPanel mediatypeContainer = new JPanel();
         AssetDesigner.paintMainPanel(mediatypeContainer);
         mediatypeContainer.setLayout(new FlowLayout(FlowLayout.LEFT));
         centerContainer.add(mediatypeContainer, BorderLayout.NORTH);
         
         JCheckBox movieSearch = new JCheckBox("Movies  ");
         AssetDesigner.paintCheckBox(movieSearch);
-        movieSearch.addItemListener(l -> searchMovies = l.getStateChange()==1 ? true : false);
+        movieSearch.addItemListener(l -> searchMovies = l.getStateChange()==1);
         mediatypeContainer.add(movieSearch);
 
         JCheckBox seriesSearch = new JCheckBox("Series  ");
         AssetDesigner.paintCheckBox(seriesSearch);
-        seriesSearch.addItemListener(l -> searchSeries = l.getStateChange()==1 ? true : false);
+        seriesSearch.addItemListener(l -> searchSeries = l.getStateChange()==1 );
         mediatypeContainer.add(seriesSearch);
     }
 
@@ -102,7 +98,7 @@ public class SearchPopUp extends PopUp {
     }
 
     private void setupGenres() {
-        allGenres = new JPanel();
+        JPanel allGenres = new JPanel();
         AssetDesigner.paintMainPanel(allGenres);
         allGenres.setLayout(new GridLayout(1,3));
         genresContainer.add(allGenres, BorderLayout.CENTER);
@@ -127,10 +123,8 @@ public class SearchPopUp extends PopUp {
 
         for (int i = 0; i<23; i++) {
             JCheckBox genreBox = new JCheckBox(selectableGenres[i]);
-            genreBox.setBackground(new Color(45, 53, 64));
-            genreBox.setForeground(Color.WHITE);
-            genreBox.setFont(new Font("Verdana", Font.BOLD, 11));
-            genreBox.addItemListener(l -> updateGenreSearchCriteria(genreBox.getText(), (l.getStateChange()==1 ? true : false)));
+            AssetDesigner.paintCheckBox(genreBox);
+            genreBox.addItemListener(l -> updateGenreSearchCriteria(genreBox.getText(), l.getStateChange()==1));
             if (i<8) leftGenres.add(genreBox);
             else if (i<16) centerGenres.add(genreBox);
             else rightGenres.add(genreBox);
@@ -154,7 +148,7 @@ public class SearchPopUp extends PopUp {
     // Setup of the bottom bar. The JPanel has two buttons: One to cancel the search and one to search
     // with the given criteria. 
     private void setupBottomBar() {
-        bottomBar = new JPanel();
+        JPanel bottomBar = new JPanel();
         AssetDesigner.paintMainPanel(bottomBar);
         bottomBar.setLayout(new FlowLayout(FlowLayout.RIGHT));
         contentPane.add(bottomBar, BorderLayout.SOUTH);

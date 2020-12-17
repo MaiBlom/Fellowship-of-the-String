@@ -73,7 +73,7 @@ public class MediaInfoWindow extends PopUp {
         JButton playButton = new JButton();
         AssetDesigner.paintClickableButton(playButton);
         if (media instanceof Movie) playButton.setText("Play movie");
-        else playButton.setText("Play");
+        else playButton.setText("Play series");
         playButton.addActionListener(l -> clickOK(new PlayMediaPage(media)));
         leftButtons.add(playButton);
 
