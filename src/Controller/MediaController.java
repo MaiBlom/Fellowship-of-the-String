@@ -75,8 +75,8 @@ public class MediaController {
             if (searchGenres[i]) {
                 if (firstGenre) {
                     sb.append("<br>Genres: ");
+                    firstGenre = false;
                 }
-                if (firstGenre) firstGenre = false;
                 else sb.append(", ");
                 sb.append(selectableGenres[i]);
             }
