@@ -6,6 +6,7 @@ import Model.*;
 
 import javax.swing.*;
 import java.awt.*;
+import java.awt.image.BufferedImage;
 import java.util.ArrayList;
 
 public abstract class Scenario extends JLayeredPane implements Clickable {
@@ -79,18 +80,19 @@ public abstract class Scenario extends JLayeredPane implements Clickable {
 
     private void createButtons(ArrayList<Media> results) {
         for (Media m : results) {
-            JButton mediaPoster = new JButton(new ImageIcon(m.getPoster()));
+            JButton mediaPoster = new JButton(new ImageIcon(m.getPoster().getScaledInstance((int) (140*origin.getScaling()),(int)(209*origin.getScaling()), BufferedImage.SCALE_DEFAULT)));
             allButtons.add(mediaPoster);
 
             mediaPoster.setText(m.getTitle());
             AssetDesigner.paintMediaButton(mediaPoster);
 
-            mediaPoster.addActionListener(l -> MediaInfoWindow.showMediaInfo(m, this));
+            mediaPoster.addActionListener(lf -> MediaInfoWindow.showMediaInfo(m, this));
             mediaPanel.add(mediaPoster);
         }
 
         int numberOfResults = results.size();
-        mediaPanel.setPreferredSize(new Dimension(6*150,(numberOfResults/6 + (numberOfResults % 6 == 0? 0:1))*250));
+        int heightOfViewPane = (int) (((numberOfResults/6 + (numberOfResults % 6 == 0? 0:1))*250)*GUI.getScaling());
+        mediaPanel.setPreferredSize(new Dimension(6*150,heightOfViewPane));
         origin.pack();
     }
 }

@@ -25,6 +25,7 @@ public class GUI extends JFrame implements Clickable {
     private final ArrayList<JButton> allButtons;
 
     private static final int WIDTH = 1040, HEIGHT = 900;
+    private static double scaling;
 
     public static GUI getInstance() {
         if (instance == null) {
@@ -38,13 +39,17 @@ public class GUI extends JFrame implements Clickable {
     private GUI() {
         super("Shire Streaming");
         allButtons = new ArrayList<>();
+
+        Dimension screenDimension = Toolkit.getDefaultToolkit().getScreenSize();
+        if (screenDimension.getHeight() < HEIGHT) scaling = screenDimension.getHeight() / HEIGHT - 0.03;
+        else scaling = 1;
     }
 
     // Initializes the JFrame, and gets the content pane and sets it.
     // Adds a ComponentListener
     private void makeFrame() {
         setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
-        setPreferredSize(new Dimension(WIDTH, HEIGHT));
+        setPreferredSize(new Dimension((int) (WIDTH*scaling), (int) (HEIGHT*scaling)));
         this.setBackground(AssetDesigner.mainColor);
 
         contentPane = getContentPane();
@@ -54,7 +59,7 @@ public class GUI extends JFrame implements Clickable {
 
         LoginPopUp loginOnStart = new LoginPopUp();
         currentScenario.add(loginOnStart, new Integer(1));
-        loginOnStart.setLocation(WIDTH/2-loginOnStart.getWidth()/2, HEIGHT/2-loginOnStart.getWidth()/2);
+        loginOnStart.setLocation(((int) (WIDTH*scaling))/2-loginOnStart.getWidth()/2, ((int) (HEIGHT*scaling))/2-loginOnStart.getWidth()/2);
         loginOnStart.setVisible(true);
         loginOnStart.show();
 
@@ -133,7 +138,7 @@ public class GUI extends JFrame implements Clickable {
         searchButton.addActionListener(l -> {
             SearchPopUp popup = new SearchPopUp();
             currentScenario.add(popup, new Integer(1));
-            popup.setLocation(WIDTH/2-popup.getWidth()/2, 100);
+            popup.setLocation(((int) (WIDTH*scaling))/2-popup.getWidth()/2, (int) (100*scaling));
             popup.setVisible(true);
             popup.show();
         });
@@ -155,7 +160,7 @@ public class GUI extends JFrame implements Clickable {
             controller.setCurrentUser(null);
             LoginPopUp loginPopUp = new LoginPopUp();
             currentScenario.add(loginPopUp, new Integer(1));
-            loginPopUp.setLocation(WIDTH/2-loginPopUp.getWidth()/2, HEIGHT/2-loginPopUp.getWidth()/2);
+            loginPopUp.setLocation(((int) (WIDTH*scaling))/2-loginPopUp.getWidth()/2, ((int) (HEIGHT*scaling))/2-loginPopUp.getWidth()/2);
             loginPopUp.setVisible(true);
             loginPopUp.show();
         });
@@ -173,7 +178,7 @@ public class GUI extends JFrame implements Clickable {
         contentPane.add(nContainer, BorderLayout.NORTH);
         contentPane.add(scenario, BorderLayout.CENTER);
         currentScenario = scenario;
-        setPreferredSize(new Dimension(WIDTH, HEIGHT));
+        setPreferredSize(new Dimension((int) (WIDTH*scaling), (int) (HEIGHT*scaling)));
         pack();
     }
 
@@ -184,7 +189,8 @@ public class GUI extends JFrame implements Clickable {
         currentScenario.buttonsSetEnabled(b);
     }
 
+    public static double getScaling() { return scaling; }
     public MediaController getController() { return controller; }
-    public Dimension getCenterDimension() { return new Dimension(WIDTH-15,HEIGHT-78); }
-    public Rectangle getCenterBounds() { return new Rectangle(0,0,WIDTH-15,HEIGHT-78); }
+    public Dimension getCenterDimension() { return new Dimension((int) ((WIDTH-15)*scaling),(int) ((HEIGHT-78)*scaling)); }
+    public Rectangle getCenterBounds() { return new Rectangle(0,0,(int) ((WIDTH-15)*scaling),(int) ((HEIGHT-78)*scaling)); }
 }

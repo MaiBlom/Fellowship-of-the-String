@@ -22,7 +22,7 @@ public class PlayMediaPage extends Scenario {
 
         JLabel info = new JLabel(
             "<html> <br>You've selected the " + (media instanceof Movie? "movie " : "series ") + media.getTitle() + ". <br>" +
-            "Unfortunately, this " + (media instanceof Movie? "movie " : "series ") + "has been removed due to copyright regulations.<br> </html>"
+                 "Unfortunately, this " + (media instanceof Movie? "movie " : "series ") + "has been removed due to copyright regulations.<br> </html>"
         );
         AssetDesigner.paintMediaInfoFont(info);
         contentPane.add(info);

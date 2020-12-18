@@ -13,7 +13,7 @@ public class SearchResult extends Scenario {
     private JPanel topMenu;
     // search criteria
     private final ArrayList<Media> searchResults;
-    
+
     // The search results object will be called from the SearchPopUp class with the given parameters.
     public SearchResult(String ts, boolean sm, boolean ss, boolean[] sg) {
         this.searchResults = origin.getController().search(ts,sm,ss,sg);

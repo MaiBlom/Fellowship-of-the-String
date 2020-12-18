@@ -4,6 +4,7 @@ import GUI.*;
 import Model.*;
 import GUI.PopUps.*;
 
+import java.awt.image.BufferedImage;
 import java.util.ArrayList;
 import java.io.IOException;
 import java.awt.BorderLayout;
@@ -129,7 +130,7 @@ public class MainMenu extends Scenario {
 
     private void addMedia(ArrayList<Media> media, Container container) {
         for(Media m : media) {
-            JButton icon = new JButton(new ImageIcon(m.getPoster()));
+            JButton icon = new JButton(new ImageIcon(m.getPoster().getScaledInstance((int) (140*origin.getScaling()),(int)(209*origin.getScaling()), BufferedImage.SCALE_DEFAULT)));
             allButtons.add(icon);
 
             icon.setText(m.getTitle());

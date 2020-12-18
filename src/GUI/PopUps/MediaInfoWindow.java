@@ -21,7 +21,7 @@ public class MediaInfoWindow extends PopUp {
     public MediaInfoWindow(Media media) {
         this.media = media;
         this.setPreferredSize(new Dimension(600,400));
-        
+
         setup();
         pack();
         setVisible(true);
@@ -69,7 +69,7 @@ public class MediaInfoWindow extends PopUp {
         AssetDesigner.paintAccentPanel(leftButtons);
         leftButtons.setLayout(new GridLayout(2,1));
         leftButtonsOuter.add(leftButtons);
-        
+
         JButton playButton = new JButton();
         AssetDesigner.paintClickableButton(playButton);
         if (media instanceof Movie) playButton.setText("Play movie");
@@ -85,7 +85,7 @@ public class MediaInfoWindow extends PopUp {
             if (origin.getController().getCurrentUser().isFavorite(media)) {
                 origin.getController().getCurrentUser().unfavorite(media);
                 favorite.setText("Favorite");
-            } 
+            }
             else {
                 origin.getController().getCurrentUser().favorite(media);
                 favorite.setText("Unfavorite");
@@ -108,7 +108,7 @@ public class MediaInfoWindow extends PopUp {
     }
 
     // Setup of the mediaInfo container. The JPanel is split in four rows, each with an
-    // information element about the media. 
+    // information element about the media.
     private void setupMediaInfo() {
         JPanel mediaInfo = new JPanel();
         AssetDesigner.paintMainPanel(mediaInfo);
@@ -132,7 +132,7 @@ public class MediaInfoWindow extends PopUp {
         JLabel rating = new JLabel(" " + Double.toString(ratingVal));
         AssetDesigner.paintMediaInfoFont(rating);
         JLayeredPane bothStarImages = new JLayeredPane();
-        
+
         try {
 
             BufferedImage emptyStarImage = ImageIO.read(getClass().getClassLoader().getResourceAsStream("emptyStarRating.png"));
@@ -140,7 +140,7 @@ public class MediaInfoWindow extends PopUp {
 
             JLabel emptyStars = new JLabel();
             emptyStars.setIcon(new ImageIcon(emptyStarImage));
-            
+
             JLabel filledStars = new JLabel();
             filledStars.setIcon(new ImageIcon(starImage.getSubimage(0, 0, (int) (starImage.getWidth()*(ratingVal/10)), starImage.getHeight())));
 
@@ -149,7 +149,7 @@ public class MediaInfoWindow extends PopUp {
             bothStarImages.add(emptyStars, 0);
             bothStarImages.add(filledStars, 1);
 
-            emptyStars.setBounds(0,0,emptyStarImage.getWidth(), emptyStarImage.getHeight()); 
+            emptyStars.setBounds(0,0,emptyStarImage.getWidth(), emptyStarImage.getHeight());
             filledStars.setBounds(0,0,emptyStarImage.getWidth(), emptyStarImage.getHeight());
 
         } catch (IOException e) {
@@ -176,7 +176,7 @@ public class MediaInfoWindow extends PopUp {
         }
         mediaInfo.add(release);
 
-        // Fourth row contains the genres. 
+        // Fourth row contains the genres.
         StringBuilder genreBuilder = new StringBuilder("<html>Genres: ");
         String[] mediaGenres = media.getGenres();
         for (int i = 0; i<mediaGenres.length; i++) {
@@ -191,7 +191,7 @@ public class MediaInfoWindow extends PopUp {
         centerContainer.add(mediaInfo, BorderLayout.NORTH);
     }
 
-    // Setup of the seasonsContainer at the bottom of the center container. The 
+    // Setup of the seasonsContainer at the bottom of the center container. The
     // seasons JPanel have two parts. The top part contains a JComboBox element
     // where the user can choose what season to view.
     private void setupSeasons() {
@@ -212,7 +212,7 @@ public class MediaInfoWindow extends PopUp {
         AssetDesigner.paintMediaInfoFont(seasonsTitle);
         seasonsTopBar.add(seasonsTitle);
 
-        // I convert the Media object to a Series object. Then I get the 
+        // I convert the Media object to a Series object. Then I get the
         // int[] with the number of episodes in each season. The length og this array
         // is the number of seasons in the series, so this number is used to create the
         // String[] comboboxLabels, which is filled with "Season 1", "Season 2" ...
@@ -246,12 +246,12 @@ public class MediaInfoWindow extends PopUp {
         seasonsContainer.add(episodesScroll, BorderLayout.CENTER);
     }
 
-    // We get the seasons-number and the number of episodes in each season. 
+    // We get the seasons-number and the number of episodes in each season.
     private void showSeasonX(String s, int[] seasonEpisodes) {
         episodesContainer.removeAll();
         int numberOfEpisodes = 0;
 
-        if (!s.equals("")) { 
+        if (!s.equals("")) {
             int seasonNumber = Integer.parseInt(s.split(" ")[1]);
             numberOfEpisodes = seasonEpisodes[seasonNumber-1];
             for (int i = 0; i<numberOfEpisodes; i++) {
@@ -259,8 +259,8 @@ public class MediaInfoWindow extends PopUp {
                 AssetDesigner.paintEpisodeButtons(button);
                 button.addActionListener(e -> clickOK(new PlayMediaPage(media)));
                 episodesContainer.add(button);
-            } 
-        } 
+            }
+        }
 
         // The episodes container's GridLayout is setup with 4 columns and as many rows as it need to show
         // all the episodes. There is a vertical and horisontal gap between the buttons with size 2.
@@ -274,7 +274,7 @@ public class MediaInfoWindow extends PopUp {
     public static void showMediaInfo(Media m, JLayeredPane pane) {
         MediaInfoWindow info = new MediaInfoWindow(m);
         pane.add(info, new Integer(1));
-        info.setLocation(214, 209);
+        info.setLocation(((int) (1040*GUI.getScaling()))/2-600/2, 100);
         info.setVisible(true);
         info.show();
     }

@@ -6,6 +6,7 @@ import javax.swing.border.LineBorder;
 import javax.swing.plaf.basic.BasicScrollBarUI;
 
 public class AssetDesigner {
+    public static GUI origin = GUI.getInstance();
     public static Color textColor = new Color(255,255,255);
     public static Font mediaFont = new Font("Arial", Font.PLAIN, 11);
     public static Font clickableButtonFont = new Font("Verdana", Font.BOLD, 15);
@@ -29,7 +30,7 @@ public class AssetDesigner {
         b.setBackground(mainColor);
         b.setVerticalTextPosition(SwingConstants.BOTTOM);
         b.setHorizontalTextPosition(SwingConstants.CENTER);
-        b.setPreferredSize(new Dimension(150,250));
+        b.setPreferredSize(new Dimension((int) (150*origin.getScaling()),(int) (250*origin.getScaling())));
     }
 
     public static void paintMainPanel(JPanel p) {
@@ -57,11 +58,11 @@ public class AssetDesigner {
     public static void paintClickableButton(JButton c) {
         c.setForeground(textColor);
         c.setFont(clickableButtonFont);
-        c.setPreferredSize(new Dimension(150, 40));
+        c.setPreferredSize(new Dimension((int) (150*origin.getScaling()), (int) (40*origin.getScaling())));
         c.setBackground(buttonColor);
         c.setBorder(new LineBorder(new Color(44, 60, 77), 1));
     }
-    
+
     public static void paintHeader(JLabel l) {
         l.setForeground(textColor);
         l.setFont(headerFont);
@@ -81,7 +82,7 @@ public class AssetDesigner {
         o.setForeground(textColor);
         o.setBackground(buttonColor);
         o.setBorderPainted(false);
-       //o.setFont(mediaInfoButtonFont); seems to break the episode buttons
+        //o.setFont(mediaInfoButtonFont); seems to break the episode buttons
     }
 
     public static void paintArrowButtons(JButton d) {
@@ -115,5 +116,5 @@ public class AssetDesigner {
                 return jbutton;
             }
         });
-}
+    }
 }
