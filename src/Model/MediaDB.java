@@ -23,9 +23,9 @@ public class MediaDB {
 
     private void makeRecommended() {
         try {
-            Movie fellowship = new Movie("The Lord of the Rings: The Fellowship of the Ring", 2001, new String[] { "Action", "Adventure", "Drama" },
+            Movie fellowship = new Movie("Lord of the Rings: The Fellowship of the Ring", 2001, new String[] { "Action", "Adventure", "Drama" },
                     8.8, ImageIO.read(getClass().getClassLoader().getResourceAsStream("redaktionfilm/fellowship of the ring.jpg")));
-            Movie twoTowers = new Movie("The Lord of the Rings: The Two Towers", 2002, new String[] { "Action", "Adventure", "Drama" },
+            Movie twoTowers = new Movie("Lord of the Rings: The Two Towers", 2002, new String[] { "Action", "Adventure", "Drama" },
                     8.7, ImageIO.read(getClass().getClassLoader().getResourceAsStream("redaktionfilm/two towers.jpg")));
             Movie returnKing = (Movie) getMovies().get(32);
 
